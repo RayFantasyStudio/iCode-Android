@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="FullWidthEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@null</item>
+    </style>
+    <!--<style name="AppSunTheme" >
+        <item name="day_night_background">@color/light_color</item>
+        <item name="day_night_background2">@color/light_color2</item>
+        <item name="day_night_text_color">@color/night_color</item>
+    </style>
+
+    <style name="AppNightTheme" >
+        <item name="day_night_background">@color/night_color</item>
+        <item name="day_night_background2">@color/night_color</item>
+        <item name="day_night_text_color">@color/light_color</item>
+    </style>-->
+
+</resources>

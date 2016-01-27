@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#03a9f4</color>
+    <color name="colorPrimaryDark">#0288d1</color>
+    <color name="colorAccent">#795548</color>
+    <color name="nv_username">#FFFFFF</color>
+    <color name="background">#99232323</color>
+    <color name="white">#ff3d00</color>
+    <color name="editor_backgroud">#ffffffff</color>
+    <color name="current_row_backgroud">#ffccddff</color>
+    <color name="syntax_error">#ffdd4b39</color>
+    <color name="background_material_dark">#ececec</color>
+    <color name="night_color">#000000</color>
+    <color name="light_color">#ffffff</color>
+    <color name="light_color2">#ff87cefa</color>
+</resources>

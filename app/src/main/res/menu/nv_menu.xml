@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@mipmap/ic_home_black"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_edit"
+            android:icon="@mipmap/ic_writecode_black"
+            android:title="@string/write" />
+        <item
+            android:id="@+id/nav_favourite"
+            android:icon="@mipmap/ic_favorite_black"
+            android:title="@string/favorite" />
+
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@mipmap/ic_setting_black"
+            android:title="@string/action_settings" />
+    </group>
+    <item android:title="@string/about">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@mipmap/ic_info_black"
+                android:title="@string/about" />
+            <item
+                android:id="@+id/nav_loyalty"
+                android:icon="@mipmap/ic_loyalty_black"
+                android:title="@string/pay" />
+            <item
+                android:id="@+id/nav_homepage"
+                android:icon="@mipmap/ic_website_black"
+                android:title="@string/website" />
+        </menu>
+    </item>
+</menu>
