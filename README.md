@@ -30,8 +30,17 @@ appKey=申请的bugly的appKey
 - 希望和大家共建和谐美好开源环境！
 
 更多信息交流讨论：
+- QQ  : 49162418
 
-- **QQ  :**  49162418
+## 项目预览
+<img src="./art/Demo1.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/Demo2.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/Demo3.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/Demo4.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/Demo5.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/Demo6.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/Demo7.png" alt="Example App" style="width: 200px; height: 355px" />
+
 ## 许可证
 ``` 
 Copyright 2015-2016 Alex Zhang aka. ztc1997
