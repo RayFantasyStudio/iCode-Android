@@ -28,10 +28,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.text.style.CharacterStyle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Scroller;
@@ -41,11 +38,12 @@ import org.evilbinary.highliter.parsers.SyntaxHighlight;
 import org.evilbinary.managers.Configure;
 import org.evilbinary.utils.Logger;
 
-public class HighlightEditText extends EditText implements Constants, OnKeyListener, OnGestureListener {
+public class HighlightEditText extends EditText implements OnGestureListener {
 
     private MyTagToSpannedConverter mConverter;
     private SyntaxHighlight mMaker;
     private CodeTextWatcher mWatcher;
+    private boolean editAble = true;
 
     /**
      * The line numbers paint
@@ -368,16 +366,18 @@ public class HighlightEditText extends EditText implements Constants, OnKeyListe
 
     @Override
     public boolean onSingleTapUp(MotionEvent arg0) {
-        if (isEnabled()) {
+        if (editAble && isEnabled()) {
             ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(this,
                     InputMethodManager.SHOW_IMPLICIT);
         }
         return true;
     }
 
-    @Override
-    public boolean onKey(View arg0, int arg1, KeyEvent arg2) {
-        return false;
+    public boolean getEditAble() {
+        return editAble;
     }
 
+    public void setEditAble(boolean editAble) {
+        this.editAble = editAble;
+    }
 }

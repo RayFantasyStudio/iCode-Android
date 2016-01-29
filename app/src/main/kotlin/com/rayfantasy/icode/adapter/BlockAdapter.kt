@@ -46,7 +46,8 @@ class BlockAdapter(val blocks: List<Block>) : RecyclerView.Adapter<RecyclerView.
         init {
             val configure = Configure(itemView.context)
             highlight = HighlightEditText(itemView.context, configure)
-            highlight.setOnKeyListener(null)
+            highlight.editAble = false
+            highlight.keyListener = null
             highlight.background = null
             (itemView as ViewGroup).addView(highlight)
         }
