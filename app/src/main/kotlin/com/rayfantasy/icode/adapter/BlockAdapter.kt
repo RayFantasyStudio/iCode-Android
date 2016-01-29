@@ -7,29 +7,48 @@ import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.postutil.Block
 import com.rayfantasy.icode.postutil.BlockType
-import kotlinx.android.synthetic.main.item_block_code.view.*
 import kotlinx.android.synthetic.main.item_block_text.view.*
+import org.evilbinary.highliter.HighlightEditText
+import org.evilbinary.managers.Configure
 
-class BlockAdapter(val blocks: List<Block>) : RecyclerView.Adapter<BlockAdapter.BlockViewHolder>() {
+class BlockAdapter(val blocks: List<Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onBindViewHolder(holder: BlockViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val block = blocks[position]
-        when (block.blockType) {
-            BlockType.TEXT -> holder?.itemView?.tv_text?.text = block.content
-            else -> holder?.itemView?.tv_code?.text = block.content
+        when (holder) {
+            is CodeViewHolder -> {
+                val configure = holder.highlight.configure
+                configure.mLanguage = block.extra
+                holder.highlight.loadFromConfigure(configure)
+                holder.highlight.setSource(block.content)
+            }
+            is TextViewHolder -> holder.content.text = block.content
         }
     }
 
     override fun getItemCount() = blocks.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlockViewHolder? = when (viewType) {
-        BlockType.TEXT -> BlockViewHolder(parent.inflate(R.layout.item_block_text))
-        else -> BlockViewHolder(parent.inflate(R.layout.item_block_code))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+        BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code))
+        else -> TextViewHolder(parent.inflate(R.layout.item_block_text))
     }
 
     override fun getItemViewType(position: Int)
             = blocks[position].blockType
 
-    class BlockViewHolder(itemView: View?) :
-            RecyclerView.ViewHolder(itemView)
+    class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val content = itemView.tv_text
+    }
+
+    class CodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val highlight: HighlightEditText
+
+        init {
+            val configure = Configure(itemView.context)
+            highlight = HighlightEditText(itemView.context, configure)
+            highlight.setOnKeyListener(null)
+            highlight.background = null
+            (itemView as ViewGroup).addView(highlight)
+        }
+    }
 }
