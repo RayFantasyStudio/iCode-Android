@@ -7,25 +7,28 @@ def Properties buglyProps = new Properties()
 buglyProps.load(new FileInputStream(buglyPropFile))
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion Integer.parseInt("$compileSdkVer")
+    buildToolsVersion "$buildToolsVer"
 
     defaultConfig {
         applicationId "com.rayfantasy.icode"
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion Integer.parseInt("$minSdkVer")
+        targetSdkVersion Integer.parseInt("$targetSdkVer")
+        versionCode Integer.parseInt("$verCode")
+        versionName "$verName"
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
     defaultConfig {
         manifestPlaceholders = [BUGLY_APP_ID_VALUE: buglyProps['appId']]
     }
