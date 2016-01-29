@@ -148,7 +148,7 @@ public class HighlightEditText extends EditText implements Constants, OnKeyListe
     }
 
     public void setSource(String source) {
-        if (source != null && !source.equals("")) {
+        if (source != null) {
             setText(source);
             String result = mMaker.pase(source);
             Spanned spanText = mConverter.convert(result);
@@ -334,11 +334,8 @@ public class HighlightEditText extends EditText implements Constants, OnKeyListe
     public boolean onTouchEvent(MotionEvent event) {
 
         super.onTouchEvent(event);
-        if (mGestureDetector != null) {
-            return mGestureDetector.onTouchEvent(event);
-        }
+        return mGestureDetector == null || mGestureDetector.onTouchEvent(event);
 
-        return true;
     }
 
     @Override

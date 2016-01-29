@@ -17,10 +17,10 @@ data class CodeGood(var title: String, var subtitle: String, var content: String
         get() = PostUtil.gson.fromJson(content!!)
 }
 
-data class Block(val blockType: BlockType, var content: String)
+data class Block(val blockType: BlockType, var content: String, val extra: String? = null)
 
 enum class BlockType {
-    TEXT, JAVA, KOTLIN, XML
+    TEXT, CODE
 }
 
 internal class BlockTypeSerializer : JsonSerializer<BlockType>, JsonDeserializer<BlockType> {

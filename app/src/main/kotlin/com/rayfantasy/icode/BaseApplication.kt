@@ -24,6 +24,7 @@ import com.rayfantasy.icode.postutil.extension.v
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import com.tencent.bugly.crashreport.CrashReport
+import org.evilbinary.managers.ConfigureManager
 import kotlin.properties.Delegates
 
 var CACHE_PATH by Delegates.notNull<String>()
@@ -49,6 +50,9 @@ class BaseApplication : Application() {
 
         CrashReport.initCrashReport(this, BUGLY_APP_ID, false);
         v("BUGLY_APP_ID = $BUGLY_APP_ID")
+
+        val configureManager = ConfigureManager(this)
+        configureManager.exractDefaultConfigure()
     }
 
     companion object {

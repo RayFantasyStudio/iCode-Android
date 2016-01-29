@@ -23,8 +23,12 @@ import kotlinx.android.synthetic.main.header_edit.view.*
 import kotlinx.android.synthetic.main.item_edit_code.view.*
 import kotlinx.android.synthetic.main.item_edit_header.view.*
 import kotlinx.android.synthetic.main.item_edit_text.view.*
+import org.evilbinary.highliter.HighlightEditText
+import org.evilbinary.managers.Configure
+import org.evilbinary.utils.DirUtil
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
+import java.io.File
 import java.util.*
 
 class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : DraggableItemAdapter<RecyclerView.ViewHolder>,
@@ -32,10 +36,13 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
     private companion object {
         const val VIEW_TYPE_HEADER = -1
         const val VIEW_TYPE_FOOTER = -2
-        val languages = BlockType.values()
-                .filter { it != BlockType.TEXT }
-        val languageNames = languages
-                .map { it.name }
+    }
+
+    val languages by lazy {
+        File(DirUtil.getFilesDir(ctx), "langDefs")
+                .listFiles()
+                .map { it.name.substringBeforeLast(".") }
+                .sorted()
                 .toTypedArray()
     }
 
@@ -53,7 +60,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
         }
     val content: String
         get() = PostUtil.gson.toJson(blocks)
-    val textWatchers = HashMap<BlockViewHolder, TextWatcher>()
+    val textWatchers = HashMap<BlockViewHolder, BlockTextWatcher>()
 
     init {
         if (blocks is MutableList<Block>) {
@@ -72,28 +79,30 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
         when (holder) {
             is BlockViewHolder -> {
                 val block = blocks[position - 1]
-                val textWatcher = textWatchers[holder]
-                textWatcher?.let { holder.content.removeTextChangedListener(textWatcher) }
-                holder.content.string = block.content
-                val newTextWatcher = textWatcher ?: object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {
-                        block.content = s.toString()
-                    }
-
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-                    }
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                    }
+                var textWatcher = textWatchers[holder]
+                if (textWatcher == null) {
+                    textWatcher = BlockTextWatcher(block)
+                    textWatchers[holder] = textWatcher
+                } else {
+                    holder.content.removeTextChangedListener(textWatcher)
+                    textWatcher.block = block
                 }
-                textWatchers[holder] = newTextWatcher
-                holder.content.addTextChangedListener(newTextWatcher)
+
                 holder.btnClose.onClick {
                     blocks.remove(block)
                     notifyItemRemoved(position)
                 }
+                when (holder) {
+                    is TextViewHolder -> holder.content.string = block.content
+                    is CodeViewHolder -> {
+                        holder.blockType.text = block.extra + ctx.getString(holder.blockTypeStringRes)
+                        val configure = holder.content.configure
+                        configure.mLanguage = block.extra
+                        holder.content.loadFromConfigure(configure)
+                        holder.content.setSource(block.content)
+                    }
+                }
+                holder.content.addTextChangedListener(textWatcher)
             }
 
             is FooterViewHolder -> {
@@ -104,8 +113,8 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
                 holder.addCode.onClick {
                     AlertDialog.Builder(ctx)
                             .setTitle(R.string.title_choose_language)
-                            .setItems(languageNames) { dialogInterface: DialogInterface, i: Int ->
-                                blocks.add(Block(languages[i], ""))
+                            .setItems(languages) { dialogInterface: DialogInterface, i: Int ->
+                                blocks.add(Block(BlockType.CODE, "", languages[i]))
                                 notifyItemInserted(position)
                             }.show()
                 }
@@ -116,8 +125,8 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         VIEW_TYPE_HEADER -> headerViewHolder
         VIEW_TYPE_FOOTER -> FooterViewHolder(parent.inflate(R.layout.footer_edit))
-        BlockType.TEXT.ordinal -> TextViewHolder(parent.inflate(R.layout.item_edit_text))
-        else -> CodeViewHolder(parent.inflate(R.layout.item_edit_code))
+        BlockType.CODE.ordinal -> CodeViewHolder(parent.inflate(R.layout.item_edit_code))
+        else -> TextViewHolder(parent.inflate(R.layout.item_edit_text))
     }
 
     override fun getItemCount() = blocks.size + 2
@@ -160,7 +169,15 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
     class CodeViewHolder(itemView: View) : BlockViewHolder(itemView) {
         override val blockTypeStringRes: Int
             get() = R.string.block_type_code
-        override val content = itemView.tv_code
+        override val content: HighlightEditText
+
+        init {
+            val configure = Configure(itemView.context)
+            content = HighlightEditText(itemView.context, configure)
+            content.background = null
+            content.setHint(R.string.block_type_code)
+            itemView.linearLayout.addView(content)
+        }
     }
 
     class TextViewHolder(itemView: View) : BlockViewHolder(itemView) {
@@ -177,5 +194,17 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
     class FooterViewHolder(itemView: View) : AbstractDraggableItemViewHolder(itemView) {
         val addText = itemView.btn_add_text
         val addCode = itemView.btn_add_code
+    }
+
+    class BlockTextWatcher(var block: Block) : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            block.content = s.toString()
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
     }
 }
