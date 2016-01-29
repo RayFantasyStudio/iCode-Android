@@ -24,6 +24,8 @@ class WriteCodeActivity : BaseActivity() {
 
         val blockAdapter = EditBlockAdapter(this)
         val recyclerViewDragDropManager = RecyclerViewDragDropManager()
+        recyclerViewDragDropManager.setInitiateOnLongPress(true)
+        recyclerViewDragDropManager.setInitiateOnMove(false)
         with(recyclerView) {
             layoutManager = LinearLayoutManager(this@WriteCodeActivity)
             adapter = recyclerViewDragDropManager.createWrappedAdapter(blockAdapter)
