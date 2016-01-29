@@ -125,7 +125,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         VIEW_TYPE_HEADER -> headerViewHolder
         VIEW_TYPE_FOOTER -> FooterViewHolder(parent.inflate(R.layout.footer_edit))
-        BlockType.CODE.ordinal -> CodeViewHolder(parent.inflate(R.layout.item_edit_code))
+        BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_edit_code))
         else -> TextViewHolder(parent.inflate(R.layout.item_edit_text))
     }
 
@@ -150,7 +150,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<Block>? = null) : Draggabl
 
     override fun getItemViewType(position: Int)
             = if (position == 0) VIEW_TYPE_HEADER else
-        if (position == itemCount - 1) VIEW_TYPE_FOOTER else blocks[position - 1].blockType.ordinal
+        if (position == itemCount - 1) VIEW_TYPE_FOOTER else blocks[position - 1].blockType
 
     override fun getItemId(position: Int) = position.toLong()
 

@@ -22,13 +22,13 @@ class BlockAdapter(val blocks: List<Block>) : RecyclerView.Adapter<BlockAdapter.
 
     override fun getItemCount() = blocks.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlockViewHolder? = when (BlockType.values()[viewType]) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlockViewHolder? = when (viewType) {
         BlockType.TEXT -> BlockViewHolder(parent.inflate(R.layout.item_block_text))
         else -> BlockViewHolder(parent.inflate(R.layout.item_block_code))
     }
 
     override fun getItemViewType(position: Int)
-            = blocks[position].blockType.ordinal
+            = blocks[position].blockType
 
     class BlockViewHolder(itemView: View?) :
             RecyclerView.ViewHolder(itemView)

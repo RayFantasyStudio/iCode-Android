@@ -43,7 +43,6 @@ import java.io.File
 
 object PostUtil {
     val gson = GsonBuilder()
-            .registerTypeAdapter(BlockType::class.java, BlockTypeSerializer())
             .create()
     private lateinit var requestQueue: RequestQueue
     private lateinit var preferences: SharedPreferences
