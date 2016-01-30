@@ -5,13 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
-import com.rayfantasy.icode.postutil.Block
-import com.rayfantasy.icode.postutil.BlockType
+import com.rayfantasy.icode.postutil.bean.CodeGood
 import kotlinx.android.synthetic.main.item_block_text.view.*
 import org.evilbinary.highliter.HighlightEditText
 import org.evilbinary.managers.Configure
 
-class BlockAdapter(val blocks: List<Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BlockAdapter(val blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val block = blocks[position]
@@ -29,7 +28,7 @@ class BlockAdapter(val blocks: List<Block>) : RecyclerView.Adapter<RecyclerView.
     override fun getItemCount() = blocks.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
-        BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code))
+        CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code))
         else -> TextViewHolder(parent.inflate(R.layout.item_block_text))
     }
 

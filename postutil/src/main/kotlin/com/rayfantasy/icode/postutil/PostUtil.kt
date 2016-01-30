@@ -29,6 +29,9 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestHandle
 import com.loopj.android.http.RequestParams
+import com.rayfantasy.icode.postutil.bean.CodeGood
+import com.rayfantasy.icode.postutil.bean.Reply
+import com.rayfantasy.icode.postutil.bean.User
 import com.rayfantasy.icode.postutil.exception.PostException
 import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.postutil.extra.EncryptedRequest
@@ -43,6 +46,7 @@ import java.io.File
 
 object PostUtil {
     val gson = GsonBuilder()
+            .excludeFieldsWithoutExposeAnnotation()
             .create()
     private lateinit var requestQueue: RequestQueue
     private lateinit var preferences: SharedPreferences
@@ -256,7 +260,7 @@ object PostUtil {
     }
 
     private fun saveUserInfo() {
-        preferences.edit().putString("user_key", key).putString("user_name", user!!.username).putInt("user_id", user!!.id!!).putLong("user_createat", user!!.createat!!).apply()
+        preferences.edit().putString("user_key", key).putString("user_name", user!!.username).putInt("user_id", user!!.id!!).putLong("user_createat", user!!.createAt!!).apply()
     }
 
     private fun loadUserInfo() {

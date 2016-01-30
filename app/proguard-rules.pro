@@ -20,7 +20,7 @@
 # Gson
 -keepattributes Signature
 -keep class com.google.gson.stream.**{*;}
--keep class * implements java.io.Serializable {*;}
+#-keep class * implements java.io.Serializable {*;}
 -keep class com.android.volley.**{*;}
 -keep class org.json.** {*;}
 -keep class sun.misc.Unsafe {*;}

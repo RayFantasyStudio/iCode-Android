@@ -24,7 +24,7 @@ import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extra.CircleTransform
 import com.rayfantasy.icode.postutil.PostUtil
-import com.rayfantasy.icode.postutil.Reply
+import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.util.ms2RelativeDate
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_reply_list.view.*
@@ -39,7 +39,7 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         val replyList = replyList[position]
         holder.username.text = replyList.username
         holder.reply.text = replyList.content
-        holder.time.text = ms2RelativeDate(activity, replyList.createat!!)
+        holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
 
         picasso.load(PostUtil.
                 getProfilePicUrl(replyList.username!!))

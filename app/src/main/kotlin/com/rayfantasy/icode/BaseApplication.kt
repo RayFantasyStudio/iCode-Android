@@ -19,6 +19,7 @@ package com.rayfantasy.icode
 import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
+import com.raizlabs.android.dbflow.config.FlowManager
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.v
 import com.squareup.leakcanary.LeakCanary
@@ -53,6 +54,13 @@ class BaseApplication : Application() {
 
         val configureManager = ConfigureManager(this)
         configureManager.exractDefaultConfigure()
+
+        FlowManager.init(this)
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        FlowManager.destroy()
     }
 
     companion object {

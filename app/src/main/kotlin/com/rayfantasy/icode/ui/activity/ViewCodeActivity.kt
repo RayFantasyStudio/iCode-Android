@@ -18,7 +18,7 @@ package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.postutil.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood
 import kotlinx.android.synthetic.main.content_view_code.*
 
 class ViewCodeActivity : ActivityBase() {

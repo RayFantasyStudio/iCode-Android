@@ -2,7 +2,7 @@ package com.rayfantasy.icode.util
 
 import com.google.gson.Gson
 import com.rayfantasy.icode.FILES_PATH
-import com.rayfantasy.icode.postutil.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood
 import java.io.File
 import java.util.*
 

@@ -6,7 +6,7 @@ import com.android.volley.Request
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.postutil.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
 import com.rayfantasy.icode.ui.adapter.EditBlockAdapter
@@ -40,8 +40,7 @@ class WriteCodeActivity : ActivityBase() {
             request = PostUtil.insertCodeGood(CodeGood(
                     blockAdapter.title,
                     blockAdapter.subTitle,
-                    blockAdapter.content,
-                    PostUtil.user!!.username),
+                    blockAdapter.content),
                     {
                         toast("Success")
                         finish()

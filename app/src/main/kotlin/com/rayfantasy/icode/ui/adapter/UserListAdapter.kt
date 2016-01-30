@@ -4,7 +4,7 @@ import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.rayfantasy.icode.postutil.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_user.view.*
 

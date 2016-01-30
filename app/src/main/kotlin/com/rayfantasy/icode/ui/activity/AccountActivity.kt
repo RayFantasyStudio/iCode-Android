@@ -29,7 +29,7 @@ class AccountActivity : ActivityBase() {
         account_tv_username.text = PostUtil.user?.username.toString()
         Glide
                 .with(this)
-                .load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
+                .load(PostUtil.getProfilePicUrl(PostUtil.user!!.username!!))
                 .into(account_iv_usericon)
         account_fab.onClick {
             val picUri: String

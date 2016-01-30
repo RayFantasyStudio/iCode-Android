@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
+import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.postutil.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
-import com.rayfantasy.icode.postutil.extension.fromJson
+import com.rayfantasy.icode.postutil.bean.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood_Table
 import com.rayfantasy.icode.ui.adapter.CodeListAdapter
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.apache.commons.collections4.list.SetUniqueList
-import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.onRefresh
-import java.util.*
 
 class MainFragment : FragmentBase() {
     private lateinit var adapter: CodeListAdapter
@@ -53,7 +52,7 @@ class MainFragment : FragmentBase() {
 
         //生成加载条件，目前加载3个，方便测试
 
-        val condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateat} " else ""}" +
+        val condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateAt} " else ""}" +
                 "ORDER BY updateat DESC LIMIT 0, 10"
         request = PostUtil.selectCodeGood(condition, {
             view.swipe_layout.isRefreshing = false
@@ -105,18 +104,14 @@ class MainFragment : FragmentBase() {
 
     //本地缓存
     fun cacheData(data: List<CodeGood>) {
-        val dataJson = PostUtil.gson.toJson(data)
-        defaultSharedPreferences.edit().putString("cacheData", dataJson).apply()
-    }
-
-
-    fun getCacheData(): List<CodeGood> {
-        try {
-            var data = defaultSharedPreferences.getString("cacheData", null)
-            return PostUtil.gson.fromJson<List<CodeGood>>(data)
-        } catch(e: Exception) {
-            return ArrayList()
+        data.forEach {
+            it.save()
         }
     }
+
+    fun getCacheData() = Select()
+            .from(CodeGood::class.java)
+            .orderBy(CodeGood_Table.updateat, false)
+            .queryList()
 
 }

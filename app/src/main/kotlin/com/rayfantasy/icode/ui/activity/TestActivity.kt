@@ -1,15 +1,13 @@
 package com.rayfantasy.icode.ui.activity
 
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.database.DBHelper
 import com.rayfantasy.icode.extension.onPanelSlide
-import com.rayfantasy.icode.postutil.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
-import com.rayfantasy.icode.postutil.Reply
+import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.ui.adapter.ReplyListAdapter
@@ -29,7 +27,6 @@ class TestActivity : ActivityBase() {
         get() = request != null
     private var request: Request<*>? = null
     private lateinit var codeGood: CodeGood
-    var database: DBHelper = DBHelper(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +52,6 @@ class TestActivity : ActivityBase() {
                          Toast.makeText(this, "发表失败", Toast.LENGTH_LONG).show()
                      }
              )*/
-            var db: SQLiteDatabase = database.readableDatabase
-            db.execSQL("insert into favo(codeGoodId,title,sub_title,name,code,createat,updateat values(${codeGood.id},${codeGood.title},${codeGood.subtitle},${codeGood.username},${codeGood.content},${codeGood.createat},${codeGood.updateat})")
         }
         toolbar.setLogo(R.mipmap.ic_launcher)
 

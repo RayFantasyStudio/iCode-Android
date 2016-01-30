@@ -24,7 +24,7 @@ import android.view.ViewGroup
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extra.CircleTransform
-import com.rayfantasy.icode.postutil.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.activity.BlocksActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
@@ -44,7 +44,7 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
 
         holder.title.text = codeGood.title
         holder.subTitle.text = codeGood.subtitle
-        holder.time.text = ms2RelativeDate(activity, codeGood.createat!!)
+        holder.time.text = ms2RelativeDate(activity, codeGood.createAt!!)
         holder.username.text = codeGood.username
         if (codeGood.highlight ?: false) {
             holder.title.setTextColor(Color.RED)
