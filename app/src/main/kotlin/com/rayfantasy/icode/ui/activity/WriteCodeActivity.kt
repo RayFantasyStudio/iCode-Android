@@ -2,6 +2,7 @@ package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import com.android.volley.Request
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.rayfantasy.icode.R
@@ -16,6 +17,8 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.toast
 
 class WriteCodeActivity : ActivityBase() {
+    private var request: Request<*>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_code)
@@ -32,7 +35,9 @@ class WriteCodeActivity : ActivityBase() {
             recyclerViewDragDropManager.attachRecyclerView(this)
         }
         write_code_tv_fab.onClick {
-            PostUtil.insertCodeGood(CodeGood(
+            if (request != null) return@onClick
+
+            request = PostUtil.insertCodeGood(CodeGood(
                     blockAdapter.title,
                     blockAdapter.subTitle,
                     blockAdapter.content,
@@ -40,11 +45,21 @@ class WriteCodeActivity : ActivityBase() {
                     {
                         toast("Success")
                         finish()
+                        request = null
                     },
                     { t, rc ->
                         e("failed, rc =  $rc")
                         longToast("发布失败, rc =  $rc")
+                        request = null
                     })
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        request?.let {
+            PostUtil.cancel(request)
+            request = null
         }
     }
 }

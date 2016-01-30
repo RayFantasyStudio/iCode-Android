@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import com.android.volley.Request
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.extension.string
@@ -18,7 +19,11 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.onClick
 
 class RegisterActivity : ActivityBase() {
-    private val PERMISSIONS_REQUEST_READ_PHONE_STATE = 0
+    private companion object {
+        const val PERMISSIONS_REQUEST_READ_PHONE_STATE = 0
+    }
+
+    private var request: Request<*>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,15 +81,30 @@ class RegisterActivity : ActivityBase() {
     }
 
     fun registerUser(username: String, password: String) {
-        PostUtil.registerUser(
+        if (request != null) return
+
+        request = PostUtil.registerUser(
                 username,
                 password,
-                { register_fab.snackBar("欢迎加入iCode, ${it.username}") },
+                {
+                    register_fab.snackBar("欢迎加入iCode, ${it.username}")
+                    request = null
+                },
                 { t, rc ->
                     e("failed, rc = $rc")
                     register_fab.snackBar("注册失败", Snackbar.LENGTH_LONG)
+                    request = null
                 })
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        request?.let {
+            PostUtil.cancel(request)
+            request = null
+        }
+    }
+
 
     /*    @OnClick(R.id.register_iv_icon)
         internal fun setUserIcon() {

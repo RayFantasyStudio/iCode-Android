@@ -25,8 +25,9 @@ import java.util.*
 
 class TestActivity : ActivityBase() {
     private lateinit var adapter: ReplyListAdapter
-    private var isRefreshing: Boolean = false
-    private lateinit var request: Request<out Any>
+    private val isRefreshing: Boolean
+        get() = request != null
+    private var request: Request<*>? = null
     private lateinit var codeGood: CodeGood
     var database: DBHelper = DBHelper(this)
 
@@ -44,8 +45,6 @@ class TestActivity : ActivityBase() {
 
         tv_code.setText(codeGood.content.toString())
         view_code_tv_sub.text = codeGood.subtitle.toString()
-
-        replyRefresh(true)
         view_code_btn_send.onClick {
             /* PostUtil.addReply(Reply(view_code_tv_send.text.toString(), codeGood.id!!.toInt(), codeGood.username),
                      onSuccess = {
@@ -71,14 +70,13 @@ class TestActivity : ActivityBase() {
     fun replyRefresh(refresh: Boolean) {
         if (isRefreshing)
             return
-        isRefreshing = true
 
         val condition = "WHERE good_id = ${codeGood.id}"
         request = PostUtil.findReply(condition, {
             /*adapter = ReplyListAdapter(this, it) { replyRefresh(true) }*/
             this.reply_list_swipe.isRefreshing = false
             reply_recyclerView.adapter = adapter
-            isRefreshing = false
+            request = null
             if (it.isEmpty()) {
                 adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
             } else {
@@ -90,19 +88,23 @@ class TestActivity : ActivityBase() {
             }
         }, { t, rc ->
             this.reply_list_swipe.isRefreshing = false
-            isRefreshing = false
+            request = null
             adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
             cacheData(adapter.replyList)
         })
-
-
     }
 
+    override fun onStart() {
+        super.onStart()
+        replyRefresh(true)
+    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        PostUtil.cancel(request)
-        isRefreshing = false
+    override fun onStop() {
+        super.onStop()
+        request?.let {
+            PostUtil.cancel(request)
+            request = null
+        }
     }
 
     override fun onBackPressed() {

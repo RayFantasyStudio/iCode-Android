@@ -20,8 +20,9 @@ import java.util.*
 
 class MainFragment : FragmentBase() {
     private lateinit var adapter: CodeListAdapter
-    private var isRefreshing: Boolean = false
-    private lateinit var request: Request<out Any>
+    private val isRefreshing: Boolean
+        get() = request != null
+    private var request: Request<*>? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -38,27 +39,17 @@ class MainFragment : FragmentBase() {
         initRecyclerView()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        //回收资源
-
-        PostUtil.cancel(request)
-        isRefreshing = false
-    }
-
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.recyclerView.layoutManager = layoutManager
         adapter = CodeListAdapter(activity, SetUniqueList.setUniqueList(getCacheData())) { loadCodeGoods(true) }
         view.recyclerView.adapter = adapter
-        loadCodeGoods(false)
     }
 
     private fun loadCodeGoods(refresh: Boolean) {
         //如果正在刷新，则不再发起新的刷新请求
         if (isRefreshing)
             return
-        isRefreshing = true
 
         //生成加载条件，目前加载3个，方便测试
 
@@ -66,7 +57,7 @@ class MainFragment : FragmentBase() {
                 "ORDER BY updateat DESC LIMIT 0, 10"
         request = PostUtil.selectCodeGood(condition, {
             view.swipe_layout.isRefreshing = false
-            isRefreshing = false
+            request = null
 
             if (it.isEmpty() ) {
                 //如果结果为空，则表示没有更多内容了
@@ -95,10 +86,21 @@ class MainFragment : FragmentBase() {
             }
             /*}*/
         }, { t, rc ->
-            /*view.swipe_layout.isRefreshing = false*/
-            isRefreshing = false
+            view.swipe_layout.isRefreshing = false
+            request = null
             adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadCodeGoods(false)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        PostUtil.cancel(request)
+        request = null
     }
 
     //本地缓存

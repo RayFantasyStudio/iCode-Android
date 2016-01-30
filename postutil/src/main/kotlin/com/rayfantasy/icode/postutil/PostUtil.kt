@@ -244,9 +244,9 @@ object PostUtil {
         return null
     }
 
-    fun cancel(request: Request<*>?) = requestQueue.cancelAll(request)
+    fun cancel(request: Request<*>?) = requestQueue.cancelAll(RequestQueue.RequestFilter { it === request })
 
-    fun cancelAll() = requestQueue.cancelAll { true }
+    fun cancelAll() = requestQueue.cancelAll(RequestQueue.RequestFilter { true })
 
     fun logoutUser() {
         preferences.edit().remove("user_key").remove("user_name").remove("user_id").remove("user_createat").apply()

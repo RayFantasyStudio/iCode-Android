@@ -3,6 +3,7 @@ package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import android.widget.Toast
+import com.android.volley.Request
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
@@ -11,7 +12,7 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
 class LoginActivity : ActivityBase() {
-
+    private var request: Request<*>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +37,18 @@ class LoginActivity : ActivityBase() {
                 }
             }*/
         login_fab.onClick {
-            PostUtil.loginUser(
+            request = PostUtil.loginUser(
                     login_et_username.text.toString(),
                     login_et_password.text.toString(),
-                    onSuccess = { loginSucceed() },
+                    onSuccess = {
+                        loginSucceed()
+                        request = null
+                    },
                     onFailed = { t, rc ->
                         e("failed, rc =  $rc")
                         /*throw RuntimeException("$rc");*/
                         Toast.makeText(this, "登陆失败", Toast.LENGTH_LONG).show()
+                        request = null
                     }
             )
 
@@ -54,6 +59,14 @@ class LoginActivity : ActivityBase() {
         /*login_tv_register.onClick {
             startActivity<RegisterActivity>()
         }*/
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        request?.let {
+            PostUtil.cancel(request)
+            request = null
+        }
     }
 
     fun loginSucceed() {

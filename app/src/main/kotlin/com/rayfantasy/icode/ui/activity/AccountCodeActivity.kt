@@ -32,12 +32,15 @@ class AccountCodeActivity : ActivityBase() {
         recyclerView.layoutManager = layoutManager
         adapter = CodeListAdapter(this@AccountCodeActivity, ArrayList()) {}
         recyclerView.adapter = adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
         refresh()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        //回收资源
+    override fun onStop() {
+        super.onStop()
         PostUtil.cancel(request)
         isRefreshing = false
     }
