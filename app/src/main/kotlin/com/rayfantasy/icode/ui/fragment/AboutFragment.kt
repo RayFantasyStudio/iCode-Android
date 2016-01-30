@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.fragment
 
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.rayfantasy.icode.R
 
 
-class AboutFragment : BaseFragment() {
+class AboutFragment : FragmentBase() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

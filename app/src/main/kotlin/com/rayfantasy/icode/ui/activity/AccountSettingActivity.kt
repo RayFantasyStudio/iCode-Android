@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import com.rayfantasy.icode.R
@@ -6,7 +6,7 @@ import com.rayfantasy.icode.extension.snackBar
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import org.jetbrains.anko.onClick
 
-class AccountSettingActivity : BaseActivity() {
+class AccountSettingActivity : ActivityBase() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

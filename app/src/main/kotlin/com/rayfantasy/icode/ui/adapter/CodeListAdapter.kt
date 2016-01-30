@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.adapter
+package com.rayfantasy.icode.ui.adapter
 
 import android.app.Activity
 import android.graphics.Color
@@ -26,7 +26,7 @@ import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extra.CircleTransform
 import com.rayfantasy.icode.postutil.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
-import com.rayfantasy.icode.ui.BlocksActivity
+import com.rayfantasy.icode.ui.activity.BlocksActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*

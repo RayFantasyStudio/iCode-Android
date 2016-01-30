@@ -1,18 +1,18 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.adapter.LoadMoreAdapter
-import com.rayfantasy.icode.adapter.ReplyListAdapter
 import com.rayfantasy.icode.database.DBHelper
 import com.rayfantasy.icode.extension.onPanelSlide
 import com.rayfantasy.icode.postutil.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.Reply
 import com.rayfantasy.icode.postutil.extension.fromJson
+import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
+import com.rayfantasy.icode.ui.adapter.ReplyListAdapter
 import kotlinx.android.synthetic.main.activity_test.*
 import kotlinx.android.synthetic.main.content_view_code.*
 import kotlinx.android.synthetic.main.sliding_up_panel_body.*
@@ -23,7 +23,7 @@ import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.onClick
 import java.util.*
 
-class TestActivity : BaseActivity() {
+class TestActivity : ActivityBase() {
     private lateinit var adapter: ReplyListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>
@@ -114,8 +114,8 @@ class TestActivity : BaseActivity() {
 
     //本地缓存
     fun cacheData(data: List<Reply>) {
-        var data = PostUtil.gson.toJson(data)
-        defaultSharedPreferences.edit().putString("reply_cacheData", data).apply()
+        val dataJson = PostUtil.gson.toJson(data)
+        defaultSharedPreferences.edit().putString("reply_cacheData", dataJson).apply()
     }
 
 

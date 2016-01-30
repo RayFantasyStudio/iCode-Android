@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -7,18 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.adapter.CodeListAdapter
-import com.rayfantasy.icode.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.postutil.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.fromJson
+import com.rayfantasy.icode.ui.adapter.CodeListAdapter
+import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.support.v4.onRefresh
 import java.util.*
 
-class MainFragment : BaseFragment() {
+class MainFragment : FragmentBase() {
     private lateinit var adapter: CodeListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>
@@ -26,15 +26,16 @@ class MainFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_main, container, false)
-        /*recyclerView.addItemDecoration(SpaceItemDecoration())*/
-        view.swipe_layout.onRefresh {
+        return inflater.inflate(R.layout.fragment_main, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view?.swipe_layout?.onRefresh {
             loadCodeGoods(true)
         }
 
-        initRecyclerView(view)
-        return view
+        initRecyclerView()
     }
 
     override fun onDestroyView() {
@@ -45,7 +46,7 @@ class MainFragment : BaseFragment() {
         isRefreshing = false
     }
 
-    private fun initRecyclerView(view: View) {
+    private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.recyclerView.layoutManager = layoutManager
         adapter = CodeListAdapter(activity, SetUniqueList.setUniqueList(getCacheData())) { loadCodeGoods(true) }
@@ -102,8 +103,8 @@ class MainFragment : BaseFragment() {
 
     //本地缓存
     fun cacheData(data: List<CodeGood>) {
-        var data = PostUtil.gson.toJson(data)
-        defaultSharedPreferences.edit().putString("cacheData", data).apply()
+        val dataJson = PostUtil.gson.toJson(data)
+        defaultSharedPreferences.edit().putString("cacheData", dataJson).apply()
     }
 
 

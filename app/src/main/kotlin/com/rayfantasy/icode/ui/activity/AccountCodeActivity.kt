@@ -1,19 +1,19 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.android.volley.Request
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.adapter.CodeListAdapter
-import com.rayfantasy.icode.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.postutil.PostUtil
+import com.rayfantasy.icode.ui.adapter.CodeListAdapter
+import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import kotlinx.android.synthetic.main.activity_account_code.*
 import kotlinx.android.synthetic.main.content_account_code.*
 import org.jetbrains.anko.support.v4.onRefresh
 import java.util.*
 
-class AccountCodeActivity : BaseActivity() {
+class AccountCodeActivity : ActivityBase() {
     private lateinit var adapter: CodeListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>

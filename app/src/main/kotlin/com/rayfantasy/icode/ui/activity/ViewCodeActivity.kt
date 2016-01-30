@@ -14,14 +14,14 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.CodeGood
 import kotlinx.android.synthetic.main.content_view_code.*
 
-class ViewCodeActivity : BaseActivity() {
+class ViewCodeActivity : ActivityBase() {
     private lateinit var codeGood: CodeGood
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.content_register.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.onClick
 
-class RegisterActivity : BaseActivity() {
+class RegisterActivity : ActivityBase() {
     private val PERMISSIONS_REQUEST_READ_PHONE_STATE = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {

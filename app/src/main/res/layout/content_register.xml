@@ -11,7 +11,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_register"
-    tools:context="com.rayfantasy.icode.ui.RegisterActivity"
+    tools:context=".ui.activity.RegisterActivity"
     android:weightSum="1">
 
     <TextView
@@ -22,7 +22,7 @@
 
     <ImageView
         android:layout_width="114dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/register_iv_icon"
         android:src="@mipmap/ic_account_box_black"
         android:layout_weight="0.17"

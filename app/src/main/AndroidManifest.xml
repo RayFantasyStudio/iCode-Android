@@ -36,16 +36,16 @@
             android:value="${BUGLY_APP_ID_VALUE}" />
 
         <activity
-            android:name=".ui.ViewCodeActivity"
+            android:name=".ui.activity.ViewCodeActivity"
             android:label="@string/title_activity_view_code"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".ui.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -55,46 +55,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.RegisterActivity"
+            android:name=".ui.activity.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.AccountActivity"
+            android:name=".ui.activity.AccountActivity"
             android:label="@string/title_activity_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.AccountCodeActivity"
+            android:name=".ui.activity.AccountCodeActivity"
             android:label="@string/title_activity_account_code"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.WriteCodeActivity"
+            android:name=".ui.activity.WriteCodeActivity"
             android:label="@string/title_activity_write_code"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.TestActivity"
+            android:name=".ui.activity.TestActivity"
             android:label="@string/title_activity_code_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.AccountSettingActivity"
+            android:name=".ui.activity.AccountSettingActivity"
             android:label="@string/title_activity_account_setting"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.BlocksActivity"
+            android:name=".ui.activity.BlocksActivity"
             android:label="@string/title_activity_blocks"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rayfantasy.icode.ui.MainActivity" />
+                android:value=".ui.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.UserActivity"
+            android:name=".ui.activity.UserActivity"
             android:label="@string/title_activity_user"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

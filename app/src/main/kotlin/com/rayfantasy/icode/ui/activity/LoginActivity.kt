@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 
 import android.os.Bundle
@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.content_login.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : ActivityBase() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

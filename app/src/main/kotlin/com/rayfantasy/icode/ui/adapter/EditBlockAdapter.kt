@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.adapter
+package com.rayfantasy.icode.ui.adapter
 
 import android.content.Context
 import android.content.DialogInterface

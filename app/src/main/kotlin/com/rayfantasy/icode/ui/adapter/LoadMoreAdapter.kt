@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.adapter
+package com.rayfantasy.icode.ui.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity

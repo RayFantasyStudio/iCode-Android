@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.adapter
+package com.rayfantasy.icode.ui.adapter
 
 import android.app.Activity
 import android.support.v7.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar

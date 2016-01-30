@@ -1,4 +1,4 @@
-package com.rayfantasy.icode.ui
+package com.rayfantasy.icode.ui.activity
 
 
 import android.app.Fragment
@@ -17,13 +17,14 @@ import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
+import com.rayfantasy.icode.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
 
     private val aboutFragment = AboutFragment()
     //var db_manager: DBManager = DBManager(this)
