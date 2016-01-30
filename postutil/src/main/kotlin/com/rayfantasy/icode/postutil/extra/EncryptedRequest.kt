@@ -26,7 +26,6 @@ import com.rayfantasy.icode.postutil.extension.i
 import com.rayfantasy.icode.postutil.extension.v
 import com.rayfantasy.icode.postutil.util.*
 import org.json.JSONObject
-import java.security.Key
 import java.util.*
 import javax.crypto.Cipher
 
@@ -36,13 +35,12 @@ internal class EncryptedRequest(url: String, val data: String, val onSuccess: (S
         private const val KEY_ALGORITHM = "AES/ECB/PKCS5Padding"
     }
 
-    private lateinit var key: Key
+    private val key by lazy { generateAESKey() }
 
     @Throws(AuthFailureError::class)
     override fun getParams(): Map<String, String> {
         val map = HashMap<String, String>()
         try {
-            key = generateAESKey()
             v(Arrays.toString(key.encoded))
             map.put("key", base64Encode(RSAUtils.encryptByPublicKey(key.encoded, RSA_KEY)))
             val cipher = Cipher.getInstance(KEY_ALGORITHM)
