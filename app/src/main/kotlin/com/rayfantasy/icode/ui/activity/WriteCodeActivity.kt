@@ -2,7 +2,6 @@ package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.MenuItem
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.rayfantasy.icode.R
@@ -47,14 +46,6 @@ class WriteCodeActivity : ActivityBase() {
                         longToast("发布失败, rc =  $rc")
                     })
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        android.R.id.home -> {
-            onBackPressed()
-            true
-        }
-        else -> false
     }
 }
 

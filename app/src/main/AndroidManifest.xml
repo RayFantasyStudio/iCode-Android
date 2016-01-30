@@ -36,15 +36,6 @@
             android:value="${BUGLY_APP_ID_VALUE}" />
 
         <activity
-            android:name=".ui.activity.ViewCodeActivity"
-            android:label="@string/title_activity_view_code"
-            android:parentActivityName=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.MainActivity" />
-        </activity>
-        <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
@@ -54,6 +45,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.ViewCodeActivity"
+            android:label="@string/title_activity_view_code"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.LoginActivity"
             android:label="@string/title_activity_login"
@@ -85,12 +80,7 @@
         <activity
             android:name=".ui.activity.BlocksActivity"
             android:label="@string/title_activity_blocks"
-            android:parentActivityName=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.UserActivity"
             android:label="@string/title_activity_user"

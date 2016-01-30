@@ -2,7 +2,6 @@ package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.MenuItem
 import com.android.volley.Request
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.PostUtil
@@ -64,15 +63,5 @@ class AccountCodeActivity : ActivityBase() {
             t.printStackTrace()
         }
         )
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

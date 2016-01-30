@@ -3,7 +3,6 @@ package com.rayfantasy.icode.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.PostUtil
@@ -45,16 +44,6 @@ class AccountActivity : ActivityBase() {
             startActivity(Intent(AccountActivity@this, AccountCodeActivity::class.java))
         }
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
 }

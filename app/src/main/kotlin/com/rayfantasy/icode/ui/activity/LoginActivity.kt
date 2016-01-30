@@ -2,7 +2,6 @@ package com.rayfantasy.icode.ui.activity
 
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.PostUtil
@@ -60,16 +59,5 @@ class LoginActivity : ActivityBase() {
     fun loginSucceed() {
         Toast.makeText(this, "欢迎回来" + PostUtil.user?.username, Toast.LENGTH_SHORT).show()
         finish()
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

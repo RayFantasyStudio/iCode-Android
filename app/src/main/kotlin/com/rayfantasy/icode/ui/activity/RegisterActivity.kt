@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.view.MenuItem
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.extension.string
@@ -85,16 +84,6 @@ class RegisterActivity : ActivityBase() {
                     e("failed, rc = $rc")
                     register_fab.snackBar("注册失败", Snackbar.LENGTH_LONG)
                 })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     /*    @OnClick(R.id.register_iv_icon)
