@@ -107,7 +107,6 @@ buildscript {
         maven { url 'http://maven.oschina.net/content/groups/public/' }
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
     }
 }
