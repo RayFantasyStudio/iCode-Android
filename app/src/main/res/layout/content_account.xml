@@ -38,7 +38,8 @@
         android:text="@string/login_out"
         android:id="@+id/account_btn_login_out"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/account_iv_usericon"
+        android:layout_toStartOf="@+id/account_iv_usericon" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,5 +51,12 @@
         android:layout_below="@+id/account_btn_login_out"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更换头像"
+        android:id="@+id/account_btn_change"
+        android:layout_alignBottom="@+id/account_btn_login_out"
+        android:layout_toRightOf="@+id/account_iv_usericon"
+        android:layout_toEndOf="@+id/account_iv_usericon" />
 </RelativeLayout>

@@ -94,6 +94,8 @@ dependencies {
 
     //HighLightText
     compile project(':highLightText')
+    //UCrop
+    compile 'com.yalantis:ucrop:1.1.+'
 }
 
 bugly {
