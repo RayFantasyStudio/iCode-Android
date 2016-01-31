@@ -8,7 +8,9 @@ import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.ui.adapter.BlockAdapter
+import kotlinx.android.synthetic.main.activity_blocks.*
 import kotlinx.android.synthetic.main.content_blocks.*
+import kotlinx.android.synthetic.main.item_recycler_code_list.*
 import org.jetbrains.anko.toast
 
 class BlocksActivity : ActivityBase() {
@@ -19,11 +21,13 @@ class BlocksActivity : ActivityBase() {
         setContentView(R.layout.activity_blocks)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         codeGood = intent.getSerializableExtra("codeGood") as CodeGood
-
+        title = codeGood.title
+        toolbar.subtitle = codeGood.subtitle
         with(recyclerView) {
             layoutManager = LinearLayoutManager(this@BlocksActivity)
             itemAnimator = RefactoredDefaultItemAnimator()
         }
+
         if (codeGood.content == null)
             PostUtil.loadCodeContent(codeGood.id!!,
                     {

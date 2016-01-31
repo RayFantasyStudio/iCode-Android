@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:src="@mipmap/ic_drag_handle_black_48dp" />
+        android:src="@mipmap/ic_write_drag" />
 
     <TextView
         android:id="@+id/block_type"

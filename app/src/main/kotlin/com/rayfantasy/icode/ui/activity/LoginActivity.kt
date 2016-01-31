@@ -2,9 +2,11 @@ package com.rayfantasy.icode.ui.activity
 
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.widget.Toast
 import com.android.volley.Request
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
 import kotlinx.android.synthetic.main.content_login.*
@@ -47,7 +49,7 @@ class LoginActivity : ActivityBase() {
                     onFailed = { t, rc ->
                         e("failed, rc =  $rc")
                         /*throw RuntimeException("$rc");*/
-                        Toast.makeText(this, "登陆失败", Toast.LENGTH_LONG).show()
+                        login_fab.snackBar("欢迎回来登陆失败，错误代码:$rc" , Snackbar.LENGTH_LONG)
                         request = null
                     }
             )
@@ -70,7 +72,7 @@ class LoginActivity : ActivityBase() {
     }
 
     fun loginSucceed() {
-        Toast.makeText(this, "欢迎回来" + PostUtil.user?.username, Toast.LENGTH_SHORT).show()
+        login_fab.snackBar("欢迎回来" + PostUtil.user?.username, Snackbar.LENGTH_LONG)
         finish()
     }
 }

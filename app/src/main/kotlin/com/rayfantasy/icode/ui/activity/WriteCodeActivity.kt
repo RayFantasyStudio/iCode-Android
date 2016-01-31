@@ -1,11 +1,14 @@
 package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.TextView
 import com.android.volley.Request
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
@@ -42,13 +45,15 @@ class WriteCodeActivity : ActivityBase() {
                     blockAdapter.subTitle,
                     blockAdapter.content),
                     {
-                        toast("Success")
+                        write_code_tv_fab.snackBar("上传成功",Snackbar.LENGTH_LONG)
+                        /*toast("Success")*/
                         finish()
                         request = null
                     },
                     { t, rc ->
                         e("failed, rc =  $rc")
-                        longToast("发布失败, rc =  $rc")
+                        /*longToast("发布失败, rc =  $rc")*/
+                        write_code_tv_fab.snackBar("上传失败，错误代码：$rc",Snackbar.LENGTH_LONG)
                         request = null
                     })
         }

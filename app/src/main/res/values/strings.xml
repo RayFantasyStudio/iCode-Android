@@ -49,7 +49,7 @@
     <string name="one_day_ago">%1$s天前</string>
     <string name="one_month_ago">%1$s个月前</string>
     <string name="one_year_ago">%1$s年前</string>
-    <string name="title_activity_write_code">WriteCodeActivity</string>
+    <string name="title_activity_write_code">撰写代码</string>
     <string name="title_activity_code_view">CodeViewActivity</string>
     <string name="title_activity_reply_list">ReplyListActivity</string>
     <string name="title_request_permission">需要权限</string>
