@@ -33,7 +33,7 @@ class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
     private var footerState: Int = 0
     private var hintNoMore = R.string.footer_msg_no_more
     private val footerViewHolder: FooterViewHolder
-    private companion object {
+     companion object {
         const val VIEW_TYPE_HEADER = -1
         const val VIEW_TYPE_NORMAL = -2
         val FOOTER_STATE_LOADING = 0

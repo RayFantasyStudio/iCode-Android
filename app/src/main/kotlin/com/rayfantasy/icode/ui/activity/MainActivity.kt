@@ -120,7 +120,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         if (PostUtil!!.user == null) {
             startActivity<LoginActivity>()
         } else {
-            startActivity<AccountActivity>()
+            startActivity<UserActivity>()
         }
     }
 
