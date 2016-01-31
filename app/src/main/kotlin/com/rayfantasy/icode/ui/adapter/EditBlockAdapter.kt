@@ -59,7 +59,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         }
     val content: String
         get() = PostUtil.gson.toJson(blocks)
-    val textWatchers = HashMap<BlockViewHolder, BlockTextWatcher>()
+    //val textWatchers = HashMap<BlockViewHolder, BlockTextWatcher>()
 
     init {
         if (blocks is MutableList<CodeGood.Block>) {
@@ -78,14 +78,8 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         when (holder) {
             is BlockViewHolder -> {
                 val block = blocks[position - 1]
-                var textWatcher = textWatchers[holder]
-                if (textWatcher == null) {
-                    textWatcher = BlockTextWatcher(block)
-                    textWatchers[holder] = textWatcher
-                } else {
-                    holder.content.removeTextChangedListener(textWatcher)
-                    textWatcher.block = block
-                }
+                holder.content.removeTextChangedListener(holder.textWatcher)
+                holder.textWatcher.block = block
 
                 holder.btnClose.onClick {
                     blocks.remove(block)
@@ -101,12 +95,12 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
                         holder.content.setSource(block.content)
                     }
                 }
-                holder.content.addTextChangedListener(textWatcher)
+                holder.content.addTextChangedListener(holder.textWatcher)
             }
 
             is FooterViewHolder -> {
                 holder.addText.onClick {
-                    blocks.add(CodeGood.Block(CodeGood.BlockType.TEXT, "",null))
+                    blocks.add(CodeGood.Block(CodeGood.BlockType.TEXT, "", null))
                     notifyItemInserted(position)
                 }
                 holder.addCode.onClick {
@@ -157,6 +151,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         val blockType = itemView.block_type
         val btnClose = itemView.btn_close
         val handle = itemView.handle
+        val textWatcher = BlockTextWatcher()
         abstract val content: EditText
         abstract val blockTypeStringRes: Int
 
@@ -195,9 +190,10 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         val addCode = itemView.btn_add_code
     }
 
-    class BlockTextWatcher(var block: CodeGood.Block) : TextWatcher {
+    class BlockTextWatcher() : TextWatcher {
+        var block: CodeGood.Block? = null
         override fun afterTextChanged(s: Editable?) {
-            block.content = s.toString()
+            block?.content = s.toString()
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
