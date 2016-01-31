@@ -48,3 +48,6 @@
     public static int d(...);
     public static int e(...);
 }
+
+#DbFlow
+-keep class com.raizlabs.android.dbflow.config.GeneratedDatabaseHolder

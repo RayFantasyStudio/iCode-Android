@@ -46,10 +46,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.ViewCodeActivity"
-            android:label="@string/title_activity_view_code"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ui.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -68,10 +64,6 @@
         <activity
             android:name=".ui.activity.WriteCodeActivity"
             android:label="@string/title_activity_write_code"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.activity.TestActivity"
-            android:label="@string/title_activity_code_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.AccountSettingActivity"

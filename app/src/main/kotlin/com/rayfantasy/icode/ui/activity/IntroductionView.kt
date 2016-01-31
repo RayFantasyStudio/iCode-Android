@@ -22,7 +22,7 @@ class IntroductionView : AppIntro2() {
 
     override fun onDonePressed() {
         /*        MyApplication.getInstance().editint(PREF_KEY_LAST_VERSION, BuildConfig.VERSION_CODE);*/
-        startActivity<ViewCodeActivity>()
+        startActivity<MainActivity>()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         finish()
     }
