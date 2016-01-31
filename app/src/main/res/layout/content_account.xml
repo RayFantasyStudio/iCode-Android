@@ -29,7 +29,7 @@
         android:id="@+id/account_iv_usericon"
         android:src="@mipmap/ic_user_black"
         android:layout_marginTop="40dp"
-        android:layout_below="@+id/account_tv_username"
+        android:layout_below="@id/account_tv_username"
         android:layout_centerHorizontal="true" />
 
     <android.support.v7.widget.AppCompatButton
