@@ -25,33 +25,41 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.rayfantasy.icode.postutil.database.PostUtilDatabase;
 
 import java.io.Serializable;
-    @Table(name = "Reply", database = PostUtilDatabase.class)
-    public class Reply extends BaseModel implements Serializable {
-        @Expose
-        @Column(name = "content")
-        @SerializedName("content")
-        public String content;
 
-        @Expose
-        @Column(name = "username")
-        @SerializedName("username")
-        public String username;
+@Table(name = "Reply", database = PostUtilDatabase.class)
+public class Reply extends BaseModel implements Serializable {
+    @Expose
+    @Column(name = "content")
+    @SerializedName("content")
+    public String content;
 
-        @Expose
-        @Column(name = "goodId")
-        @SerializedName("goodId")
-        public Integer goodId;
+    @Expose
+    @Column(name = "username")
+    @SerializedName("username")
+    public String username;
 
-        @Expose
-        @PrimaryKey(autoincrement = false)
-        @Column(name = "id")
-        @SerializedName("id")
-        public Integer id;
+    @Expose
+    @Column(name = "goodId")
+    @SerializedName("goodId")
+    public Integer goodId;
 
-        @Expose
-        @Column(name = "createat")
-        @SerializedName("createat")
-        public Long createAt;
+    @Expose
+    @PrimaryKey(autoincrement = false)
+    @Column(name = "id")
+    @SerializedName("id")
+    public Integer id;
+
+    @Expose
+    @Column(name = "createat")
+    @SerializedName("createat")
+    public Long createAt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Reply)) return false;
+        Reply reply = (Reply) o;
+        return reply.id.equals(id);
+    }
 
 /*    public String getUsername() {
         return username;
@@ -84,5 +92,5 @@ import java.io.Serializable;
     public Long getCreateAt() {
         return createAt;
     }*/
-    }
+}
 

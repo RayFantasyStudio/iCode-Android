@@ -16,7 +16,6 @@
 
 package com.rayfantasy.icode.postutil.bean;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -44,6 +43,13 @@ public class User extends BaseModel implements Serializable {
     @Column(name = "createat")
     @SerializedName("createat")
     public Long createAt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return user.username.equals(username);
+    }
 
     public User(){}
 

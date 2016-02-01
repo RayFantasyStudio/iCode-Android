@@ -72,6 +72,13 @@ public class CodeGood extends BaseModel implements Serializable {
     @SerializedName("highlight")
     public Boolean highlight;
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof CodeGood)) return false;
+        CodeGood codeGood = (CodeGood) o;
+        return codeGood.id.equals(id) && codeGood.updateAt.equals(updateAt);
+    }
+
     public CodeGood() {
     }
 
