@@ -20,36 +20,38 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.rayfantasy.icode.postutil.database.PostUtilDatabase;
 
 import java.io.Serializable;
+    @Table(name = "Reply", database = PostUtilDatabase.class)
+    public class Reply extends BaseModel implements Serializable {
+        @Expose
+        @Column(name = "content")
+        @SerializedName("content")
+        public String content;
 
-public class Reply extends BaseModel implements Serializable {
-    @Expose
-    @Column(name = "content")
-    @SerializedName("content")
-    public String content;
+        @Expose
+        @Column(name = "username")
+        @SerializedName("username")
+        public String username;
 
-    @Expose
-    @Column(name = "username")
-    @SerializedName("username")
-    public String username;
+        @Expose
+        @Column(name = "goodId")
+        @SerializedName("goodId")
+        public Integer goodId;
 
-    @Expose
-    @Column(name = "goodId")
-    @SerializedName("goodId")
-    public Integer goodId;
+        @Expose
+        @PrimaryKey(autoincrement = false)
+        @Column(name = "id")
+        @SerializedName("id")
+        public Integer id;
 
-    @Expose
-    @PrimaryKey(autoincrement = false)
-    @Column(name = "id")
-    @SerializedName("id")
-    public Integer id;
-
-    @Expose
-    @Column(name = "createat")
-    @SerializedName("createat")
-    public Long createAt;
+        @Expose
+        @Column(name = "createat")
+        @SerializedName("createat")
+        public Long createAt;
 
 /*    public String getUsername() {
         return username;
@@ -82,4 +84,5 @@ public class Reply extends BaseModel implements Serializable {
     public Long getCreateAt() {
         return createAt;
     }*/
-}
+    }
+

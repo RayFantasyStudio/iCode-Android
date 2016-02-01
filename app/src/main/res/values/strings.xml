@@ -63,5 +63,7 @@
     <string name="btn_add_code">添加代码</string>
     <string name="title_choose_language">请选择语言</string>
     <string name="title_activity_user">用户</string>
+    <string name="title_activity_reply">ReplyActivity</string>
+    <string name="commit">评论</string>
 
 </resources>

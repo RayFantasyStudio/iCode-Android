@@ -31,7 +31,7 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricGradleTestRunner::class)
 @Config(sdk = intArrayOf(Build.VERSION_CODES.LOLLIPOP), constants = BuildConfig::class)
 class MainActivityTest {
-    @Test
+    /*@Test
     fun testMainActivity() {
         val mainActivity: MainActivity = Robolectric.setupActivity(MainActivity::class.java)
         mainActivity.main_fab.performClick()
@@ -39,5 +39,5 @@ class MainActivityTest {
         val shadowActivity = Shadows.shadowOf(mainActivity)
         val actualIntent = shadowActivity.nextStartedActivityForResult
         Assert.assertEquals(expectedIntent, actualIntent)
-    }
+    }*/
 }

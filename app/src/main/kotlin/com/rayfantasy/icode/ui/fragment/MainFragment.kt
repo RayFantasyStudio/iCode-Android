@@ -113,5 +113,4 @@ class MainFragment : FragmentBase() {
             .from(CodeGood::class.java)
             .orderBy(CodeGood_Table.updateat, false)
             .queryList()
-
 }

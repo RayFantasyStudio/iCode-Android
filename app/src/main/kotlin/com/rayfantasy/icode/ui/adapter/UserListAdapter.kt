@@ -67,7 +67,7 @@ class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
                 holder.username.text = username
             }
             is CodeViewHolder -> {
-                val codeGood = codeGoods[position + 1]
+                val codeGood = codeGoods[position - 1]
 
                 holder.title.text = codeGood.title
                 holder.subTitle.text = codeGood.subtitle

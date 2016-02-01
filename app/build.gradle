@@ -96,6 +96,9 @@ dependencies {
     compile project(':highLightText')
     //UCrop
     compile 'com.yalantis:ucrop:1.1.+'
+
+    // Fab Transformation https://github.com/konifar/fab-transformation
+    compile 'konifar:fab-transformation:1.0.0'
 }
 
 bugly {

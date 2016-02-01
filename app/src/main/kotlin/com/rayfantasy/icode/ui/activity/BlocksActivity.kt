@@ -1,5 +1,6 @@
 package com.rayfantasy.icode.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
@@ -11,7 +12,9 @@ import com.rayfantasy.icode.ui.adapter.BlockAdapter
 import kotlinx.android.synthetic.main.activity_blocks.*
 import kotlinx.android.synthetic.main.content_blocks.*
 import kotlinx.android.synthetic.main.item_recycler_code_list.*
+import org.jetbrains.anko.onClick
 import org.jetbrains.anko.toast
+import org.jetbrains.anko.startActivity
 
 class BlocksActivity : ActivityBase() {
     private lateinit var codeGood: CodeGood
@@ -42,6 +45,12 @@ class BlocksActivity : ActivityBase() {
             })
         else
             recyclerView.adapter = BlockAdapter(PostUtil.gson.fromJson(codeGood.content))
+        block_fab.onClick { toReply() }
+    }
+    fun toReply(){
+        var intent : Intent = Intent(this,ReplyActivity::class.java)
+        intent.putExtra("id",codeGood.id)
+        startActivity(intent)
     }
 
 }
