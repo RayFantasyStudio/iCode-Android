@@ -30,6 +30,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.RequestHandle
 import com.loopj.android.http.RequestParams
 import com.rayfantasy.icode.postutil.bean.CodeGood
+import com.rayfantasy.icode.postutil.bean.Favorite
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.postutil.bean.User
 import com.rayfantasy.icode.postutil.exception.PostException
@@ -156,6 +157,53 @@ object PostUtil {
                 onFailed(e, -3)
             }
         }, onFailed)
+        requestQueue.add(request)
+        return request
+    }
+
+    fun addFavorite(goodId: Int, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+        if (user == null || key == null) {
+            onFailed(PostException("登陆后才能进行此操作"), -4)
+            return null
+        }
+        val data = JSONObject()
+        data.put("userId", user!!.id)
+        data.put("key", key)
+        data.put("goodId", goodId)
+        val request = EncryptedRequest(URL_ADD_FAVORITE, data.toString(), { onSuccess() }, onFailed)
+        requestQueue.add(request)
+        return request
+    }
+
+    fun findFavorite(onSuccess: (MutableList<Favorite>) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+        if (user == null || key == null) {
+            onFailed(PostException("登陆后才能进行此操作"), -4)
+            return null
+        }
+        val data = JSONObject()
+        data.put("userId", user!!.id)
+        data.put("key", key)
+        val request = EncryptedRequest(URL_FIND_FAVORITE, data.toString(), {
+            try {
+                onSuccess(gson.fromJson(it!!))
+            } catch(e: Exception) {
+                onFailed(e, -3)
+            }
+        }, onFailed)
+        requestQueue.add(request)
+        return request
+    }
+
+    fun delFavorite(goodId: Int, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+        if (user == null || key == null) {
+            onFailed(PostException("登陆后才能进行此操作"), -4)
+            return null
+        }
+        val data = JSONObject()
+        data.put("userId", user!!.id)
+        data.put("key", key)
+        data.put("goodId", goodId)
+        val request = EncryptedRequest(URL_DEL_FAVORITE, data.toString(), { onSuccess() }, onFailed)
         requestQueue.add(request)
         return request
     }
