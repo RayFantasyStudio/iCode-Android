@@ -26,12 +26,12 @@ import org.jetbrains.anko.startActivity
 
 class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
 
-    private val aboutFragment = AboutFragment()
+    private val aboutFragment by lazy { AboutFragment() }
     //var db_manager: DBManager = DBManager(this)
-    private val favoriteFragment = FavoriteFragment()
-    private val mainFragment = MainFragment()
-    private val payFragment = PayFragment()
-    private val settingFragment = SettingFragment()
+    private val favoriteFragment by lazy { FavoriteFragment() }
+    private val mainFragment by lazy { MainFragment() }
+    private val payFragment by lazy { PayFragment() }
+    private val settingFragment by lazy { SettingFragment() }
     private lateinit var broadcastManager: LocalBroadcastManager
     private var username: String = "未登录"
     private val receiver = object : BroadcastReceiver() {
@@ -117,7 +117,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     }
 
     fun getAccount() {
-        if (PostUtil!!.user == null) {
+        if (PostUtil.user == null) {
             startActivity<LoginActivity>()
         } else {
             startActivity<UserActivity>()
@@ -146,6 +146,8 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun replaceFragment(fragment: Fragment) {
+        if (fragment != mainFragment)
+            app_bar.setExpanded(false)
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.main_contain, fragment).commit()
     }
