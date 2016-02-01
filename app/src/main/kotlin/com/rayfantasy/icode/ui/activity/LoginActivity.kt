@@ -49,7 +49,7 @@ class LoginActivity : ActivityBase() {
                     onFailed = { t, rc ->
                         e("failed, rc =  $rc")
                         /*throw RuntimeException("$rc");*/
-                        login_fab.snackBar("欢迎回来登陆失败，错误代码:$rc" , Snackbar.LENGTH_LONG)
+                        login_fab.snackBar("登陆失败，错误代码:$rc" , Snackbar.LENGTH_LONG)
                         request = null
                     }
             )

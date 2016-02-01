@@ -104,9 +104,9 @@ class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
             = if (position == 0) VIEW_TYPE_HEADER else if (position == getItemCount() + 2) VIEW_TYPE_FOOTER else VIEW_TYPE_NORMAL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when(viewType){
-        VIEW_TYPE_HEADER -> UserViewHolder(parent.inflate(R.layout.content_user))
-        VIEW_TYPE_NORMAL -> CodeViewHolder(parent.inflate(R.layout.content_user))
-        VIEW_TYPE_FOOTER -> FooterViewHolder(parent.inflate(R.layout.content_user))
+        VIEW_TYPE_HEADER -> UserViewHolder(parent.inflate(R.layout.item_recycler_user))
+        VIEW_TYPE_NORMAL -> CodeViewHolder(parent.inflate(R.layout.item_recycler_code_list))
+        VIEW_TYPE_FOOTER -> FooterViewHolder(parent.inflate(R.layout.footer_recycler_view))
         else -> null
     }
     fun setFooterState(footerState: Int) {
