@@ -28,9 +28,6 @@ class RegisterActivity : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        toolbar.setLogo(R.mipmap.ic_launcher)
-        /*        supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
-                supportActionBar.setDefaultDisplayHomeAsUpEnabled(true)*/
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         register_fab.onClick {
             val password = register_et_password.string
@@ -79,7 +76,6 @@ class RegisterActivity : ActivityBase() {
         }
         return true
     }
-
     fun registerUser(username: String, password: String) {
         if (request != null) return
 
@@ -105,43 +101,6 @@ class RegisterActivity : ActivityBase() {
         }
     }
 
-
-    /*    @OnClick(R.id.register_iv_icon)
-        internal fun setUserIcon() {
-            val picUri: String
-            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.setType("image/jpeg")
-            startActivity(intent)
-            picUri = intent.data.toString()
-
-
-
-        }
-
-        @OnClick(R.id.register_fab)
-        internal fun register() {
-            if (FormValidator.validate(this, TextInputLayoutCallback(this))) {
-                val username = this.username.text.toString()
-                val password = this.password.text.toString()
-                postUtil?.registerUser(username, password, {
-                    Toast.makeText(this@RegisterActivity, "欢迎加入iCode" + username, Toast.LENGTH_LONG).show()
-                    finish()
-                }, { t, rc ->
-                    e("failed, rc =  $ rc")
-                    Toast.makeText(this@RegisterActivity, "注册失败", Toast.LENGTH_LONG).show()
-                })
-            }
-        }
-
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                android.R.id.home -> {
-                    onBackPressed()
-                    return true
-                }
-            }
-            return super.onOptionsItemSelected(item)
-        }*/
 }
 
 

@@ -12,24 +12,21 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
-import com.rayfantasy.icode.extra.CircleTransform
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.activity.BlocksActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_user.view.*
-import org.jetbrains.anko.image
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
-import com.squareup.picasso.Picasso
+import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.footer_recycler_view.view.*
 
 /**
  * Created by qweas on 2016/1/22 0022.
  */
 class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGood>,private  val  onLoadingMore: () -> Unit ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val picasso by lazy { Picasso.with(activity) }
     private var footerState: Int = 0
     private var hintNoMore = R.string.footer_msg_no_more
     private val footerViewHolder: FooterViewHolder
@@ -41,7 +38,6 @@ class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         val FOOTER_STATE_FAILED = 2
         val FOOTER_STATE_HIDDEN = 3
         private val VIEW_TYPE_FOOTER = 1
-        private val circleTransform = CircleTransform()
     }
 
     override fun getItemCount() = codeGoods.size + 1
@@ -83,12 +79,13 @@ class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
                     holder.username.setTextColor(Color.rgb(140, 140, 140))
                     holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
                 }
-                picasso.load(PostUtil
-                        .getProfilePicUrl(codeGood.username!!))
-                        .centerCrop().error(R.mipmap.ic_user_black)
-                        .resizeDimen(R.dimen.profile_pic_size, R.dimen.profile_pic_size)
-                        .transform(circleTransform)
-                        .into(holder.pic)
+                Glide.with(activity)
+                        .load(PostUtil.
+                                getProfilePicUrl(codeGood.username!!))
+                        .centerCrop()
+                        .bitmapTransform(CropCircleTransformation(activity))
+                        .error(R.mipmap.ic_user_black)
+                        .into(holder.pic )
                 holder.bg.onClick {
                     activity.startActivity<BlocksActivity>("codeGood" to codeGood)
                 }
