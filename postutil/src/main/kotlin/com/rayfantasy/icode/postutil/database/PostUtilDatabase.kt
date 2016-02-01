@@ -14,12 +14,12 @@
  *  limitations under the License.
  */
 
-package com.rayfantasy.icode.postutil.database;
+package com.rayfantasy.icode.postutil.database
 
-import com.raizlabs.android.dbflow.annotation.Database;
+import com.raizlabs.android.dbflow.annotation.Database
 
 @Database(version = PostUtilDatabase.VERSION, name = PostUtilDatabase.NAME, generatedClassSeparator = "_")
-public class PostUtilDatabase {
-    public static final String NAME = "icode_postutil";
-    public static final int VERSION = 1;
+object PostUtilDatabase {
+    const val NAME = "icode_postutil"
+    const val VERSION = 1
 }
