@@ -243,6 +243,20 @@ object PostUtil {
         return request
     }
 
+    fun resetPwd(oldPwd: String, newPwd: String, onSuccess: (User) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+        if (user == null) {
+            onFailed(PostException("登陆后才能进行此操作"), -4)
+            return null
+        }
+        val data = JSONObject()
+        data.put("oldPwd", oldPwd)
+        data.put("username", user!!.username)
+        data.put("newPwd", newPwd)
+        val request = EncryptedRequest(URL_RESET_PWD, data.toString(), { loginUser(user!!.username, newPwd, onSuccess, onFailed) }, onFailed)
+        requestQueue.add(request)
+        return request
+    }
+
     fun getProfilePicUrl(username: String): String {
         return URL_PROFILE_PIC + username
     }
