@@ -15,6 +15,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.extension.alert
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
@@ -22,7 +23,6 @@ import com.rayfantasy.icode.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
@@ -94,9 +94,9 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            alert("确定要退出iCode?","iCode"){
+            alert("确定要退出iCode?", "iCode") {
                 positiveButton("确定") { super.onBackPressed() }
-                negativeButton("手滑了"){}
+                negativeButton("手滑了") {}
             }.show()
         }
     }
