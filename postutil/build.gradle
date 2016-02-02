@@ -56,7 +56,6 @@ dependencies {
     //compile 'com.pawegio.kandroid:kandroid:0.3.9@aar'
 
     compile 'com.loopj.android:android-async-http:1.4.9'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.5.0'
     compile 'com.google.code.gson:gson:2.5'
