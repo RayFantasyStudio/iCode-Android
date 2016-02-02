@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.footer_recycler_view.view.*
 /**
  * Created by qweas on 2016/1/22 0022.
  */
-class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGood>,private  val  onLoadingMore: () -> Unit ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UserListAdapter(val activity: Activity,var username : String ,var codeGoods: MutableList<CodeGood>,private  val  onLoadingMore: () -> Unit ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var footerState: Int = 0
     private var hintNoMore = R.string.footer_msg_no_more
     private val footerViewHolder: FooterViewHolder
@@ -54,7 +54,6 @@ class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
 
         when (holder) {
             is UserViewHolder -> {
-                var username: String = PostUtil.user!!.username
                 Glide.with(activity)
                         .load(PostUtil.getProfilePicUrl(username))
                         .error(R.mipmap.ic_user_black)

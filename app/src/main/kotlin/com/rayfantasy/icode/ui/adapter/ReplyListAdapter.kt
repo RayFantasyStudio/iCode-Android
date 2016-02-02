@@ -25,9 +25,12 @@ import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
+import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.item_recycler_reply_list.view.*
+import org.jetbrains.anko.onClick
+import org.jetbrains.anko.startActivity
 
 class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<ReplyListAdapter.NormalViewHolder>(activity, onLoadingMore) {
@@ -45,6 +48,7 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
                 .error(R.mipmap.ic_user_black)
                 .bitmapTransform(CropCircleTransformation(activity))
                 .into(holder.pic)
+        holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
     }
 
     override fun onCreateNormalViewHolder(parent: ViewGroup, viewType: Int)

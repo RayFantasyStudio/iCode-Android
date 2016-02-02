@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
+import com.rayfantasy.icode.postutil.bean.User
 import com.rayfantasy.icode.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -124,7 +125,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         if (PostUtil.user == null) {
             startActivity<LoginActivity>()
         } else {
-            startActivity<UserActivity>()
+            startActivity<UserActivity>("username" to (PostUtil.user as User).username.toString())
         }
     }
 

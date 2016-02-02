@@ -20,12 +20,14 @@ class UserActivity : AppCompatActivity() {
     private lateinit var adapter : UserListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>
-    private val username = PostUtil.user?.username
+    private var username : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        username = intent.getSerializableExtra("username").toString()
+        title = username
         initRecyclerView()
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
@@ -35,7 +37,7 @@ class UserActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         user_recyclerview.layoutManager = layoutManager
-        adapter = UserListAdapter(this, ArrayList()) {}
+        adapter = UserListAdapter(this, username,ArrayList()) {}
         user_recyclerview.adapter = adapter
         refresh()
     }
@@ -60,7 +62,7 @@ class UserActivity : AppCompatActivity() {
 
             //重复利用原来的adapter，节省内存
             if (adapter == null) {
-                adapter = UserListAdapter(this, it) {}
+                adapter = UserListAdapter(this,username, it) {}
                 user_recyclerview.adapter = adapter
             } else {
                 adapter!!.codeGoods = it

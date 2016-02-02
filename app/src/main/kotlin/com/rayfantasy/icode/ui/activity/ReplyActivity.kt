@@ -35,7 +35,7 @@ class ReplyActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getSerializableExtra("id") as Int
         reply_swip?.onRefresh {
-            loadReplys(true)
+            loadReplys(false)
         }
 
         initRecyclerView()

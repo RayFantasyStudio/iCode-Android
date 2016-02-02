@@ -27,6 +27,7 @@ import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.activity.BlocksActivity
+import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
@@ -45,6 +46,9 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         holder.subTitle.text = codeGood.subtitle
         holder.time.text = ms2RelativeDate(activity, codeGood.createAt!!)
         holder.username.text = codeGood.username
+        holder.pic.onClick {
+            activity.startActivity<UserActivity>("username" to codeGood.username.toString())
+        }
         if (codeGood.highlight ?: false) {
             holder.title.setTextColor(Color.RED)
             holder.username.setTextColor(Color.RED)

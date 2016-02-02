@@ -32,7 +32,7 @@ class MainFragment : FragmentBase() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view?.swipe_layout?.onRefresh {
-            loadCodeGoods(true)
+            loadCodeGoods(false)
         }
 
         initRecyclerView()
