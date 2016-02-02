@@ -32,6 +32,7 @@ class ReplyActivity : AppCompatActivity() {
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         title = "评论"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getSerializableExtra("id") as Int
         reply_swip?.onRefresh {
             loadReplys(true)
@@ -53,7 +54,7 @@ class ReplyActivity : AppCompatActivity() {
         if (isRefreshing)
             return
 
-        //生成加载条件，目前加载3个，方便测试
+        //生成加载条件，目前加载5个，方便测试
 
         val condition = "${if (!refresh && adapter.replyList.isNotEmpty()) "WHERE createat < ${adapter.replyList.last().createAt} " else ""}" +
                 "ORDER BY createat DESC LIMIT 0, 5"
