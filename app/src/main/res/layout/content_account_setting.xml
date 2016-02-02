@@ -15,7 +15,6 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@mipmap/ic_account_box_black"
-
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/account_setting_icon" />

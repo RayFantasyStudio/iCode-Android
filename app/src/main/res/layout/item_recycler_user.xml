@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="#8888"
+                android:background="#FF5722"
                 android:id="@+id/user_item_bg"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="28.79" />

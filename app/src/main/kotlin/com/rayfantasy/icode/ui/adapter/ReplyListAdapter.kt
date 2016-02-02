@@ -34,6 +34,8 @@ import org.jetbrains.anko.startActivity
 
 class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<ReplyListAdapter.NormalViewHolder>(activity, onLoadingMore) {
+    private val glide by lazy { Glide.with(activity) }
+    private val circleTransformation by lazy { CropCircleTransformation(activity) }
     override val normalItemCount: Int
         get() = replyList.size
 
@@ -43,10 +45,10 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         holder.reply.text = replyList.content
         holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
 
-        Glide.with(activity)
+        glide
                 .load(PostUtil.getProfilePicUrl(replyList.username!!))
                 .error(R.mipmap.ic_user_black)
-                .bitmapTransform(CropCircleTransformation(activity))
+                .bitmapTransform(circleTransformation)
                 .into(holder.pic)
         holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
     }

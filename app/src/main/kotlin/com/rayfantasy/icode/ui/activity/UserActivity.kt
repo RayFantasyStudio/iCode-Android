@@ -20,7 +20,7 @@ class UserActivity : AppCompatActivity() {
     private lateinit var adapter : UserListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>
-    private var username : String = ""
+    private lateinit  var username : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
@@ -79,8 +79,12 @@ class UserActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.user_menu,menu)
-        return true
+        if (PostUtil.user?.username == username){
+            menuInflater.inflate(R.menu.user_menu,menu)
+            return true
+        }
+        return false
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -94,9 +98,7 @@ class UserActivity : AppCompatActivity() {
 
                 return true
             }
-            R.id.account_menu_usericon ->{changeUserIcon()
-                return true}
-            R.id.account_resPwd ->{startActivity<AccountSettingActivity>()}
+            R.id.account_setAccount ->{startActivity<AccountSettingActivity>()}
         }
         return true
     }

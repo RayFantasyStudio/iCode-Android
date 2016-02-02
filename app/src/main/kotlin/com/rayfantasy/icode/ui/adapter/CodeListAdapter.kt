@@ -36,6 +36,8 @@ import org.jetbrains.anko.startActivity
 
 class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGood>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<CodeListAdapter.NormalViewHolder>(activity, onLoadingMore) {
+    private val glide by lazy { Glide.with(activity) }
+    private val circleTransformation by lazy { CropCircleTransformation(activity) }
     override val normalItemCount: Int
         get() = codeGoods.size
 
@@ -59,10 +61,10 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
             holder.username.setTextColor(Color.rgb(140, 140, 140))
             holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
         }
-        Glide.with(activity)
+        glide
                 .load(PostUtil.getProfilePicUrl(codeGood.username!!))
                 .error(R.mipmap.ic_user_black)
-                .bitmapTransform(CropCircleTransformation(activity))
+                .bitmapTransform(circleTransformation)
                 .into(holder.pic)
         holder.pic
         holder.bg.onClick {

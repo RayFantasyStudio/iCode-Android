@@ -25,6 +25,8 @@ import kotlinx.android.synthetic.main.footer_recycler_view.view.*
  * Created by qweas on 2016/1/22 0022.
  */
 class UserListAdapter(val activity: Activity,var username : String ,var codeGoods: MutableList<CodeGood>,private  val  onLoadingMore: () -> Unit ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val glide by lazy { Glide.with(activity) }
+    private val circleTransformation by lazy { CropCircleTransformation(activity) }
     private var footerState: Int = 0
     private var hintNoMore = R.string.footer_msg_no_more
     private val footerViewHolder: FooterViewHolder
@@ -54,10 +56,9 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
 
         when (holder) {
             is UserViewHolder -> {
-                Glide.with(activity)
-                        .load(PostUtil.getProfilePicUrl(username))
+                glide   .load(PostUtil.getProfilePicUrl(username))
                         .error(R.mipmap.ic_user_black)
-                        .bitmapTransform(CropCircleTransformation(activity))
+                        .bitmapTransform(circleTransformation)
                         .into(holder.usericon)
                 holder.username.text = username
 
@@ -79,10 +80,10 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
                     holder.username.setTextColor(Color.rgb(140, 140, 140))
                     holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
                 }
-                Glide.with(activity)
+                glide
                         .load(PostUtil.getProfilePicUrl(codeGood.username!!))
                         .error(R.mipmap.ic_user_black)
-                        .bitmapTransform(CropCircleTransformation(activity))
+                        .bitmapTransform(circleTransformation)
                         .into(holder.pic)
                 holder.bg.onClick {
                     activity.startActivity<BlocksActivity>("codeGood" to codeGood)

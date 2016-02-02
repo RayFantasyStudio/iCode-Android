@@ -70,5 +70,6 @@
     <string name="oldPwd">原密码</string>
     <string name="newPwd">新密码</string>
     <string name="check_newPwd">确认密码</string>
+    <string name="set_account">修改账号</string>
 
 </resources>

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/account_menu_usericon"
-        android:title="@string/change_icon"
-        android:orderInCategory="100" />
-    <item
-        android:id="@+id/account_resPwd"
-        android:title="@string/resPwd"
+        android:id="@+id/account_setAccount"
+        android:title="@string/set_account"
         android:orderInCategory="100"/>
     <item
         android:id="@+id/account_menu_out"
