@@ -42,6 +42,6 @@ public class Favorite extends BaseModel implements Serializable {
     public boolean equals(Object o) {
         if (!(o instanceof Favorite)) return false;
         Favorite favorite = (Favorite) o;
-        return goodId.equals(goodId);
+        return goodId.equals(favorite.goodId);
     }
 }
