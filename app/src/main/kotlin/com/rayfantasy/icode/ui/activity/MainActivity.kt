@@ -13,6 +13,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.alert
@@ -20,8 +21,10 @@ import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
 import com.rayfantasy.icode.ui.fragment.*
+import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nv_layout.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
@@ -29,7 +32,8 @@ import org.jetbrains.anko.startActivity
 class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
 
     private val aboutFragment by lazy { AboutFragment() }
-    //var db_manager: DBManager = DBManager(this)
+    private val glide by lazy{ Glide.with(this)}
+    private val circleTransformation    by lazy{CropCircleTransformation(this) }
     private val favoriteFragment by lazy { FavoriteFragment() }
     private val mainFragment by lazy { MainFragment() }
     private val payFragment by lazy { PayFragment() }
@@ -60,7 +64,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
 
 
         nav_view.getHeaderView(0).nv_user_icon.onClick {
-            /*startActivity(new Intent(MainActivity.this, LoginActivity.class));*/
             getAccount()
             drawer_layout.closeDrawer(GravityCompat.START)
         }
@@ -73,7 +76,12 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
 
             startActivity(Intent(this, WriteCodeActivity::class.java))
         }
+        if (PostUtil.user != null){
+            glide.load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
+                 .bitmapTransform(circleTransformation)
+                 .into(nav_view.getHeaderView(0).nv_user_icon)
 
+        }
 
     }
 
