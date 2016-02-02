@@ -72,6 +72,11 @@ public class CodeGood extends BaseModel implements Serializable {
     @SerializedName("highlight")
     public Boolean highlight;
 
+    @Expose
+    @Column(name = "favorite")
+    @SerializedName("favorite")
+    public Integer favorite;
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CodeGood)) return false;
