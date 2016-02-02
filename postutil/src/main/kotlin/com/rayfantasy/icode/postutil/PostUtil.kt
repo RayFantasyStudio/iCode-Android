@@ -267,7 +267,6 @@ object PostUtil {
             return null
         }
         val client = AsyncHttpClient()
-        val url = URL_ROOT + "UpLoadProfilePic"
         if (pic.exists() && pic.length() > 0) {
             val params = RequestParams()
             try {
@@ -278,7 +277,7 @@ object PostUtil {
                 onFailed(e, -2)
                 return null
             }
-            return client.post(url, params, object : AsyncHttpResponseHandler() {
+            return client.post(URL_UPLOAD_PROFILE_PIC, params, object : AsyncHttpResponseHandler() {
 
                 override fun onSuccess(statusCode: Int, headers: Array<Header>,
                                        responseBody: ByteArray) {
