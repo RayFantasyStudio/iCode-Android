@@ -114,7 +114,7 @@ class AccountSettingActivity : ActivityBase() {
             PostUtil.uploadProfilePic(cache, {
                 account_setting_fab.snackBar("上传成功", Snackbar.LENGTH_LONG)
                 cache.delete()
-            }, { long: Long, longl: Long -> Unit }, { t, rc ->
+            }, { t, rc ->
                 account_setting_fab.snackBar("上传失败，错误代码：$rc", Snackbar.LENGTH_LONG)
                 t.printStackTrace()
             })

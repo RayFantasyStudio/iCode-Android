@@ -261,7 +261,8 @@ object PostUtil {
         return URL_PROFILE_PIC + username
     }
 
-    fun uploadProfilePic(pic: File, onSuccess: () -> Unit, onProgress: (Long, Long) -> Unit, onFailed: (Throwable, Int) -> Unit): RequestHandle? {
+    fun uploadProfilePic(pic: File, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit,
+                         onUpdateProgress: ((Long, Long) -> Unit)? = null): RequestHandle? {
         if (user == null || key == null) {
             onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
@@ -300,7 +301,7 @@ object PostUtil {
                 }
 
                 override fun onProgress(bytesWritten: Long, totalSize: Long) {
-                    onProgress(bytesWritten, totalSize)
+                    onUpdateProgress?.invoke(bytesWritten, totalSize)
                 }
             })
         } else {

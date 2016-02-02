@@ -20,9 +20,9 @@ import org.jetbrains.anko.toast
 import java.io.File
 
 class AccountActivity : ActivityBase() {
-    final val REQUEST_SELECT_PICTURE :Int = 0x01
-    lateinit  var  tagetUri : Uri
-    lateinit var DestinationUri : Uri
+    final val REQUEST_SELECT_PICTURE: Int = 0x01
+    lateinit var tagetUri: Uri
+    lateinit var DestinationUri: Uri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
@@ -59,16 +59,15 @@ class AccountActivity : ActivityBase() {
             getIcon()
 
 
-
         }
 
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_SELECT_PICTURE){
-            if (data?.data == null){
-                Toast.makeText(this,"被用户取消", Toast.LENGTH_SHORT).show()
-            }
-            else {
+        if (requestCode == REQUEST_SELECT_PICTURE) {
+            if (data?.data == null) {
+                Toast.makeText(this, "被用户取消", Toast.LENGTH_SHORT).show()
+            } else {
                 tagetUri = data!!.data
                 UCrop.of(tagetUri, DestinationUri)
                         .withAspectRatio(1, 1)
@@ -77,35 +76,39 @@ class AccountActivity : ActivityBase() {
             }
 
         }
-        if(requestCode == UCrop.REQUEST_CROP){
-            val  resultUri : Uri = UCrop.getOutput(data)
+        if (requestCode == UCrop.REQUEST_CROP) {
+            val resultUri: Uri = UCrop.getOutput(data)
             Glide
                     .with(this)
                     .load(resultUri)
                     .into(account_iv_usericon)
-            PostUtil.uploadProfilePic(File(resultUri.toString()),{ Toast.makeText(this,"上传成功", Toast.LENGTH_SHORT).show()},{ long : Long, longl : Long ->Unit},{ t, rc -> toast("rc = $rc")
-                t.printStackTrace()})
-            var cache : File = File(resultUri.toString())
+            PostUtil.uploadProfilePic(File(resultUri.toString()), {
+                Toast.makeText(this, "上传成功", Toast.LENGTH_SHORT).show()
+            }, { t, rc ->
+                toast("rc = $rc")
+                t.printStackTrace()
+            })
+            var cache: File = File(resultUri.toString())
             cache.delete()
 
 
-        } else if(resultCode == UCrop.RESULT_ERROR){
-            val   UCropError  : Throwable  = UCrop.getError(data)
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            val UCropError: Throwable = UCrop.getError(data)
             UCropError.cause
         }
     }
 
-    fun getIcon(){
+    fun getIcon() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),R.string.title_request_permission)}
-        else{
-            val intent : Intent = Intent()
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), R.string.title_request_permission)
+        } else {
+            val intent: Intent = Intent()
             intent.setType("image/*")
             intent.setAction(Intent.ACTION_GET_CONTENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
-            startActivityForResult(Intent.createChooser(intent,"选择头像"),REQUEST_SELECT_PICTURE)
+            startActivityForResult(Intent.createChooser(intent, "选择头像"), REQUEST_SELECT_PICTURE)
 
         }
     }
