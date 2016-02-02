@@ -5,6 +5,10 @@
         android:title="@string/change_icon"
         android:orderInCategory="100" />
     <item
+        android:id="@+id/account_resPwd"
+        android:title="@string/resPwd"
+        android:orderInCategory="100"/>
+    <item
         android:id="@+id/account_menu_out"
         android:title="@string/login_out"
         android:orderInCategory="100" />

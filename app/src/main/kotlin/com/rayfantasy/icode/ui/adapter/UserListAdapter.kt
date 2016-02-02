@@ -61,6 +61,7 @@ class UserListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
                         .bitmapTransform(CropCircleTransformation(activity))
                         .into(holder.usericon)
                 holder.username.text = username
+
             }
             is CodeViewHolder -> {
                 val codeGood = codeGoods[position - 1]

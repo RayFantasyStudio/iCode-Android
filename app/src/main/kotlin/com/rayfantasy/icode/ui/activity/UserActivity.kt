@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_user.*
 import kotlinx.android.synthetic.main.content_user.*
 import org.jetbrains.anko.alert
 import java.util.*
+import org.jetbrains.anko.startActivity
 
 class UserActivity : AppCompatActivity() {
     private lateinit var adapter : UserListAdapter
@@ -24,6 +25,7 @@ class UserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initRecyclerView()
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
@@ -92,6 +94,7 @@ class UserActivity : AppCompatActivity() {
             }
             R.id.account_menu_usericon ->{changeUserIcon()
                 return true}
+            R.id.account_resPwd ->{startActivity<AccountSettingActivity>()}
         }
         return true
     }

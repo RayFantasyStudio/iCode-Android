@@ -11,88 +11,66 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.AccountSettingActivity"
     tools:showIn="@layout/activity_account_setting">
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_account_box_black"
 
-    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/account_setting_icon" />
+<android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:id="@+id/view2">
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="340dp"
-        android:id="@+id/linearLayout">
-
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="129dp"
-            android:id="@+id/imageView2"
-
-            android:src="@mipmap/ic_account_box_black"
-            android:layout_marginTop="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="120dp" />
-    </LinearLayout>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_alignTop="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="186dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="用户名" />
-
-    <EditText
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:hint="@string/oldPwd"
+        android:id="@+id/et_oldPwd"
         android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:hint="原密码" />
-
-    <EditText
-        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true" />
+</android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText3"
-        android:hint="新密码"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/view2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="29dp"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2" />
-
+        android:id="@+id/view3">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:hint="@string/newPwd"
+        android:id="@+id/et_newPwd"
+        android:layout_below="@+id/et_oldPwd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/et_oldPwd"
+        android:layout_alignEnd="@+id/et_oldPwd" />
+    </android.support.design.widget.TextInputLayout>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText4"
-        android:hint="确认密码"
-        android:layout_below="@+id/editText3"
+        android:hint="@string/check_newPwd"
+        android:id="@+id/et_newPwd_check"
+        android:layout_below="@+id/view3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText3"
-        android:layout_alignEnd="@+id/editText3" />
+        android:layout_alignRight="@+id/view3"
+        android:layout_alignEnd="@+id/view3" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="不需要修改的选项无需修改"
-        android:id="@+id/textView"
-        android:layout_below="@+id/editText4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="41dp" />
 
 </RelativeLayout>

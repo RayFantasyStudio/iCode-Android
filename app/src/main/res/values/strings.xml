@@ -55,7 +55,7 @@
     <string name="title_request_permission">需要权限</string>
     <string name="msg_request_permission_read_phone_state">我们需要获得特定权限以确认设备身份，请在接下来弹出的对话框点击“允许”。</string>
     <string name="error_request_permission">获取权限失败</string>
-    <string name="title_activity_account_setting">AccountSettingActivity</string>
+    <string name="title_activity_account_setting">账户设置</string>
     <string name="title_activity_blocks">BlocksActivity</string>
     <string name="block_type_text">文字</string>
     <string name="block_type_code">代码</string>
@@ -66,5 +66,9 @@
     <string name="title_activity_reply">ReplyActivity</string>
     <string name="commit">评论</string>
     <string name="change_icon">更改头像</string>
+    <string name="resPwd">修改密码</string>
+    <string name="oldPwd">原密码</string>
+    <string name="newPwd">新密码</string>
+    <string name="check_newPwd">确认密码</string>
 
 </resources>
