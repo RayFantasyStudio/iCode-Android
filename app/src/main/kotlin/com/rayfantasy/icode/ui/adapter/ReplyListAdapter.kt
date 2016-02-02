@@ -20,17 +20,18 @@ import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
+import com.rayfantasy.icode.extra.CircleTransform
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.util.ms2RelativeDate
-import jp.wasabeef.glide.transformations.CropCircleTransformation
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_reply_list.view.*
 
 class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<ReplyListAdapter.NormalViewHolder>(activity, onLoadingMore) {
+    private val picasso by lazy { Picasso.with(activity) }
     override val normalItemCount: Int
         get() = replyList.size
 
@@ -40,13 +41,12 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         holder.reply.text = replyList.content
         holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
 
-        Glide.with(activity)
-                .load(PostUtil.
-                        getProfilePicUrl(replyList.username!!))
-                .centerCrop()
-                .bitmapTransform(CropCircleTransformation(activity))
-                .error(R.mipmap.ic_user_black)
-                .into(holder.pic )
+        picasso.load(PostUtil.
+                getProfilePicUrl(replyList.username!!))
+                .centerCrop().error(R.mipmap.ic_user_black)
+                .resizeDimen(R.dimen.profile_pic_size, R.dimen.profile_pic_size)
+                .transform(circleTransform)
+                .into(holder.pic)
     }
 
     override fun onCreateNormalViewHolder(parent: ViewGroup, viewType: Int)
@@ -58,5 +58,9 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         val username = itemView.reply_username
         val time = itemView.reply_time
         val reply = itemView.reply_context
+    }
+
+    companion object {
+        private val circleTransform = CircleTransform()
     }
 }

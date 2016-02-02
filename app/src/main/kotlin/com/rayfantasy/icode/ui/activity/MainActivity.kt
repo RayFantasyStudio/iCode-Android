@@ -21,7 +21,6 @@ import com.rayfantasy.icode.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
@@ -93,11 +92,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            alert("确定要退出iCode?","iCode"){
-                positiveButton("确定") { super.onBackPressed() }
-                negativeButton("手滑了"){}
-            }.show()
-
+            super.onBackPressed()
         }
     }
 

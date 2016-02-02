@@ -21,20 +21,21 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
+import com.rayfantasy.icode.extra.CircleTransform
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.activity.BlocksActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
-import jp.wasabeef.glide.transformations.CropCircleTransformation
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
 class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGood>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<CodeListAdapter.NormalViewHolder>(activity, onLoadingMore) {
+    private val picasso by lazy { Picasso.with(activity) }
     override val normalItemCount: Int
         get() = codeGoods.size
 
@@ -55,13 +56,12 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
             holder.username.setTextColor(Color.rgb(140, 140, 140))
             holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
         }
-        Glide.with(activity)
-                .load(PostUtil.
-                        getProfilePicUrl(codeGood.username!!))
-                .centerCrop()
-                .bitmapTransform(CropCircleTransformation(activity))
-                .error(R.mipmap.ic_user_black)
-                .into(holder.pic )
+        picasso.load(PostUtil
+                .getProfilePicUrl(codeGood.username!!))
+                .centerCrop().error(R.mipmap.ic_user_black)
+                .resizeDimen(R.dimen.profile_pic_size, R.dimen.profile_pic_size)
+                .transform(circleTransform)
+                .into(holder.pic)
         holder.bg.onClick {
             activity.startActivity<BlocksActivity>("codeGood" to codeGood)
         }
@@ -77,5 +77,9 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         val title = itemView.title
         val subTitle = itemView.sub_title
         val bg = itemView.element_bg
+    }
+
+    companion object {
+        private val circleTransform = CircleTransform()
     }
 }
