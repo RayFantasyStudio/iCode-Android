@@ -44,6 +44,7 @@ class AccountSettingActivity : ActivityBase() {
         account_setting_icon.onClick {
             changeUserIcon()
         }
+        Glide.with(this).load(PostUtil.getProfilePicUrl(PostUtil.user!!.username)).bitmapTransform(CropCircleTransformation(this)).into(account_setting_icon)
     }
 
     //重置密码

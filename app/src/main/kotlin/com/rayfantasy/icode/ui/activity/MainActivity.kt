@@ -79,19 +79,18 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
 
             startActivity(Intent(this, WriteCodeActivity::class.java))
         }
-        if (PostUtil.user != null) {
-            glide.load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
-                    .bitmapTransform(circleTransformation)
-                    .into(nav_view.getHeaderView(0).nv_user_icon)
 
-        }
 
     }
 
     private fun refreshUserState() {
-        val username1 = PostUtil.user?.username
-        nav_view.getHeaderView(0).nv_username.text = username1
-        /*      Glide.with(this@MainActivity).load(postUtil.getProfilePicUrl(username1!!)).into(nav_view.getHeaderView(0).nv_user_icon)*/
+        if (PostUtil.user != null) {
+            nav_view.getHeaderView(0).nv_username.text = (PostUtil.user as User).username
+            glide.load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
+                    .bitmapTransform(circleTransformation)
+                    .into(nav_view.getHeaderView(0).nv_user_icon)
+        }
+
     }
 
 
@@ -166,15 +165,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             app_bar.setExpanded(false)
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.main_contain, fragment).commit()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        /*        if(postUtil?.user != null){
-            username = postUtil!!.user!!.username.toString()
-            nv_username.text = username
-        }
-    }*/
     }
 }
 

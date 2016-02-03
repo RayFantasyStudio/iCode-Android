@@ -50,6 +50,7 @@ dependencies {
     compile "com.android.support:cardview-v7:$supportVersion"
     compile "com.android.support:recyclerview-v7:$supportVersion"
     compile "com.android.support:support-v4:$supportVersion"
+    compile "com.android.support:palette-v7:$supportVersion"
 
     //kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
@@ -113,6 +114,8 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
     compile 'com.github.jd-alexander:LikeButton:0.1.8'
+
+
 }
 
 bugly {

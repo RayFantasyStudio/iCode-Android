@@ -13,7 +13,7 @@
   ~  See the License for the specific language governing permissions and
   ~  limitations under the License.
   -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="top"
@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="211dp"
         android:background="@color/colorPrimary"
+        android:id="@+id/nv_bg"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -54,4 +55,4 @@
             android:layout_marginBottom="16dp" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
