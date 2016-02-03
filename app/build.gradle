@@ -32,12 +32,17 @@ android {
     defaultConfig {
         manifestPlaceholders = [BUGLY_APP_ID_VALUE: buglyProps['appId']]
     }
+
+    dataBinding { enabled true }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:3.0"
+
+    //android data binding
+    kapt 'com.android.databinding:compiler:1.0-rc5'
 
     //android support
     compile "com.android.support:appcompat-v7:$supportVersion"
@@ -125,4 +130,8 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
     }
+}
+
+kapt {
+    generateStubs = true
 }

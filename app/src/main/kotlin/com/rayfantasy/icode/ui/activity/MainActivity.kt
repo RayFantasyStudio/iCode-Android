@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.content.LocalBroadcastManager
@@ -13,10 +15,11 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityMainBinding
 import com.rayfantasy.icode.extension.alert
+import com.rayfantasy.icode.model.Theme
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
@@ -24,16 +27,16 @@ import com.rayfantasy.icode.ui.fragment.*
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.nv_layout.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
+import org.jetbrains.anko.async
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
 class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
 
     private val aboutFragment by lazy { AboutFragment() }
-    private val glide by lazy{ Glide.with(this)}
-    private val circleTransformation    by lazy{CropCircleTransformation(this) }
+    private val glide by lazy { Glide.with(this) }
+    private val circleTransformation    by lazy { CropCircleTransformation(this) }
     private val favoriteFragment by lazy { FavoriteFragment() }
     private val mainFragment by lazy { MainFragment() }
     private val payFragment by lazy { PayFragment() }
@@ -45,11 +48,19 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             refreshUserState()
         }
     }
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val theme = Theme(Color.RED)
+        binding.theme = theme
+
+        async() {
+            Thread.sleep(3000)
+            theme.colorPrimary.set(Color.GREEN)
+        }
 
         replaceFragment(mainFragment)
 
@@ -76,10 +87,10 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
 
             startActivity(Intent(this, WriteCodeActivity::class.java))
         }
-        if (PostUtil.user != null){
+        if (PostUtil.user != null) {
             glide.load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
-                 .bitmapTransform(circleTransformation)
-                 .into(nav_view.getHeaderView(0).nv_user_icon)
+                    .bitmapTransform(circleTransformation)
+                    .into(nav_view.getHeaderView(0).nv_user_icon)
 
         }
 
