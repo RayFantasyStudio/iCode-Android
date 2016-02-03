@@ -20,12 +20,13 @@ import com.yalantis.ucrop.UCrop
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.content_account_setting.*
-import org.jetbrains.anko.image
 import org.jetbrains.anko.onClick
 import java.io.File
 import java.net.URI
 
 class AccountSettingActivity : ActivityBase() {
+    private val glide by lazy { Glide.with(this) }
+    private val circleTransformation by lazy { CropCircleTransformation(this) }
     final val REQUEST_SELECT_PICTURE: Int = 0x01
     lateinit var tagetUri: Uri
     lateinit var DestinationUri: Uri
@@ -47,13 +48,9 @@ class AccountSettingActivity : ActivityBase() {
         account_setting_icon.onClick {
             changeUserIcon()
         }
-        if (PostUtil.getProfilePicUrl(PostUtil.user!!.username) != null) {
-            Glide.with(this).load(PostUtil.getProfilePicUrl(PostUtil.user!!.username)).bitmapTransform(CropCircleTransformation(this)).into(account_setting_icon)
-        }else{
-            val str : String = PostUtil.user!!.username
-            val icon : TextDrawable = TextDrawable.builder().buildRound((str[0]-32).toString(),str.hashCode())
-            account_setting_icon.setImageDrawable(icon)
-        }
+        val str: String = PostUtil.user!!.username
+        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
+        glide.load(PostUtil.getProfilePicUrl(str)).error(icon).bitmapTransform(circleTransformation).into(account_setting_icon)
     }
 
     //重置密码
@@ -125,7 +122,7 @@ class AccountSettingActivity : ActivityBase() {
                 account_setting_fab.snackBar("上传成功", Snackbar.LENGTH_LONG)
                 cache.delete()
             }, { t, rc ->
-                account_setting_fab.snackBar("上传失败，错误代码：$rc", Snackbar.LENGTH_LONG)
+                account_setting_fab.snackBar("上传失败，错误:${com.rayfantasy.icode.util.error("uploadProfilePic", rc, this) }", Snackbar.LENGTH_LONG)
                 t.printStackTrace()
             })
         } else if (resultCode == UCrop.RESULT_ERROR) {

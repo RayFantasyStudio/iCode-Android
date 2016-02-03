@@ -91,7 +91,7 @@ class RegisterActivity : ActivityBase() {
                 },
                 { t, rc ->
                     e("failed, rc = $rc")
-                    register_fab.snackBar("注册失败", Snackbar.LENGTH_LONG)
+                    register_fab.snackBar("注册失败，错误:${com.rayfantasy.icode.util.error("registerUser", rc, this) }", Snackbar.LENGTH_LONG)
                     request = null
                 })
     }

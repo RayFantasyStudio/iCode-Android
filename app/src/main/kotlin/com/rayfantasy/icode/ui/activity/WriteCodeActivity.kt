@@ -13,6 +13,7 @@ import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
 import com.rayfantasy.icode.ui.adapter.EditBlockAdapter
+import com.rayfantasy.icode.util.error
 import kotlinx.android.synthetic.main.activity_write_code.*
 import kotlinx.android.synthetic.main.content_write_code.*
 import org.jetbrains.anko.longToast
@@ -53,7 +54,7 @@ class WriteCodeActivity : ActivityBase() {
                     { t, rc ->
                         e("failed, rc =  $rc")
                         /*longToast("发布失败, rc =  $rc")*/
-                        write_code_tv_fab.snackBar("上传失败，错误代码：$rc",Snackbar.LENGTH_LONG)
+                        write_code_tv_fab.snackBar("上传失败，错误:${error("insertCodeGood",rc,this) }",Snackbar.LENGTH_LONG)
                         request = null
                     })
         }
