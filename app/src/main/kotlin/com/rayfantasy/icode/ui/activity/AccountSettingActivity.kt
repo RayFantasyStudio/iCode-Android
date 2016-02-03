@@ -3,12 +3,14 @@ package com.rayfantasy.icode.ui.activity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.ActivityCompat
+import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.snackBar
@@ -18,6 +20,7 @@ import com.yalantis.ucrop.UCrop
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.content_account_setting.*
+import org.jetbrains.anko.image
 import org.jetbrains.anko.onClick
 import java.io.File
 import java.net.URI
@@ -44,7 +47,13 @@ class AccountSettingActivity : ActivityBase() {
         account_setting_icon.onClick {
             changeUserIcon()
         }
-        Glide.with(this).load(PostUtil.getProfilePicUrl(PostUtil.user!!.username)).bitmapTransform(CropCircleTransformation(this)).into(account_setting_icon)
+        if (PostUtil.getProfilePicUrl(PostUtil.user!!.username) != null) {
+            Glide.with(this).load(PostUtil.getProfilePicUrl(PostUtil.user!!.username)).bitmapTransform(CropCircleTransformation(this)).into(account_setting_icon)
+        }else{
+            val str : String = PostUtil.user!!.username
+            val icon : TextDrawable = TextDrawable.builder().buildRound((str[0]-32).toString(),str.hashCode())
+            account_setting_icon.setImageDrawable(icon)
+        }
     }
 
     //重置密码

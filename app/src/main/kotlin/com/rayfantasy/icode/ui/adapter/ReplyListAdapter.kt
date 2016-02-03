@@ -20,6 +20,7 @@ import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
@@ -44,12 +45,9 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         holder.username.text = replyList.username
         holder.reply.text = replyList.content
         holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
-
-        glide
-                .load(PostUtil.getProfilePicUrl(replyList.username!!))
-                .error(R.mipmap.ic_user_black)
-                .bitmapTransform(circleTransformation)
-                .into(holder.pic)
+        val str: String = replyList.username
+        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
+        glide.load(PostUtil.getProfilePicUrl(replyList.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
         holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
     }
 

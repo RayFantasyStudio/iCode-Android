@@ -38,13 +38,13 @@ class BlocksActivity : ActivityBase() {
                             content = it
                             save()
                         }
-                        recyclerView.adapter = BlockAdapter(PostUtil.gson.fromJson(codeGood.content))
+                        recyclerView.adapter = BlockAdapter(codeGood,PostUtil.gson.fromJson(codeGood.content))
                     }, { t, rc ->
                 toast("rc = $rc")
                 t.printStackTrace()
             })
         else
-            recyclerView.adapter = BlockAdapter(PostUtil.gson.fromJson(codeGood.content))
+            recyclerView.adapter = BlockAdapter(codeGood,PostUtil.gson.fromJson(codeGood.content))
         block_fab.onClick { toReply() }
     }
     fun toReply(){

@@ -6,12 +6,15 @@ import android.view.ViewGroup
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.postutil.bean.CodeGood
+import kotlinx.android.synthetic.main.item_block_favorite.view.*
 import kotlinx.android.synthetic.main.item_block_text.view.*
+import kotlinx.android.synthetic.main.item_block_title.view.*
 import org.evilbinary.highliter.HighlightEditText
 import org.evilbinary.managers.Configure
 
-class BlockAdapter(val blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+class BlockAdapter(val  codeGood: CodeGood,val blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val TITLE_VIEW = 998
+    private val FAVORITE_VIEW = 999
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         val block = blocks[position]
         when (holder) {
@@ -22,18 +25,25 @@ class BlockAdapter(val blocks: List<CodeGood.Block>) : RecyclerView.Adapter<Recy
                 holder.highlight.setSource(block.content)
             }
             is TextViewHolder -> holder.content.text = block.content
+            is TitleViewHolder ->{
+                holder.username.text = codeGood.username
+                holder.subtitle.text = codeGood.subtitle
+            }
         }
+
     }
 
     override fun getItemCount() = blocks.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code))
+        TITLE_VIEW -> TitleViewHolder(parent.inflate(R.layout.item_block_title))
+        FAVORITE_VIEW -> FavoriteViewHolder(parent.inflate(R.layout.item_block_favorite))
         else -> TextViewHolder(parent.inflate(R.layout.item_block_text))
+
     }
 
-    override fun getItemViewType(position: Int)
-            = blocks[position].blockType
+    override fun getItemViewType(position: Int) = blocks[position].blockType
 
     class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val content = itemView.tv_text
@@ -50,5 +60,14 @@ class BlockAdapter(val blocks: List<CodeGood.Block>) : RecyclerView.Adapter<Recy
             highlight.background = null
             (itemView as ViewGroup).addView(highlight)
         }
+    }
+    class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        val username = itemView.block_username
+        val subtitle = itemView.block_sub_title
+        val usericon = itemView.block_userIcon
+    }
+    class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        val favorite = itemView.favo_btn
+        val favo_count = itemView.favo_count
     }
 }

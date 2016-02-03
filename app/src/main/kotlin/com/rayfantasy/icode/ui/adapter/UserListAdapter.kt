@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
@@ -61,6 +62,9 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
                         .bitmapTransform(circleTransformation)
                         .into(holder.usericon)
                 holder.username.text = username
+                val str: String = PostUtil.user!!.username
+                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
+                glide.load(PostUtil.getProfilePicUrl(str)).error(icon).bitmapTransform(circleTransformation).into(holder.usericon)
 
             }
             is CodeViewHolder -> {
@@ -80,11 +84,9 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
                     holder.username.setTextColor(Color.rgb(140, 140, 140))
                     holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
                 }
-                glide
-                        .load(PostUtil.getProfilePicUrl(codeGood.username!!))
-                        .error(R.mipmap.ic_user_black)
-                        .bitmapTransform(circleTransformation)
-                        .into(holder.pic)
+                val str: String = codeGood.username
+                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
+                glide.load(PostUtil.getProfilePicUrl(codeGood.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
                 holder.bg.onClick {
                     activity.startActivity<BlocksActivity>("codeGood" to codeGood)
                 }

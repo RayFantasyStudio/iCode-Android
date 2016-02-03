@@ -21,6 +21,7 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
@@ -48,6 +49,9 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         holder.subTitle.text = codeGood.subtitle
         holder.time.text = ms2RelativeDate(activity, codeGood.createAt!!)
         holder.username.text = codeGood.username
+                val str: String = codeGood.username
+                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
+                glide.load(PostUtil.getProfilePicUrl(codeGood.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
         holder.pic.onClick {
             activity.startActivity<UserActivity>("username" to codeGood.username.toString())
         }
@@ -61,12 +65,7 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
             holder.username.setTextColor(Color.rgb(140, 140, 140))
             holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
         }
-        glide
-                .load(PostUtil.getProfilePicUrl(codeGood.username!!))
-                .error(R.mipmap.ic_user_black)
-                .bitmapTransform(circleTransformation)
-                .into(holder.pic)
-        holder.pic
+
         holder.bg.onClick {
             activity.startActivity<BlocksActivity>("codeGood" to codeGood)
         }

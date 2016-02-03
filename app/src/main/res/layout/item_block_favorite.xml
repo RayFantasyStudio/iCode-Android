@@ -10,7 +10,7 @@
     <com.like.LikeButton
         app:icon_type="heart"
         app:icon_size="30dp"
-        android:id="@+id/star_button"
+        android:id="@+id/favo_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,11 +22,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+999"
+        android:id="@+id/favo_count"
         android:gravity="center"
         android:textColor="#fff"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/star_button"
-        android:layout_alignEnd="@+id/star_button"
+        android:layout_alignRight="@+id/favo_btn"
+        android:layout_alignEnd="@+id/favo_btn"
         android:layout_marginTop="30dp"
         android:layout_marginRight="28dp" />
     <TextView
