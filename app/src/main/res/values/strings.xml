@@ -71,5 +71,6 @@
     <string name="newPwd">新密码</string>
     <string name="check_newPwd">确认密码</string>
     <string name="set_account">修改账号</string>
+    <string name="add_code_favorite">把它加入收藏列表</string>
 
 </resources>
