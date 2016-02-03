@@ -20,6 +20,7 @@ import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import com.raizlabs.android.dbflow.config.FlowManager
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.v
 import com.squareup.leakcanary.LeakCanary
@@ -35,6 +36,12 @@ var FILES_PATH by Delegates.notNull<String>()
 
 class BaseApplication : Application() {
     private lateinit var refWatcher: RefWatcher
+    val _iCodeTheme by lazy {
+        val colorPrimary = resources.getColor(R.color.colorPrimary)
+        val colorPrimaryDark = resources.getColor(R.color.colorPrimaryDark)
+        val colorAccent = resources.getColor(R.color.colorAccent)
+        ICodeTheme(colorPrimary, colorPrimaryDark, colorAccent)
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -70,3 +77,6 @@ class BaseApplication : Application() {
         }
     }
 }
+
+val Context.iCodeTheme: ICodeTheme
+    get() = (applicationContext as BaseApplication)._iCodeTheme
