@@ -32,16 +32,17 @@ class MainFragment : FragmentBase() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view?.swipe_layout?.onRefresh {
-            loadCodeGoods(false)
+            loadCodeGoods(true)
         }
 
         initRecyclerView()
+        loadCodeGoods(true)
     }
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.recyclerView.layoutManager = layoutManager
-        adapter = CodeListAdapter(activity, SetUniqueList.setUniqueList(getCacheData())) { loadCodeGoods(true) }
+        adapter = CodeListAdapter(activity, SetUniqueList.setUniqueList(getCacheData())) { loadCodeGoods(false) }
         view.recyclerView.adapter = adapter
     }
 
@@ -89,11 +90,6 @@ class MainFragment : FragmentBase() {
             request = null
             adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
         })
-    }
-
-    override fun onStart() {
-        super.onStart()
-        loadCodeGoods(false)
     }
 
     override fun onStop() {
