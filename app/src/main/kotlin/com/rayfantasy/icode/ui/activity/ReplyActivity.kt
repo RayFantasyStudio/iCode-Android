@@ -31,7 +31,6 @@ class ReplyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reply)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-        title = "评论"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getSerializableExtra("id") as Int
         reply_swip?.onRefresh {

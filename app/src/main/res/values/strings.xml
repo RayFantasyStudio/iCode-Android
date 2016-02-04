@@ -41,6 +41,7 @@
     <string name="title_activity_comment">CommentActivity</string>
     <string name="login_out">退出账户</string>
     <string name="falied_reg">注册失败</string>
+    <string name="not_Login">未登录</string>
 
     <!--RelativeDateFormat-->
     <string name="one_second_ago">%1$s秒前</string>
@@ -49,9 +50,22 @@
     <string name="one_day_ago">%1$s天前</string>
     <string name="one_month_ago">%1$s个月前</string>
     <string name="one_year_ago">%1$s年前</string>
+
+    <!--DialogMessage-->
+    <string name="exit_user_msg">确定要退出账户？</string>
+    <string name="exit_icode_msg">确定要退出iCode?</string>
+    <string name="ok_btn">确定</string>
+    <string name="no_btn">否</string>
+    <string name="cannot_upload">上传失败，错误：</string>
+    <string name="upload_success">上传成功</string>
+    <string name="sign_up_failed">注册失败，错误：</string>
+    <string name="sign_in_failed">登录失败，错误：</string>
+    <string name="welcome_to_icode">欢迎加入iCode</string>
+
+    <!--ActivityTitle-->
     <string name="title_activity_write_code">撰写代码</string>
     <string name="title_activity_code_view">CodeViewActivity</string>
-    <string name="title_activity_reply_list">ReplyListActivity</string>
+    <string name="title_activity_reply_list">评论</string>
     <string name="title_request_permission">需要权限</string>
     <string name="msg_request_permission_read_phone_state">我们需要获得特定权限以确认设备身份，请在接下来弹出的对话框点击“允许”。</string>
     <string name="error_request_permission">获取权限失败</string>
@@ -96,8 +110,8 @@
     <string name="id_is_empty_error">id为空</string>
     <string name="cannot_find_id_in_codegood_database_error">在数据库中根据id找不到对应的对象</string>
     <string name="unknow_error">未知错误</string>
-
-
+    <string name="update">更新</string>
+    <string name="version">版本：Null</string>
 
 
 </resources>

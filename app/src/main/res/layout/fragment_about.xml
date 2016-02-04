@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="版本：Null"
+        android:text="@string/version"
         android:id="@+id/AboutFragment_iv_version"
         android:layout_gravity="center"
         android:layout_marginTop="50dp" />

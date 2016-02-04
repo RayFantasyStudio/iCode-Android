@@ -29,7 +29,6 @@ class RegisterActivity : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        toolbar.setLogo(R.mipmap.ic_launcher)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         register_fab.onClick {
             val password = register_et_password.string
@@ -86,12 +85,12 @@ class RegisterActivity : ActivityBase() {
                 username,
                 password,
                 {
-                    register_fab.snackBar("欢迎加入iCode, ${it.username}")
+                    register_fab.snackBar("${getText(R.string.welcome_to_icode)}, ${it.username}")
                     request = null
                 },
                 { t, rc ->
                     e("failed, rc = $rc")
-                    register_fab.snackBar("注册失败，错误:${com.rayfantasy.icode.util.error("registerUser", rc, this) }", Snackbar.LENGTH_LONG)
+                    register_fab.snackBar("${getText(R.string.sign_up_failed)}${com.rayfantasy.icode.util.error("registerUser", rc, this) }", Snackbar.LENGTH_LONG)
                     request = null
                 })
     }

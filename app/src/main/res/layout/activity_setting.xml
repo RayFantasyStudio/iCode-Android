@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:singleLine="true"
-            android:text="更新"
+            android:text="@string/update"
             android:textColor="#8C8C8C"
             android:textSize="20sp" />
 
