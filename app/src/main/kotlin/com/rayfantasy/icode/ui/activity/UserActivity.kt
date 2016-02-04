@@ -10,8 +10,12 @@ import com.android.volley.Request
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.adapter.UserListAdapter
+import com.rayfantasy.icode.util.getStringResources
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_user.*
 import kotlinx.android.synthetic.main.content_user.*
+import kotlinx.android.synthetic.main.nv_layout.*
+import kotlinx.android.synthetic.main.nv_layout.view.*
 import org.jetbrains.anko.alert
 import java.util.*
 import org.jetbrains.anko.startActivity
@@ -74,9 +78,7 @@ class UserActivity : AppCompatActivity() {
         }
         )
     }
-    fun changeUserIcon(){
 
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (PostUtil.user?.username == username){
@@ -91,9 +93,14 @@ class UserActivity : AppCompatActivity() {
         val id = item!!.itemId
         when (id){
             R.id.account_menu_out ->{
-                alert("确定退出账户？","iCode") {
-                    positiveButton("确定") {  PostUtil.logoutUser(); finish() }
-                    negativeButton("手滑了") {  }
+                alert(getString(R.string.exit_user_msg),getString(R.string.app_name)) {
+                    positiveButton(getString(R.string.ok_btn)) {
+                        PostUtil.logoutUser()
+                       nv_user_icon.setImageResource(R.mipmap.ic_nv_user)
+                       nv_username.text = getText(R.string.not_Login)
+                        finish()
+                    }
+                    negativeButton(getString(R.string.no_btn)) {  }
                 }.show()
 
                 return true

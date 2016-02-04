@@ -40,7 +40,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     private val payFragment by lazy { PayFragment() }
     private val settingFragment by lazy { SettingFragment() }
     private lateinit var broadcastManager: LocalBroadcastManager
-    private var username: String = "未登录"
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             refreshUserState()
@@ -53,14 +52,12 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.theme = iCodeTheme
-
         replaceFragment(mainFragment)
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.setDrawerListener(toggle)
         toggle.syncState()
-        //db_manager.initTable(this)
         nav_view.setNavigationItemSelectedListener(this)
 
         refreshUserState()
@@ -104,9 +101,9 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            alert("确定要退出iCode?", "iCode") {
-                positiveButton("确定") { super.onBackPressed() }
-                negativeButton("手滑了") {}
+            alert(getString(R.string.exit_icode_msg), getString(R.string.app_name)) {
+                positiveButton(getString(R.string.ok_btn)) { super.onBackPressed() }
+                negativeButton(getString(R.string.no_btn)) {}
             }.show()
         }
     }

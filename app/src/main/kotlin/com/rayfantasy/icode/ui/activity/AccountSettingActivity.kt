@@ -119,10 +119,10 @@ class AccountSettingActivity : ActivityBase() {
             val cache: File = File(URI(resultUri.toString()))
             e("exist = ${cache.exists()}, length = ${cache.length()}")
             PostUtil.uploadProfilePic(cache, {
-                account_setting_fab.snackBar("上传成功", Snackbar.LENGTH_LONG)
+                account_setting_fab.snackBar(getString(R.string.upload_success), Snackbar.LENGTH_LONG)
                 cache.delete()
             }, { t, rc ->
-                account_setting_fab.snackBar("上传失败，错误:${com.rayfantasy.icode.util.error("uploadProfilePic", rc, this) }", Snackbar.LENGTH_LONG)
+                account_setting_fab.snackBar("${getString(R.string.cannot_upload)}${com.rayfantasy.icode.util.error("uploadProfilePic", rc, this) }", Snackbar.LENGTH_LONG)
                 t.printStackTrace()
             })
         } else if (resultCode == UCrop.RESULT_ERROR) {

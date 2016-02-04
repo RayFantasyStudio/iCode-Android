@@ -46,15 +46,13 @@ class WriteCodeActivity : ActivityBase() {
                     blockAdapter.subTitle,
                     blockAdapter.content),
                     {
-                        write_code_tv_fab.snackBar("上传成功",Snackbar.LENGTH_LONG)
-                        /*toast("Success")*/
+                        write_code_tv_fab.snackBar(getText(R.string.upload_success),Snackbar.LENGTH_LONG)
                         finish()
                         request = null
                     },
                     { t, rc ->
                         e("failed, rc =  $rc")
-                        /*longToast("发布失败, rc =  $rc")*/
-                        write_code_tv_fab.snackBar("上传失败，错误:${error("insertCodeGood",rc,this) }",Snackbar.LENGTH_LONG)
+                        write_code_tv_fab.snackBar("${getText(R.string.cannot_upload)}${error("insertCodeGood",rc,this)}",Snackbar.LENGTH_LONG)
                         request = null
                     })
         }
