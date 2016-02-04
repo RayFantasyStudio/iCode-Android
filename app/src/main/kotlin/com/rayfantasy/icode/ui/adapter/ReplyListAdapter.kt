@@ -46,7 +46,7 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         holder.reply.text = replyList.content
         holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
         val str: String = replyList.username
-        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0]).toString(), str.hashCode())
+        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
         glide.load(PostUtil.getProfilePicUrl(replyList.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
         holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
     }

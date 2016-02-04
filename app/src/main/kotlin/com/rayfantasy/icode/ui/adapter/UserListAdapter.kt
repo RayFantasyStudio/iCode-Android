@@ -63,7 +63,7 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
                         .into(holder.usericon)
                 holder.username.text = username
                 val str: String = PostUtil.user!!.username
-                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0]).toString(), str.hashCode())
+                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
                 glide.load(PostUtil.getProfilePicUrl(str)).error(icon).bitmapTransform(circleTransformation).into(holder.usericon)
 
             }
