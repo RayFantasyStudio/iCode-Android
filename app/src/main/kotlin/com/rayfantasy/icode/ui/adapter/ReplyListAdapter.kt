@@ -20,35 +20,28 @@ import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.amulyakhare.textdrawable.TextDrawable
-import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
-import com.rayfantasy.icode.postutil.PostUtil
+import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
-import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.item_recycler_reply_list.view.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
 class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<ReplyListAdapter.NormalViewHolder>(activity, onLoadingMore) {
-    private val glide by lazy { Glide.with(activity) }
-    private val circleTransformation by lazy { CropCircleTransformation(activity) }
     override val normalItemCount: Int
         get() = replyList.size
 
     override fun onBindNormalViewHolder(holder: NormalViewHolder, position: Int) {
-        val replyList = replyList[position]
-        holder.username.text = replyList.username
-        holder.reply.text = replyList.content
-        holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
-        val str: String = replyList.username
-        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
-        glide.load(PostUtil.getProfilePicUrl(replyList.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
-        holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
+        val reply = replyList[position]
+        holder.username.text = reply.username
+        holder.reply.text = reply.content
+        holder.time.text = ms2RelativeDate(activity, reply.createAt!!)
+        holder.pic.loadPortrait(reply.username)
+        holder.pic.onClick { activity.startActivity<UserActivity>("username" to reply.username.toString()) }
     }
 
     override fun onCreateNormalViewHolder(parent: ViewGroup, viewType: Int)

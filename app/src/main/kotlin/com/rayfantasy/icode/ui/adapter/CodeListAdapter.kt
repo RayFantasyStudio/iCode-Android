@@ -21,24 +21,19 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.amulyakhare.textdrawable.TextDrawable
-import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
+import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.postutil.bean.CodeGood
-import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.activity.BlocksActivity
 import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
-import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
 class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGood>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<CodeListAdapter.NormalViewHolder>(activity, onLoadingMore) {
-    private val glide by lazy { Glide.with(activity) }
-    private val circleTransformation by lazy { CropCircleTransformation(activity) }
     override val normalItemCount: Int
         get() = codeGoods.size
 
@@ -49,9 +44,7 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         holder.subTitle.text = codeGood.subtitle
         holder.time.text = ms2RelativeDate(activity, codeGood.createAt!!)
         holder.username.text = codeGood.username
-                val str: String = codeGood.username
-                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
-                glide.load(PostUtil.getProfilePicUrl(codeGood.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
+        holder.pic.loadPortrait(codeGood.username)
         holder.pic.onClick {
             activity.startActivity<UserActivity>("username" to codeGood.username.toString())
         }
