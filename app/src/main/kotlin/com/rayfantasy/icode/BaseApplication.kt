@@ -40,7 +40,7 @@ class BaseApplication : Application() {
         val colorPrimary = resources.getColor(R.color.colorPrimary)
         val colorPrimaryDark = resources.getColor(R.color.colorPrimaryDark)
         val colorAccent = resources.getColor(R.color.colorAccent)
-        ICodeTheme(colorPrimary, colorPrimaryDark, colorAccent)
+        ICodeTheme(colorPrimary, colorPrimaryDark, colorAccent, R.mipmap.ic_reply_white)
     }
 
     override fun onCreate() {

@@ -18,10 +18,12 @@ package com.rayfantasy.icode.model
 
 import android.databinding.ObservableInt
 
-class ICodeTheme(colorPrimary: Int, colorPrimaryDark: Int, colorAccent: Int) {
+class ICodeTheme(colorPrimary: Int, colorPrimaryDark: Int, colorAccent: Int, icon: Int) {
     val colorPrimary = ObservableInt(colorPrimary)
 
     val colorPrimaryDark = ObservableInt(colorPrimaryDark)
 
     val colorAccent = ObservableInt(colorAccent)
+
+    val icon = ObservableInt(icon)
 }

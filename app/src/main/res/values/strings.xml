@@ -37,6 +37,7 @@
     <string name="prompt_password">密码</string>
     <string name="validation_name_length">用户名必须大于等于3个字符</string>
     <string name="validation_password_length">密码必须大于等于7个字符</string>
+    <string name="validation_name_illegal">用户名不合法</string>
     <string name="title_activity_register">注册您的账户</string>
     <string name="title_activity_comment">CommentActivity</string>
     <string name="login_out">退出账户</string>

@@ -17,6 +17,7 @@ import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.ui.adapter.ReplyListAdapter
 import kotlinx.android.synthetic.main.activity_reply.*
 import kotlinx.android.synthetic.main.content_reply.*
+import kotlinx.android.synthetic.main.item_recycler_reply_list.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.support.v4.onRefresh
 
@@ -82,9 +83,7 @@ class ReplyActivity : AppCompatActivity() {
             adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
         })
     }
-    fun sentReply(){
-      
-    }
+
     override fun onDestroy() {
         super.onDestroy()
         loadReplys(false)
@@ -101,4 +100,7 @@ class ReplyActivity : AppCompatActivity() {
             .from(Reply::class.java)
             .orderBy(Reply_Table.createat, false)
             .queryList()
+
 }
+
+
