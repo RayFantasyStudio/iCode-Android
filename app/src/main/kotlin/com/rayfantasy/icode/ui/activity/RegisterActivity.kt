@@ -14,6 +14,7 @@ import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.extension.string
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
+import com.rayfantasy.icode.util.checkName
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.content_register.*
 import org.jetbrains.anko.alert
@@ -74,6 +75,9 @@ class RegisterActivity : ActivityBase() {
         if (password.length < 7) {
             (register_et_password.parent as TextInputLayout).error = getString(R.string.validation_password_length)
             return false
+        }
+        if (!checkName(username)){
+            (register_et_username.parent as TextInputLayout).error = getString(R.string.validation_name_illegal)
         }
         return true
     }
