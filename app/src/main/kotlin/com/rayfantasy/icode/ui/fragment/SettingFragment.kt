@@ -15,7 +15,7 @@ class SettingFragment : PreferenceFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addPreferencesFromResource(R.xml.settings)
+        /*addPreferencesFromResource(R.xml.settings)*/
         license = findPreference("licenses") as Preference
         license.onPreferenceClickListener = OnPreferenceClickListener {
             val PreKey = "licenses"

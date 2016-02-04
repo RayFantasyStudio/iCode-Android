@@ -2,6 +2,7 @@ package com.rayfantasy.icode.ui.activity
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
@@ -10,8 +11,10 @@ import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import com.android.volley.Request
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityMainBinding
 import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.extension.string
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
 import com.rayfantasy.icode.util.checkName
@@ -26,10 +29,11 @@ class RegisterActivity : ActivityBase() {
     }
 
     private var request: Request<*>? = null
-
+    private lateinit  var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_register)
+        binding.theme = iCodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         register_fab.onClick {
             val password = register_et_password.string

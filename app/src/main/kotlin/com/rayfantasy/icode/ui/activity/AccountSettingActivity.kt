@@ -49,7 +49,7 @@ class AccountSettingActivity : ActivityBase() {
             changeUserIcon()
         }
         val str: String = PostUtil.user!!.username
-        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
+        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0]).toString(), str.hashCode())
         glide.load(PostUtil.getProfilePicUrl(str)).error(icon).bitmapTransform(circleTransformation).into(account_setting_icon)
     }
 

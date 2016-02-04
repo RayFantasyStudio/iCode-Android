@@ -1,10 +1,13 @@
 package com.rayfantasy.icode.ui.activity
 
 import android.content.Intent
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityMainBinding
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.extension.fromJson
@@ -18,13 +21,16 @@ import org.jetbrains.anko.startActivity
 
 class BlocksActivity : ActivityBase() {
     private lateinit var codeGood: CodeGood
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_blocks)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_blocks)
+        binding.theme = iCodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         codeGood = intent.getSerializableExtra("codeGood") as CodeGood
         title = codeGood.title
+
         toolbar.subtitle = codeGood.subtitle
         with(recyclerView) {
             layoutManager = LinearLayoutManager(this@BlocksActivity)
