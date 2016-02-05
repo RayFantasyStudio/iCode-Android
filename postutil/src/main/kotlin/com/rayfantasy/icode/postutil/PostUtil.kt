@@ -322,7 +322,7 @@ object PostUtil {
     }
 
     private fun saveUserInfo() {
-        preferences.edit().putString("user_key", key).putString("user_name", user!!.username).putInt("user_id", user!!.id!!).putLong("user_createat", user!!.createAt!!).apply()
+        preferences.edit().putString("user_key", key).putString("user_name", user!!.username).putInt("user_id", user!!.id).putLong("user_createat", user!!.createAt!!).apply()
     }
 
     private fun loadUserInfo() {

@@ -3,7 +3,6 @@ package com.rayfantasy.icode.ui.activity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -108,8 +107,8 @@ class AccountSettingActivity : ActivityBase() {
             }
 
         }
-        if (requestCode == UCrop.REQUEST_CROP) {
-            val resultUri: Uri = UCrop.getOutput(data)
+        if (requestCode == UCrop.REQUEST_CROP && data is Intent) {
+            val resultUri = UCrop.getOutput(data)
             Glide
                     .with(this)
                     .load(resultUri)
@@ -125,9 +124,9 @@ class AccountSettingActivity : ActivityBase() {
                 account_setting_fab.snackBar("${getString(R.string.cannot_upload)}${com.rayfantasy.icode.util.error("uploadProfilePic", rc, this) }", Snackbar.LENGTH_LONG)
                 t.printStackTrace()
             })
-        } else if (resultCode == UCrop.RESULT_ERROR) {
-            val UCropError: Throwable = UCrop.getError(data)
-            UCropError.cause
+        } else if (resultCode == UCrop.RESULT_ERROR && data is Intent) {
+            val UCropError = UCrop.getError(data)
+            UCropError?.cause
         }
     }
 
