@@ -23,7 +23,7 @@ class BlocksActivity : ActivityBase() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_blocks)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_blocks)
         binding.theme = iCodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         codeGood = intent.getSerializableExtra("codeGood") as CodeGood
@@ -42,18 +42,19 @@ class BlocksActivity : ActivityBase() {
                             content = it
                             save()
                         }
-                        recyclerView.adapter = BlockAdapter(codeGood,PostUtil.gson.fromJson(codeGood.content))
+                        recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content))
                     }, { t, rc ->
                 toast("rc = $rc")
                 t.printStackTrace()
             })
         else
-            recyclerView.adapter = BlockAdapter(codeGood,PostUtil.gson.fromJson(codeGood.content))
+            recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content))
         block_fab.onClick { toReply() }
     }
-    fun toReply(){
-        var intent : Intent = Intent(this,ReplyActivity::class.java)
-        intent.putExtra("id",codeGood.id)
+
+    fun toReply() {
+        var intent: Intent = Intent(this, ReplyActivity::class.java)
+        intent.putExtra("id", codeGood.id)
         startActivity(intent)
     }
 

@@ -7,10 +7,15 @@
     <PreferenceCategory android:title='其他'>
 
         <Preference
-            android:key="licenses"
-            android:summary="@string/license_summary"
-            android:title="@string/license_title" />
+                android:key="licenses"
+                android:summary="@string/license_summary"
+                android:title="@string/license_title"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_theme">
+        <ListPreference android:key="pref_highlight"
+                        android:title="@string/pref_theme_highlight"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
