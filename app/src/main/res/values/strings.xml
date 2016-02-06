@@ -117,6 +117,9 @@
     <string name="version">版本：Null</string>
     <string name="pref_theme">主题</string>
     <string name="pref_theme_highlight">语法高亮主题</string>
+    <string name="pref_other">其他</string>
+    <string name="pref_summary_clear_cache">清理缓存的数据和图片</string>
+    <string name="pref_title_clear_cache">清理缓存</string>
 
 
 </resources>
