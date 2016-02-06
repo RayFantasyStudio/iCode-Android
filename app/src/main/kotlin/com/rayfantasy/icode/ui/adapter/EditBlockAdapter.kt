@@ -13,8 +13,11 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.HeaderEditBinding
+import com.rayfantasy.icode.databinding.ItemEditTextBinding
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.string
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.fragment.SettingFragment
@@ -182,11 +185,19 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         override val blockTypeStringRes: Int
             get() = R.string.block_type_text
         override val content = itemView.tv_text
+
+        init {
+            ItemEditTextBinding.bind(itemView).theme = itemView.context.iCodeTheme
+        }
     }
 
     class HeaderViewHolder(itemView: View) : AbstractDraggableItemViewHolder(itemView) {
         val title = itemView.et_title
         val subTitle = itemView.et_sub_title
+
+        init {
+            HeaderEditBinding.bind(itemView).theme = itemView.context.iCodeTheme
+        }
     }
 
     class FooterViewHolder(itemView: View) : AbstractDraggableItemViewHolder(itemView) {
