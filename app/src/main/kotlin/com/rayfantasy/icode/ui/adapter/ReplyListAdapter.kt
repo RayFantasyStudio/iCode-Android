@@ -24,6 +24,7 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
+import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.ui.activity.UserActivity
@@ -45,9 +46,7 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         holder.username.text = replyList.username
         holder.reply.text = replyList.content
         holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
-        val str: String = replyList.username
-        val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
-        glide.load(PostUtil.getProfilePicUrl(replyList.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
+        holder.pic.loadPortrait(replyList.username)
         holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
     }
 

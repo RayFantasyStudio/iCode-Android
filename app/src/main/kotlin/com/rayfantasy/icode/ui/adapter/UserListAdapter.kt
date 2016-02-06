@@ -11,6 +11,7 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
+import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.activity.BlocksActivity
@@ -57,15 +58,8 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
 
         when (holder) {
             is UserViewHolder -> {
-                glide   .load(PostUtil.getProfilePicUrl(username))
-                        .error(R.mipmap.ic_user_black)
-                        .bitmapTransform(circleTransformation)
-                        .into(holder.usericon)
                 holder.username.text = username
-                val str: String = PostUtil.user!!.username
-                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
-                glide.load(PostUtil.getProfilePicUrl(str)).error(icon).bitmapTransform(circleTransformation).into(holder.usericon)
-
+                holder.usericon.loadPortrait(username)
             }
             is CodeViewHolder -> {
                 val codeGood = codeGoods[position - 1]
@@ -84,9 +78,7 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
                     holder.username.setTextColor(Color.rgb(140, 140, 140))
                     holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
                 }
-                val str: String = codeGood.username
-                val icon: TextDrawable = TextDrawable.builder().buildRound((str[0] - 32).toString(), str.hashCode())
-                glide.load(PostUtil.getProfilePicUrl(codeGood.username)).error(icon).bitmapTransform(circleTransformation).into(holder.pic)
+                holder.pic.loadPortrait(username)
                 holder.bg.onClick {
                     activity.startActivity<BlocksActivity>("codeGood" to codeGood)
                 }
