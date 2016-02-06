@@ -63,19 +63,9 @@ class MainFragment : FragmentBase() {
                 //如果结果为空，则表示没有更多内容了
                 adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
             }
-            /*  if (it.size <=10 && it.isNotEmpty()){
 
-
-                  adapter.setFooterState(CodeListAdapter.FOOTER_STATE_NO_MORE)
-              }*/
             else {
-                //如果需要刷新，将旧的列表清空
 
-                /*
-                                if (it.size <= 10 && !it.isEmpty()) {
-                                    adapter.notifyDataSetChanged()
-                                    adapter.setFooterState(CodeListAdapter.FOOTER_STATE_NO_MORE)
-                                } else {*/
                 if (refresh) {
                     adapter.codeGoods.clear()
                 }

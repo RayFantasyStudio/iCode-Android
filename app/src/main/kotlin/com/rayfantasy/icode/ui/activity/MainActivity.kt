@@ -2,6 +2,7 @@ package com.rayfantasy.icode.ui.activity
 
 
 import android.app.Fragment
+import android.app.FragmentManager
 import android.content.BroadcastReceiver
 import android.net.Uri
 import android.content.Context
@@ -30,9 +31,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.onClick
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.*
 
 class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -72,12 +71,21 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
         broadcastManager = LocalBroadcastManager.getInstance(this)
         broadcastManager.registerReceiver(receiver, IntentFilter(ACTION_USER_STATE_CHANGED))
-        Glide.with(this)
+/*        if (mainFragment.isVisible){
 
+        }
+        else{
+            main_fab.backgroundResource = R.mipmap.ic_back_white
+        }*/
         //main_fab
         main_fab.onClick {
+            if (mainFragment.isVisible) {
+                startActivity(Intent(this, WriteCodeActivity::class.java))
+            }
+            else{
+                replaceFragment(mainFragment)
+            }
 
-            startActivity(Intent(this, WriteCodeActivity::class.java))
         }
 
 
