@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<PreferenceScreen xmlns:android='http://schemas.android.com/apk/res/android'>
+    <PreferenceCategory android:title='设置'>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title='其他'>
+
+        <Preference
+            android:key="licenses"
+            android:summary="@string/license_summary"
+            android:title="@string/license_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

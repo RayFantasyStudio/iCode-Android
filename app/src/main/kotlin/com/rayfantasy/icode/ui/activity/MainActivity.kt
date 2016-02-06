@@ -3,6 +3,7 @@ package com.rayfantasy.icode.ui.activity
 
 import android.app.Fragment
 import android.content.BroadcastReceiver
+import android.net.Uri
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -149,12 +150,20 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_favourite -> replaceFragment(favoriteFragment)
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_loyalty -> replaceFragment(payFragment)
+            R.id.nav_homepage -> OpenWeb()
 
         //etc...
             else -> return false
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun OpenWeb() {
+        var uri = Uri.parse("www.rayfantasy.com:8088")
+        var intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun replaceFragment(fragment: Fragment) {
