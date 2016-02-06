@@ -28,8 +28,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_blocks"
-            app:theme = "@{Theme}"/>
+    <include layout="@layout/content_blocks"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/block_fab"
