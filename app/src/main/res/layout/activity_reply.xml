@@ -9,11 +9,11 @@
                 name="theme"
                 type="com.rayfantasy.icode.model.ICodeTheme"/>
     </data>
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:statusBarBackgroundColor="@{theme.colorPrimaryDark}"
             tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity">
 
         <android.support.design.widget.AppBarLayout
@@ -30,11 +30,47 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         </android.support.design.widget.AppBarLayout>
+        <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.0"
+                android:id="@+id/reply_swip"
+                tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity"
+                tools:showIn="@layout/activity_reply">
 
-        <include layout="@layout/content_reply"
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/reply_recyclerview"
+                    android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:id="@+id/reply_sent_context"
+                    android:background="#dcdddd"
+                    android:textCursorDrawable="@{theme.colorAccent}"
+                    app:supportBackgroundTintList="@{theme.colorAccent}"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/commit"
+                    android:background="#dcdddd"
+                    android:id="@+id/reply_sent"/>
+
+        </LinearLayout>
+
+        <!--<include layout="@layout/content_reply"
                  android:layout_height="match_parent"
                  android:layout_width="match_parent"
-                 app:theme="@{theme}"/>
+                 app:theme="@{theme}"/>-->
 
         <!--    <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
@@ -44,5 +80,5 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@android:drawable/ic_dialog_email" />-->
 
-    </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 </layout>

@@ -15,7 +15,7 @@ import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.postutil.bean.Reply_Table
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.ui.adapter.ReplyListAdapter
-import kotlinx.android.synthetic.main.content_reply.*
+import kotlinx.android.synthetic.main.activity_reply.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.support.v4.onRefresh
 
