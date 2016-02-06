@@ -56,7 +56,7 @@ class ReplyActivity : AppCompatActivity() {
 
         //生成加载条件，目前加载5个，方便测试
 
-        val condition = "${if (!refresh && adapter.replyList.isNotEmpty()) "WHERE createat < ${adapter.replyList.last().createAt} " else ""}" +
+        val condition = "WHERE ${if (!refresh && adapter.replyList.isNotEmpty()) "createat < ${adapter.replyList.last().createAt} " else ""}good_id=$id " +
                 "ORDER BY createat DESC LIMIT 0, 5"
         request = PostUtil.findReply(condition, {
             reply_swip.isRefreshing = false
@@ -98,6 +98,7 @@ class ReplyActivity : AppCompatActivity() {
 
     fun getCacheData() = Select()
             .from(Reply::class.java)
+            .where(Reply_Table.goodId.`is`(id))
             .orderBy(Reply_Table.createat, false)
             .queryList()
 
