@@ -36,6 +36,48 @@ Copyright 2015-2016 LollipopKit
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
+        <name>LicensesDialog</name>
+        <url>https://github.com/PSDev/LicensesDialog</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Junit</name>
+        <url>http://junit.org</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>TextDrawable</name>
+        <url>https://github.com/amulyakhare/TextDrawable</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>LikeButton</name>
+        <url>https://github.com/jd-alexander/LikeButton</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>GpuImage</name>
+        <url>https://github.com/CyberAgent/android-gpuimage</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Laekcanary</name>
+        <url>https://github.com/square/leakcanary</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>SlidingUpPanel</name>
+        <url>https://github.com/Cheesebaron/SlidingUpPanel</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
         <name>FloatingActionButton</name>
         <url>https://github.com/makovkastar/FloatingActionButton/</url>
         <copyright>Copyright (c) 2014 Oleksandr Melnykov</copyright>
@@ -48,9 +90,9 @@ Copyright 2015-2016 LollipopKit
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>picasso</name>
-        <url>http://square.github.io/picasso/</url>
-        <copyright>Copyright 2013 Square, Inc.</copyright>
+        <name>Glide</name>
+        <url>https://github.com/bumptech/glide</url>
+        <copyright>Copyright(C) 2015 The Apache License</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
