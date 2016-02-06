@@ -65,10 +65,10 @@ public class DataBindingConverters {
     public static void settTextColorHint(TextInputLayout til, int color) {
         ColorStateList colorStateList = ColorStateList.valueOf(color);
         try {
-            Field fDefaultTextColor =
+            /*Field fDefaultTextColor =
                     TextInputLayout.class.getDeclaredField("mDefaultTextColor");
             fDefaultTextColor.setAccessible(true);
-            fDefaultTextColor.set(til, colorStateList);
+            fDefaultTextColor.set(til, colorStateList);*/
             Field fFocusedTextColor =
                     TextInputLayout.class.getDeclaredField("mFocusedTextColor");
             fFocusedTextColor.setAccessible(true);
