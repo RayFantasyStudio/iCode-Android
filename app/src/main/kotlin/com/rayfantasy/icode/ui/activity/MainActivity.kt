@@ -71,22 +71,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
         broadcastManager = LocalBroadcastManager.getInstance(this)
         broadcastManager.registerReceiver(receiver, IntentFilter(ACTION_USER_STATE_CHANGED))
-/*        if (mainFragment.isVisible){
-
-        }
-        else{
-            main_fab.backgroundResource = R.mipmap.ic_back_white
-        }*/
-        //main_fab
-        main_fab.onClick {
-            if (mainFragment.isVisible) {
-                startActivity(Intent(this, WriteCodeActivity::class.java))
-            }
-            else{
-                replaceFragment(mainFragment)
-            }
-
-        }
 
 
     }
