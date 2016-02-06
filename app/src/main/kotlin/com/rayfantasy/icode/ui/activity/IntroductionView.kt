@@ -13,7 +13,7 @@ import org.jetbrains.anko.startActivity
 class IntroductionView : AppIntro2() {
 
 
-    override fun init(savedInstanceState: Bundle) {
+    override fun init(savedInstanceState: Bundle?) {
         addSlide(SampleSlide.newInstance(R.layout.introduction_view_first))
         addSlide(SampleSlide.newInstance(R.layout.introduction_view_second))
         addSlide(SampleSlide.newInstance(R.layout.introduction_view_third))

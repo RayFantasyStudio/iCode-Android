@@ -32,20 +32,22 @@ class ReplyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reply)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getSerializableExtra("id") as Int
         reply_swip?.onRefresh {
-            loadReplys(false)
+            loadReplys(true)
         }
 
         initRecyclerView()
+        loadReplys(true)
 
     }
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         reply_recyclerview.layoutManager = layoutManager
-        adapter = ReplyListAdapter(this, SetUniqueList.setUniqueList(getCacheData())) { loadReplys(true) }
+        adapter = ReplyListAdapter(this, SetUniqueList.setUniqueList(getCacheData())) { loadReplys(false) }
         reply_recyclerview.adapter = adapter
 
     }

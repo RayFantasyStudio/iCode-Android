@@ -80,7 +80,7 @@
     <string name="btn_add_code">添加代码</string>
     <string name="title_choose_language">请选择语言</string>
     <string name="title_activity_user">用户</string>
-    <string name="title_activity_reply">ReplyActivity</string>
+    <string name="title_activity_reply">评论区</string>
     <string name="commit">评论</string>
     <string name="change_icon">更改头像</string>
     <string name="resPwd">修改密码</string>

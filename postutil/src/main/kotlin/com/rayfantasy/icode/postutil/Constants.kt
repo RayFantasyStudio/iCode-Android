@@ -32,5 +32,5 @@ const val URL_FIND_FAVORITE = URL_SERVLET + "FindFavorite"
 const val URL_DEL_FAVORITE = URL_SERVLET + "DelFavorite"
 const val URL_RESET_PWD = URL_SERVLET + "ResetPwd"
 const val URL_UPLOAD_PROFILE_PIC = URL_SERVLET + "UpLoadProfilePic"
-const val CHARSET = "utf-8"
+val CHARSET = Charsets.UTF_8
 const val ACTION_USER_STATE_CHANGED = "com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED"
