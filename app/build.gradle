@@ -11,6 +11,8 @@ android {
     buildToolsVersion "$buildToolsVer"
 
     defaultConfig {
+        renderscriptTargetApi 20
+        renderscriptSupportModeEnabled true
         applicationId "com.rayfantasy.icode"
         minSdkVersion Integer.parseInt("$minSdkVer")
         targetSdkVersion Integer.parseInt("$targetSdkVer")
