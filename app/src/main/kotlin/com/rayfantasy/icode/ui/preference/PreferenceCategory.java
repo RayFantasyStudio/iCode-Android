@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.rayfantasy.icode.BaseApplicationKt;
 
 public class PreferenceCategory extends android.preference.PreferenceCategory {
+    private Observable.OnPropertyChangedCallback changedCallback;
 
     public PreferenceCategory(Context context) {
         super(context);
@@ -43,13 +44,15 @@ public class PreferenceCategory extends android.preference.PreferenceCategory {
         super.onBindView(view);
         final TextView titleView = (TextView) view.findViewById(android.R.id.title);
         titleView.setTextColor(BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().get());
+        changedCallback = new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                titleView.setTextColor(BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().get());
+            }
+        };
+        BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().addOnPropertyChangedCallback(changedCallback);
         titleView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-            private Observable.OnPropertyChangedCallback changedCallback = new Observable.OnPropertyChangedCallback() {
-                @Override
-                public void onPropertyChanged(Observable sender, int propertyId) {
-                    titleView.setTextColor(BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().get());
-                }
-            };
+
 
             @Override
             public void onViewAttachedToWindow(View v) {
