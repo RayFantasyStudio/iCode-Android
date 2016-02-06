@@ -13,10 +13,14 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.HeaderEditBinding
+import com.rayfantasy.icode.databinding.ItemEditTextBinding
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.string
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
+import com.rayfantasy.icode.ui.fragment.SettingFragment
 import kotlinx.android.synthetic.main.footer_edit.view.*
 import kotlinx.android.synthetic.main.header_edit.view.*
 import kotlinx.android.synthetic.main.item_edit_code.view.*
@@ -25,6 +29,7 @@ import kotlinx.android.synthetic.main.item_edit_text.view.*
 import org.evilbinary.highliter.HighlightEditText
 import org.evilbinary.managers.Configure
 import org.evilbinary.utils.DirUtil
+import org.jetbrains.anko.defaultSharedPreferences
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.onClick
 import java.io.File
@@ -44,6 +49,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
                 .sorted()
                 .toTypedArray()
     }
+    private val highlightTheme = ctx.defaultSharedPreferences.getString(SettingFragment.PREF_HIGHLIGHT, SettingFragment.DEFAULT_HIGHLIGHT)
 
     var blocks: MutableList<CodeGood.Block>
     private val headerViewHolder: HeaderViewHolder
@@ -118,7 +124,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         VIEW_TYPE_HEADER -> headerViewHolder
         VIEW_TYPE_FOOTER -> FooterViewHolder(parent.inflate(R.layout.footer_edit))
-        CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_edit_code))
+        CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_edit_code), highlightTheme)
         else -> TextViewHolder(parent.inflate(R.layout.item_edit_text))
     }
 
@@ -160,13 +166,14 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         }
     }
 
-    class CodeViewHolder(itemView: View) : BlockViewHolder(itemView) {
+    class CodeViewHolder(itemView: View, highlightTheme: String) : BlockViewHolder(itemView) {
         override val blockTypeStringRes: Int
             get() = R.string.block_type_code
         override val content: HighlightEditText
 
         init {
             val configure = Configure(itemView.context)
+            configure.mTheme = highlightTheme
             content = HighlightEditText(itemView.context, configure)
             content.background = null
             content.setHint(R.string.block_type_code)
@@ -178,11 +185,19 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         override val blockTypeStringRes: Int
             get() = R.string.block_type_text
         override val content = itemView.tv_text
+
+        init {
+            ItemEditTextBinding.bind(itemView).theme = itemView.context.iCodeTheme
+        }
     }
 
     class HeaderViewHolder(itemView: View) : AbstractDraggableItemViewHolder(itemView) {
         val title = itemView.et_title
         val subTitle = itemView.et_sub_title
+
+        init {
+            HeaderEditBinding.bind(itemView).theme = itemView.context.iCodeTheme
+        }
     }
 
     class FooterViewHolder(itemView: View) : AbstractDraggableItemViewHolder(itemView) {

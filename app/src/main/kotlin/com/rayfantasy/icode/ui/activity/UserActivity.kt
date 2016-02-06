@@ -1,33 +1,32 @@
 package com.rayfantasy.icode.ui.activity
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.android.volley.Request
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityUserBinding
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.adapter.UserListAdapter
-import com.rayfantasy.icode.util.getStringResources
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_user.*
 import kotlinx.android.synthetic.main.content_user.*
 import kotlinx.android.synthetic.main.nv_layout.*
-import kotlinx.android.synthetic.main.nv_layout.view.*
 import org.jetbrains.anko.alert
-import java.util.*
 import org.jetbrains.anko.startActivity
+import java.util.*
 
-class UserActivity : AppCompatActivity() {
+class UserActivity : ActivityBindingStatus() {
     private lateinit var adapter : UserListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>
     private lateinit  var username : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user)
+        DataBindingUtil.setContentView<ActivityUserBinding>(this, R.layout.activity_user).theme = iCodeTheme
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         username = intent.getSerializableExtra("username").toString()
@@ -69,8 +68,8 @@ class UserActivity : AppCompatActivity() {
                 adapter = UserListAdapter(this,username, it) {}
                 user_recyclerview.adapter = adapter
             } else {
-                adapter!!.codeGoods = it
-                adapter!!.notifyDataSetChanged()
+                adapter.codeGoods = it
+                adapter.notifyDataSetChanged()
             }
         }, { t, rc ->
             isRefreshing = false
@@ -89,16 +88,18 @@ class UserActivity : AppCompatActivity() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item!!.itemId
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
         when (id){
             R.id.account_menu_out ->{
                 alert(getString(R.string.exit_user_msg),getString(R.string.app_name)) {
                     positiveButton(getString(R.string.ok_btn)) {
                         PostUtil.logoutUser()
-                       nv_user_icon.setImageResource(R.mipmap.ic_nv_user)
+                       nv_user_icon.setImageDrawable(getDrawable(R.mipmap.ic_nv_user))
                        nv_username.text = getText(R.string.not_Login)
+
                         finish()
+
                     }
                     negativeButton(getString(R.string.no_btn)) {  }
                 }.show()

@@ -1,16 +1,22 @@
 <?xml version='1.0' encoding='utf-8'?>
 <PreferenceScreen xmlns:android='http://schemas.android.com/apk/res/android'>
-    <PreferenceCategory android:title='设置'>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title='其他'>
-
+    <com.rayfantasy.icode.ui.preference.PreferenceCategory android:title='@string/action_settings'>
         <Preference
-            android:key="licenses"
-            android:summary="@string/license_summary"
-            android:title="@string/license_title" />
+                android:key="pref_clear_cache"
+                android:summary="@string/pref_summary_clear_cache"
+                android:title="@string/pref_title_clear_cache"/>
+    </com.rayfantasy.icode.ui.preference.PreferenceCategory>
 
-    </PreferenceCategory>
+    <com.rayfantasy.icode.ui.preference.PreferenceCategory android:title="@string/pref_theme">
+        <ListPreference android:key="pref_highlight"
+                        android:title="@string/pref_theme_highlight"/>
+    </com.rayfantasy.icode.ui.preference.PreferenceCategory>
+
+    <com.rayfantasy.icode.ui.preference.PreferenceCategory android:title='@string/pref_other'>
+        <Preference
+                android:key="licenses"
+                android:summary="@string/license_summary"
+                android:title="@string/license_title"/>
+    </com.rayfantasy.icode.ui.preference.PreferenceCategory>
 
 </PreferenceScreen>

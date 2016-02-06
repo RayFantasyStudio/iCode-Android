@@ -17,13 +17,13 @@ import kotlinx.android.synthetic.main.content_blocks.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.toast
 
-class BlocksActivity : ActivityBase() {
+class BlocksActivity : ActivityBindingStatus() {
     private lateinit var codeGood: CodeGood
     private lateinit var binding: ActivityBlocksBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_blocks)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_blocks)
         binding.theme = iCodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         codeGood = intent.getSerializableExtra("codeGood") as CodeGood
@@ -35,25 +35,30 @@ class BlocksActivity : ActivityBase() {
             itemAnimator = RefactoredDefaultItemAnimator()
         }
 
-        if (codeGood.content == null)
-            PostUtil.loadCodeContent(codeGood.id!!,
-                    {
-                        with(codeGood) {
-                            content = it
-                            save()
-                        }
-                        recyclerView.adapter = BlockAdapter(codeGood,PostUtil.gson.fromJson(codeGood.content))
-                    }, { t, rc ->
-                toast("rc = $rc")
-                t.printStackTrace()
-            })
-        else
-            recyclerView.adapter = BlockAdapter(codeGood,PostUtil.gson.fromJson(codeGood.content))
+        codeGood.content?.let { recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content)) }
+
+        PostUtil.loadCodeContent(codeGood.id!!,
+                {
+                    with(codeGood) {
+                        content = it
+                        save()
+                    }
+                    if (recyclerView.adapter == null)
+                        recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                    else {
+                        (recyclerView.adapter as BlockAdapter).blocks = PostUtil.gson.fromJson(codeGood.content)
+                        recyclerView.adapter.notifyDataSetChanged()
+                    }
+                }, { t, rc ->
+            toast("rc = $rc")
+            t.printStackTrace()
+        })
         block_fab.onClick { toReply() }
     }
-    fun toReply(){
-        var intent : Intent = Intent(this,ReplyActivity::class.java)
-        intent.putExtra("id",codeGood.id)
+
+    fun toReply() {
+        var intent: Intent = Intent(this, ReplyActivity::class.java)
+        intent.putExtra("id", codeGood.id)
         startActivity(intent)
     }
 

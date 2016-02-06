@@ -3,11 +3,11 @@ package com.rayfantasy.icode.ui.activity
 
 import android.app.Fragment
 import android.content.BroadcastReceiver
-import android.net.Uri
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.databinding.DataBindingUtil
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.content.LocalBroadcastManager
@@ -18,16 +18,23 @@ import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityMainBinding
+import com.rayfantasy.icode.databinding.NvLayoutBinding
 import com.rayfantasy.icode.extension.alert
+import com.rayfantasy.icode.extension.alpha
+import com.rayfantasy.icode.extension.shadowColor
 import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
-import com.rayfantasy.icode.ui.fragment.*
+import com.rayfantasy.icode.ui.fragment.AboutFragment
+import com.rayfantasy.icode.ui.fragment.FavoriteFragment
+import com.rayfantasy.icode.ui.fragment.MainFragment
+import com.rayfantasy.icode.ui.fragment.SettingFragment
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
@@ -38,7 +45,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     private val circleTransformation    by lazy { CropCircleTransformation(this) }
     private val favoriteFragment by lazy { FavoriteFragment() }
     private val mainFragment by lazy { MainFragment() }
-    private val payFragment by lazy { PayFragment() }
     private val settingFragment by lazy { SettingFragment() }
     private lateinit var broadcastManager: LocalBroadcastManager
     private val receiver = object : BroadcastReceiver() {
@@ -64,19 +70,14 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         refreshUserState()
 
 
-        nav_view.getHeaderView(0).nv_user_icon.onClick {
+        val headerView = nav_view.getHeaderView(0)
+        NvLayoutBinding.bind(headerView).theme = iCodeTheme
+        headerView.nv_user_icon.onClick {
             getAccount()
             drawer_layout.closeDrawer(GravityCompat.START)
         }
         broadcastManager = LocalBroadcastManager.getInstance(this)
         broadcastManager.registerReceiver(receiver, IntentFilter(ACTION_USER_STATE_CHANGED))
-        Glide.with(this)
-
-        //main_fab
-        main_fab.onClick {
-
-            startActivity(Intent(this, WriteCodeActivity::class.java))
-        }
 
 
     }
@@ -87,6 +88,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             glide.load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
                     .bitmapTransform(circleTransformation)
                     .into(nav_view.getHeaderView(0).nv_user_icon)
+            nav_view.getHeaderView(0).nv_bg.backgroundColor = (PostUtil.user as User).username.hashCode().alpha(0xff).shadowColor()
         }
 
     }
@@ -149,7 +151,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
             R.id.nav_favourite -> replaceFragment(favoriteFragment)
             R.id.nav_setting -> replaceFragment(settingFragment)
-            R.id.nav_loyalty -> replaceFragment(payFragment)
             R.id.nav_homepage -> OpenWeb()
 
         //etc...
@@ -160,10 +161,9 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun OpenWeb() {
-        var uri = Uri.parse("www.rayfantasy.com:8088")
+        var uri = Uri.parse("http://www.rayfantasy.com:8088")
         var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun replaceFragment(fragment: Fragment) {

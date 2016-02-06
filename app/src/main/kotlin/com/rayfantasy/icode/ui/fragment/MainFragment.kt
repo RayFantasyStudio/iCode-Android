@@ -7,14 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
-import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.FragmentMainBinding
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.CodeGood_Table
+import com.rayfantasy.icode.ui.activity.WriteCodeActivity
 import com.rayfantasy.icode.ui.adapter.CodeListAdapter
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
+import com.rayfantasy.icode.util.SpaceItemDecoration
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.apache.commons.collections4.list.SetUniqueList
+import org.jetbrains.anko.ctx
+import org.jetbrains.anko.onClick
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 
 class MainFragment : FragmentBase() {
@@ -26,7 +33,9 @@ class MainFragment : FragmentBase() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        val binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding.theme = ctx.iCodeTheme
+        return binding.root
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -37,6 +46,8 @@ class MainFragment : FragmentBase() {
 
         initRecyclerView()
         loadCodeGoods(true)
+        fab_main.onClick { startActivity<WriteCodeActivity>() }
+        recyclerView.addItemDecoration(SpaceItemDecoration())
     }
 
     private fun initRecyclerView() {
@@ -62,20 +73,8 @@ class MainFragment : FragmentBase() {
             if (it.isEmpty() ) {
                 //如果结果为空，则表示没有更多内容了
                 adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
-            }
-            /*  if (it.size <=10 && it.isNotEmpty()){
+            } else {
 
-
-                  adapter.setFooterState(CodeListAdapter.FOOTER_STATE_NO_MORE)
-              }*/
-            else {
-                //如果需要刷新，将旧的列表清空
-
-                /*
-                                if (it.size <= 10 && !it.isEmpty()) {
-                                    adapter.notifyDataSetChanged()
-                                    adapter.setFooterState(CodeListAdapter.FOOTER_STATE_NO_MORE)
-                                } else {*/
                 if (refresh) {
                     adapter.codeGoods.clear()
                 }

@@ -1,23 +1,21 @@
 package com.rayfantasy.icode.ui.activity
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.View
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
-import com.rayfantasy.icode.postutil.bean.Reply_Table
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityReplyBinding
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
+import com.rayfantasy.icode.postutil.bean.Reply_Table
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.ui.adapter.ReplyListAdapter
 import kotlinx.android.synthetic.main.activity_reply.*
-import kotlinx.android.synthetic.main.content_reply.*
-import kotlinx.android.synthetic.main.item_recycler_reply_list.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.support.v4.onRefresh
 
@@ -29,7 +27,7 @@ class ReplyActivity : AppCompatActivity() {
     private var request: Request<*>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reply)
+        DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = iCodeTheme
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
@@ -58,7 +56,7 @@ class ReplyActivity : AppCompatActivity() {
 
         //生成加载条件，目前加载5个，方便测试
 
-        val condition = "${if (!refresh && adapter.replyList.isNotEmpty()) "WHERE createat < ${adapter.replyList.last().createAt} " else ""}" +
+        val condition = "WHERE ${if (!refresh && adapter.replyList.isNotEmpty()) "createat < ${adapter.replyList.last().createAt} " else ""}good_id=$id " +
                 "ORDER BY createat DESC LIMIT 0, 5"
         request = PostUtil.findReply(condition, {
             reply_swip.isRefreshing = false
@@ -100,6 +98,7 @@ class ReplyActivity : AppCompatActivity() {
 
     fun getCacheData() = Select()
             .from(Reply::class.java)
+            .where(Reply_Table.goodId.`is`(id))
             .orderBy(Reply_Table.createat, false)
             .queryList()
 
