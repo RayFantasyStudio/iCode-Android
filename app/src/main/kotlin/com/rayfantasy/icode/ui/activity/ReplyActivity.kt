@@ -1,23 +1,21 @@
 package com.rayfantasy.icode.ui.activity
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.View
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
-import com.rayfantasy.icode.postutil.bean.Reply_Table
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityReplyBinding
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
+import com.rayfantasy.icode.postutil.bean.Reply_Table
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.ui.adapter.ReplyListAdapter
-import kotlinx.android.synthetic.main.activity_reply.*
 import kotlinx.android.synthetic.main.content_reply.*
-import kotlinx.android.synthetic.main.item_recycler_reply_list.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.support.v4.onRefresh
 
@@ -29,7 +27,7 @@ class ReplyActivity : AppCompatActivity() {
     private var request: Request<*>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reply)
+        DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = iCodeTheme
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_write_code.*
 import kotlinx.android.synthetic.main.content_write_code.*
 import org.jetbrains.anko.onClick
 
-class WriteCodeActivity : ActivityBase() {
+class WriteCodeActivity : ActivityBindingStatus() {
     private var request: Request<*>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

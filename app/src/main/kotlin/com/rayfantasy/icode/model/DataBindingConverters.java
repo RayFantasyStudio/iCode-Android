@@ -16,10 +16,15 @@
 
 package com.rayfantasy.icode.model;
 
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.AppCompatEditText;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -49,5 +54,32 @@ public class DataBindingConverters {
             fCursorDrawable.set(editor, drawables);
         } catch (final Throwable ignored) {
         }
+    }
+
+    @BindingAdapter("app:supportBackgroundTintList")
+    public static void setSupportBackgroundTintList(AppCompatEditText editText, int color) {
+        editText.setSupportBackgroundTintList(ColorStateList.valueOf(color));
+    }
+
+    @BindingAdapter("android:textColorHint")
+    public static void settTextColorHint(TextInputLayout til, int color) {
+        ColorStateList colorStateList = ColorStateList.valueOf(color);
+        try {
+            Field fDefaultTextColor =
+                    TextInputLayout.class.getDeclaredField("mDefaultTextColor");
+            fDefaultTextColor.setAccessible(true);
+            fDefaultTextColor.set(til, colorStateList);
+            Field fFocusedTextColor =
+                    TextInputLayout.class.getDeclaredField("mFocusedTextColor");
+            fFocusedTextColor.setAccessible(true);
+            fFocusedTextColor.set(til, colorStateList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @BindingAdapter("android:background")
+    public static void setBackground(View view, int color) {
+        view.setBackgroundDrawable(new ColorDrawable(color));
     }
 }

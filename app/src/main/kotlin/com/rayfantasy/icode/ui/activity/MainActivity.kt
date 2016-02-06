@@ -2,13 +2,12 @@ package com.rayfantasy.icode.ui.activity
 
 
 import android.app.Fragment
-import android.app.FragmentManager
 import android.content.BroadcastReceiver
-import android.net.Uri
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.databinding.DataBindingUtil
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.content.LocalBroadcastManager
@@ -19,6 +18,7 @@ import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityMainBinding
+import com.rayfantasy.icode.databinding.NvLayoutBinding
 import com.rayfantasy.icode.extension.alert
 import com.rayfantasy.icode.extension.alpha
 import com.rayfantasy.icode.extension.shadowColor
@@ -26,12 +26,17 @@ import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
-import com.rayfantasy.icode.ui.fragment.*
+import com.rayfantasy.icode.ui.fragment.AboutFragment
+import com.rayfantasy.icode.ui.fragment.FavoriteFragment
+import com.rayfantasy.icode.ui.fragment.MainFragment
+import com.rayfantasy.icode.ui.fragment.SettingFragment
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
-import org.jetbrains.anko.*
+import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.onClick
+import org.jetbrains.anko.startActivity
 
 class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -65,7 +70,9 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         refreshUserState()
 
 
-        nav_view.getHeaderView(0).nv_user_icon.onClick {
+        val headerView = nav_view.getHeaderView(0)
+        NvLayoutBinding.bind(headerView).theme = iCodeTheme
+        headerView.nv_user_icon.onClick {
             getAccount()
             drawer_layout.closeDrawer(GravityCompat.START)
         }

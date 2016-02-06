@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.content_blocks.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.toast
 
-class BlocksActivity : ActivityBase() {
+class BlocksActivity : ActivityBindingStatus() {
     private lateinit var codeGood: CodeGood
     private lateinit var binding: ActivityBlocksBinding
 

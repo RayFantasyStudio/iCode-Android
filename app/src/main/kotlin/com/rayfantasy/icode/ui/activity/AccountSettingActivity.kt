@@ -3,6 +3,7 @@ package com.rayfantasy.icode.ui.activity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +13,9 @@ import android.support.v4.app.ActivityCompat
 import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityAccountSettingBinding
 import com.rayfantasy.icode.extension.snackBar
+import com.rayfantasy.icode.iCodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
 import com.yalantis.ucrop.UCrop
@@ -31,7 +34,7 @@ class AccountSettingActivity : ActivityBase() {
     lateinit var DestinationUri: Uri
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_account_setting)
+        DataBindingUtil.setContentView<ActivityAccountSettingBinding>(this, R.layout.activity_account_setting).theme = iCodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         DestinationUri = Uri.fromFile(File(cacheDir, "Cache_Icon.jpeg"))
         account_setting_fab.onClick {

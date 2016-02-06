@@ -1,24 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/reply_swip"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity"
-    tools:showIn="@layout/activity_reply">
+        <variable
+                name="theme"
+                type="com.rayfantasy.icode.model.ICodeTheme"/>
+    </data>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/commit"
+                android:background="#dcdddd"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/reply_sent"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:id="@+id/reply_recyclerview"
-        android:layout_height="match_parent">
+        <android.support.v7.widget.AppCompatEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reply_sent_context"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#dcdddd"
+                android:layout_toStartOf="@id/reply_sent"
+                android:layout_toLeftOf="@id/reply_sent"
+                android:layout_alignTop="@id/reply_sent"
+                android:textCursorDrawable="@{theme.colorAccent}"
+                app:supportBackgroundTintList="@{theme.colorAccent}"/>
+        <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/reply_swip"
+                tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity"
+                android:layout_above="@id/reply_sent"
+                tools:showIn="@layout/activity_reply">
 
-    </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:id="@+id/reply_recyclerview"
+                    android:layout_height="match_parent">
 
+            </android.support.v7.widget.RecyclerView>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </RelativeLayout>
+</layout>
