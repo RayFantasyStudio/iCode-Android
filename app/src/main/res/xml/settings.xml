@@ -1,21 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
 <PreferenceScreen xmlns:android='http://schemas.android.com/apk/res/android'>
-    <PreferenceCategory android:title='设置'>
-
+    <PreferenceCategory android:title='@string/action_settings'>
+        <Preference
+                android:key="pref_clear_cache"
+                android:summary="@string/pref_summary_clear_cache"
+                android:title="@string/pref_title_clear_cache"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title='其他'>
+    <PreferenceCategory android:title="@string/pref_theme">
+        <ListPreference android:key="pref_highlight"
+                        android:title="@string/pref_theme_highlight"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title='@string/pref_other'>
 
         <Preference
                 android:key="licenses"
                 android:summary="@string/license_summary"
                 android:title="@string/license_title"/>
 
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/pref_theme">
-        <ListPreference android:key="pref_highlight"
-                        android:title="@string/pref_theme_highlight"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
