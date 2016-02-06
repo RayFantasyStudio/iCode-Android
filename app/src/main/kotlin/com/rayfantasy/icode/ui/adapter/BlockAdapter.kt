@@ -15,7 +15,7 @@ import org.evilbinary.highliter.HighlightEditText
 import org.evilbinary.managers.Configure
 import org.jetbrains.anko.defaultSharedPreferences
 
-class BlockAdapter(ctx: Context, val  codeGood: CodeGood, val blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BlockAdapter(ctx: Context, val  codeGood: CodeGood, var blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TITLE_VIEW = 998
     private val FAVORITE_VIEW = 999
     private val highlightTheme = ctx.defaultSharedPreferences.getString(SettingFragment.PREF_HIGHLIGHT, SettingFragment.DEFAULT_HIGHLIGHT)

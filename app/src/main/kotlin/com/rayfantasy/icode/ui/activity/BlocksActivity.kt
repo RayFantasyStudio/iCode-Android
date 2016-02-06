@@ -35,20 +35,24 @@ class BlocksActivity : ActivityBase() {
             itemAnimator = RefactoredDefaultItemAnimator()
         }
 
-        if (codeGood.content == null)
-            PostUtil.loadCodeContent(codeGood.id!!,
-                    {
-                        with(codeGood) {
-                            content = it
-                            save()
-                        }
+        codeGood.content?.let { recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content)) }
+
+        PostUtil.loadCodeContent(codeGood.id!!,
+                {
+                    with(codeGood) {
+                        content = it
+                        save()
+                    }
+                    if (recyclerView.adapter == null)
                         recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content))
-                    }, { t, rc ->
-                toast("rc = $rc")
-                t.printStackTrace()
-            })
-        else
-            recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                    else {
+                        (recyclerView.adapter as BlockAdapter).blocks = PostUtil.gson.fromJson(codeGood.content)
+                        recyclerView.adapter.notifyDataSetChanged()
+                    }
+                }, { t, rc ->
+            toast("rc = $rc")
+            t.printStackTrace()
+        })
         block_fab.onClick { toReply() }
     }
 
