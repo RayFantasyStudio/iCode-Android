@@ -16,17 +16,16 @@
 
 package com.rayfantasy.icode.ui.activity;
 
-import android.content.res.ColorStateList;
 import android.databinding.BindingConversion;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 
 public class ActivityConverter extends AppCompatActivity {
 
-    @BindingConversion
+/*    @BindingConversion
     public static ColorStateList convertColorToTintList(int color) {
         return ColorStateList.valueOf(color);
-    }
+    }*/
 
     @BindingConversion
     public static ColorDrawable convertColorToDrawable(int color) {

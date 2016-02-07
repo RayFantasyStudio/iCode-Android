@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="theme"
-            type="com.rayfantasy.icode.model.ICodeTheme" />
+                name="theme"
+                type="com.rayfantasy.icode.model.ICodeTheme"/>
     </data>
 
     <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:openDrawer="start">
-
-        <include
-            layout="@layout/app_bar_main"
+            android:id="@+id/drawer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:theme="@{theme}" />
+            android:fitsSystemWindows="true"
+            tools:openDrawer="start">
+
+        <include
+                layout="@layout/app_bar_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:theme="@{theme}"/>
 
         <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nv_layout"
-            app:menu="@menu/nv_menu" />
+                android:id="@+id/nav_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:fitsSystemWindows="true"
+                app:headerLayout="@layout/nv_layout"
+                app:menu="@menu/nv_menu"
+                app:itemSelectColor="@{theme.colorPrimary}"/>
 
     </android.support.v4.widget.DrawerLayout>
 </layout>
