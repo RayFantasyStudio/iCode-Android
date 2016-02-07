@@ -105,4 +105,59 @@ Copyright 2015-2016 LollipopKit
         <copyright>Copyright (C) 2015 Haruki Hasegawa</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
+    <notice>
+        <name>anko</name>
+        <url>https://github.com/Kotlin/anko</url>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>kotlin</name>
+        <url>http://kotlinlang.org/</url>
+        <copyright>Copyright 2010-2015 JetBrains s.r.o.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>HighlightTextEditor</name>
+        <url>https://github.com/evilbinary/HighlightTextEditor</url>
+        <copyright>Copyright (C) 2015 evilbinary.</copyright>
+        <license>GNU General Public License 3.0</license>
+    </notice>
+    <notice>
+        <name>UCrop</name>
+        <url>https://github.com/Yalantis/uCrop</url>
+        <copyright>Copyright 2016, Yalantis</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Fab Transformation</name>
+        <url>https://github.com/konifar/fab-transformation</url>
+        <copyright>Copyright (c) 2015 Yusuke Konishi</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>Glide Transformations</name>
+        <url>https://github.com/wasabeef/glide-transformations</url>
+        <copyright>Copyright 2015 Wasabeef</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Asynchronous Http Client for Android</name>
+        <url>http://loopj.com/android-async-http/</url>
+        <copyright>Copyright (c) 2011-2015 James Smith (james@loopj.com)</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Volley</name>
+        <url>https://github.com/mcxiaoke/android-volley</url>
+        <copyright>Copyright (C) 2014,2015,2016 Xiaoke Zhang
+            Copyright (C) 2011 The Android Open Source Project
+        </copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>DBFlow</name>
+        <url>https://github.com/Raizlabs/DBFlow</url>
+        <copyright>Copyright (c) 2014 Raizlabs</copyright>
+        <license>MIT License</license>
+    </notice>
 </notices>
