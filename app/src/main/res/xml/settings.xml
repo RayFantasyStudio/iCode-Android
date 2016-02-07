@@ -1,12 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <PreferenceScreen xmlns:android='http://schemas.android.com/apk/res/android'>
-	<com.rayfantasy.icode.ui.preference.PreferenceCategory android:title='@string/action_settings'>
-        <Preference
-			android:key="pref_ver"
-			android:summary="@string/S_pref_ver"
-			android:title="@string/S_pref_ver"/>
-    </com.rayfantasy.icode.ui.preference.PreferenceCategory>
-	
     <com.rayfantasy.icode.ui.preference.PreferenceCategory android:title='@string/action_settings'>
         <Preference
                 android:key="pref_clear_cache"

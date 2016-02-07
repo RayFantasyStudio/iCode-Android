@@ -9,21 +9,16 @@ import com.rayfantasy.icode.R
 import kotlinx.android.synthetic.main.fragment_about.*
 
 
-class AboutFragment : PreferenceFragment() {
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        addPreferencesFromResource(R.xml.about)
-        val OSWeb = findPreference("OSWeb")
-        OSWeb.onPreferenceClickListener = OnPreferenceClickListener {
-            var uri = Uri.parse("https://github.com/RayFantasyStudio/iCode-Android")
-            var intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
-            true
-        }
+class AboutFragment : FragmentBase() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        /*AboutFragment_iv_version?.text = getVersion()*/
+        return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+        tv_version.text = getString(R.string.version, BuildConfig.VERSION_NAME)
     }
 }

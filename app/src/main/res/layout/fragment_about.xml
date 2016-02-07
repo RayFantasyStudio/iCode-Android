@@ -5,12 +5,12 @@
     tools:context=".ui.fragment.AboutFragment">
 
     <ImageView
-        android:layout_width="185dp"
-        android:layout_height="185dp"
-        android:id="@+id/AboutFragment_iv"
-        android:src="@mipmap/ic_studio"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="30dp" />
+			android:layout_width="185dp"
+			android:layout_height="185dp"
+			android:id="@+id/AboutFragment_iv"
+			android:src="@mipmap/ic_launcher"
+			android:layout_gravity="center_horizontal|top"
+			android:layout_marginTop="30dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,11 +28,4 @@
             android:id="@+id/tv_version"
             android:layout_gravity="center"
             android:layout_marginTop="50dp" />
-	<android.support.v7.widget.AppCompatButton
-		android:id="@+id/_btn"
-		android:layout_height="wrap_content"
-		android:padding="12dp"
-		android:text="@string/login"
-		android:layout_marginTop="10dp"
-		android:layout_width="match_parent"/>
 </FrameLayout>

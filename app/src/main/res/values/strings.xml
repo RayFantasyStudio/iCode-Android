@@ -133,24 +133,10 @@
     <string name="exit">退出</string>
 
     <!--自动更新-->
-	<string name="T_pref_ver">版本号</string>
-	<string name="S_pref_ver">Null</string>
     <string name="repo_download_failed_http">Downloading %1$s failed: %2$d (%3$s)</string>
     <string name="repo_download_failed">Downloading %1$s failed: %2$s</string>
     <string name="title_new_version">发现新版本：%1$s</string>
     <string name="msg_new_version">%1$s\n\n大小：%2$s</string>
     <string name="positive_new_version">更新</string>
-	
-	<!--团队、作者-->
-	<string name="S_OSWeb">查看开源项目</string>
-	<string name="T_OSWeb">点击查看开源项目</string>
-	<string name="pref_studio">团队</string>
-	<string name="pref_member">作者</string>
-	<string name="S_author_ztc">ztc1997</string>
-	<string name="T_author_ztc">Alex Zhang</string>
-	<string name="S_author_dzh">Takayama</string>
-	<string name="T_author_dzh">Allen Tom</string>
-	<string name="S_author_fjy">LolliKit</string>
-	<string name="T_author_fjy">JunyuanFeng</string>
 
 </resources>
