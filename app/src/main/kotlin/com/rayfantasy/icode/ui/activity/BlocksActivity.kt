@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityBlocksBinding
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.extension.fromJson
@@ -24,7 +24,7 @@ class BlocksActivity : ActivityBindingStatus() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_blocks)
-        binding.theme = iCodeTheme
+        binding.theme = ICodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         codeGood = intent.getSerializableExtra("codeGood") as CodeGood
         title = codeGood.title

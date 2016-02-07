@@ -36,12 +36,6 @@ var FILES_PATH by Delegates.notNull<String>()
 
 class BaseApplication : Application() {
     private lateinit var refWatcher: RefWatcher
-    val _iCodeTheme by lazy {
-        val colorPrimary = resources.getColor(R.color.colorPrimary)
-        val colorPrimaryDark = resources.getColor(R.color.colorPrimaryDark)
-        val colorAccent = resources.getColor(R.color.colorAccent)
-        ICodeTheme(colorPrimary, colorPrimaryDark, colorAccent, R.mipmap.ic_reply_white)
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -63,6 +57,8 @@ class BaseApplication : Application() {
         configureManager.exractDefaultConfigure()
 
         FlowManager.init(this)
+
+        ICodeTheme.init(this)
     }
 
     override fun onTerminate() {
@@ -77,6 +73,3 @@ class BaseApplication : Application() {
         }
     }
 }
-
-val Context.iCodeTheme: ICodeTheme
-    get() = (applicationContext as BaseApplication)._iCodeTheme

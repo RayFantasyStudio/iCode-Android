@@ -18,14 +18,14 @@ package com.rayfantasy.icode.ui.activity
 
 import android.databinding.Observable
 import android.os.Build
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import org.jetbrains.anko.configuration
 
 abstract class ActivityBindingStatus : ActivityBase() {
     private val callback by lazy {
         object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                window.statusBarColor = iCodeTheme.colorPrimaryDark.get()
+                window.statusBarColor = ICodeTheme.colorPrimaryDark.get()
             }
         }
     }
@@ -33,15 +33,15 @@ abstract class ActivityBindingStatus : ActivityBase() {
     override fun onResume() {
         super.onResume()
         configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = iCodeTheme.colorPrimaryDark.get()
-            iCodeTheme.colorPrimaryDark.addOnPropertyChangedCallback(callback)
+            window.statusBarColor = ICodeTheme.colorPrimaryDark.get()
+            ICodeTheme.colorPrimaryDark.addOnPropertyChangedCallback(callback)
         }
     }
 
     override fun onPause() {
         super.onPause()
         configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
-            iCodeTheme.colorPrimaryDark.removeOnPropertyChangedCallback(callback)
+            ICodeTheme.colorPrimaryDark.removeOnPropertyChangedCallback(callback)
         }
     }
 }

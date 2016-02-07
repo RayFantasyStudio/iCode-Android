@@ -22,7 +22,7 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
-import com.rayfantasy.icode.BaseApplicationKt;
+import com.rayfantasy.icode.model.ICodeTheme;
 
 public class PreferenceCategory extends android.preference.PreferenceCategory {
     private Observable.OnPropertyChangedCallback changedCallback;
@@ -43,25 +43,25 @@ public class PreferenceCategory extends android.preference.PreferenceCategory {
     protected void onBindView(@NonNull View view) {
         super.onBindView(view);
         final TextView titleView = (TextView) view.findViewById(android.R.id.title);
-        titleView.setTextColor(BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().get());
+        titleView.setTextColor(ICodeTheme.INSTANCE.getColorAccent().get());
         changedCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                titleView.setTextColor(BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().get());
+                titleView.setTextColor(ICodeTheme.INSTANCE.getColorAccent().get());
             }
         };
-        BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().addOnPropertyChangedCallback(changedCallback);
+        ICodeTheme.INSTANCE.getColorAccent().addOnPropertyChangedCallback(changedCallback);
         titleView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
 
 
             @Override
             public void onViewAttachedToWindow(View v) {
-                BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().addOnPropertyChangedCallback(changedCallback);
+                ICodeTheme.INSTANCE.getColorAccent().addOnPropertyChangedCallback(changedCallback);
             }
 
             @Override
             public void onViewDetachedFromWindow(View v) {
-                BaseApplicationKt.getICodeTheme(getContext()).getColorAccent().removeOnPropertyChangedCallback(changedCallback);
+                ICodeTheme.INSTANCE.getColorAccent().removeOnPropertyChangedCallback(changedCallback);
             }
         });
     }

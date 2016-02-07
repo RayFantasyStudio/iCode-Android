@@ -22,7 +22,7 @@ import com.rayfantasy.icode.databinding.NvLayoutBinding
 import com.rayfantasy.icode.extension.alert
 import com.rayfantasy.icode.extension.alpha
 import com.rayfantasy.icode.extension.shadowColor
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
@@ -58,7 +58,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.theme = iCodeTheme
+        binding.theme = ICodeTheme
         replaceFragment(mainFragment)
 
         val toggle = ActionBarDrawerToggle(
@@ -71,7 +71,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
 
 
         val headerView = nav_view.getHeaderView(0)
-        NvLayoutBinding.bind(headerView).theme = iCodeTheme
+        NvLayoutBinding.bind(headerView).theme = ICodeTheme
         headerView.nv_user_icon.onClick {
             getAccount()
             drawer_layout.closeDrawer(GravityCompat.START)

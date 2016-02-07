@@ -17,7 +17,7 @@ import com.rayfantasy.icode.databinding.HeaderEditBinding
 import com.rayfantasy.icode.databinding.ItemEditTextBinding
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.string
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.fragment.SettingFragment
@@ -187,7 +187,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         override val content = itemView.tv_text
 
         init {
-            ItemEditTextBinding.bind(itemView).theme = itemView.context.iCodeTheme
+            ItemEditTextBinding.bind(itemView).theme = ICodeTheme
         }
     }
 
@@ -196,7 +196,7 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
         val subTitle = itemView.et_sub_title
 
         init {
-            HeaderEditBinding.bind(itemView).theme = itemView.context.iCodeTheme
+            HeaderEditBinding.bind(itemView).theme = ICodeTheme
         }
     }
 

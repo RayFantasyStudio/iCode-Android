@@ -15,7 +15,7 @@ import com.rayfantasy.icode.databinding.ActivityRegisterBinding
 import com.rayfantasy.icode.extension.alert
 import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.extension.string
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
 import com.rayfantasy.icode.util.checkName
@@ -33,7 +33,7 @@ class RegisterActivity : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
-        binding.theme = iCodeTheme
+        binding.theme = ICodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         register_fab.onClick {
             val password = register_et_password.string

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.databinding.FragmentMainBinding
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.CodeGood_Table
@@ -19,7 +19,6 @@ import com.rayfantasy.icode.util.SpaceItemDecoration
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.apache.commons.collections4.list.SetUniqueList
-import org.jetbrains.anko.ctx
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
@@ -34,7 +33,7 @@ class MainFragment : FragmentBase() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding.theme = ctx.iCodeTheme
+        binding.theme = ICodeTheme
         return binding.root
     }
 

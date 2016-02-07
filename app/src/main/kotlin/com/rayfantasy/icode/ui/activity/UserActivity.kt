@@ -9,7 +9,7 @@ import android.view.MenuItem
 import com.android.volley.Request
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityUserBinding
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.adapter.UserListAdapter
 import kotlinx.android.synthetic.main.activity_user.*
@@ -20,13 +20,13 @@ import org.jetbrains.anko.startActivity
 import java.util.*
 
 class UserActivity : ActivityBindingStatus() {
-    private lateinit var adapter : UserListAdapter
+    private lateinit var adapter: UserListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>
-    private lateinit  var username : String
+    private lateinit var username: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityUserBinding>(this, R.layout.activity_user).theme = iCodeTheme
+        DataBindingUtil.setContentView<ActivityUserBinding>(this, R.layout.activity_user).theme = ICodeTheme
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         username = intent.getSerializableExtra("username").toString()
@@ -37,13 +37,15 @@ class UserActivity : ActivityBindingStatus() {
         }
 
     }
+
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         user_recyclerview.layoutManager = layoutManager
-        adapter = UserListAdapter(this, username,ArrayList()) {}
+        adapter = UserListAdapter(this, username, ArrayList()) {}
         user_recyclerview.adapter = adapter
         refresh()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         //回收资源
@@ -51,6 +53,7 @@ class UserActivity : ActivityBindingStatus() {
         isRefreshing = false
 
     }
+
     private fun refresh() {
         //如果正在刷新，则不再发起新的刷新请求
         if (isRefreshing)
@@ -65,7 +68,7 @@ class UserActivity : ActivityBindingStatus() {
 
             //重复利用原来的adapter，节省内存
             if (adapter == null) {
-                adapter = UserListAdapter(this,username, it) {}
+                adapter = UserListAdapter(this, username, it) {}
                 user_recyclerview.adapter = adapter
             } else {
                 adapter.codeGoods = it
@@ -80,8 +83,8 @@ class UserActivity : ActivityBindingStatus() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (PostUtil.user?.username == username){
-            menuInflater.inflate(R.menu.user_menu,menu)
+        if (PostUtil.user?.username == username) {
+            menuInflater.inflate(R.menu.user_menu, menu)
             return true
         }
         return false
@@ -90,23 +93,25 @@ class UserActivity : ActivityBindingStatus() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        when (id){
-            R.id.account_menu_out ->{
-                alert(getString(R.string.exit_user_msg),getString(R.string.app_name)) {
+        when (id) {
+            R.id.account_menu_out -> {
+                alert(getString(R.string.exit_user_msg), getString(R.string.app_name)) {
                     positiveButton(getString(R.string.ok_btn)) {
                         PostUtil.logoutUser()
-                       nv_user_icon.setImageDrawable(getDrawable(R.mipmap.ic_nv_user))
-                       nv_username.text = getText(R.string.not_Login)
+                        nv_user_icon.setImageDrawable(getDrawable(R.mipmap.ic_nv_user))
+                        nv_username.text = getText(R.string.not_Login)
 
                         finish()
 
                     }
-                    negativeButton(getString(R.string.no_btn)) {  }
+                    negativeButton(getString(R.string.no_btn)) { }
                 }.show()
 
                 return true
             }
-            R.id.account_setAccount ->{startActivity<AccountSettingActivity>()}
+            R.id.account_setAccount -> {
+                startActivity<AccountSettingActivity>()
+            }
         }
         return true
     }

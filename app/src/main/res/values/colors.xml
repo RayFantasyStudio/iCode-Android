@@ -13,4 +13,14 @@
     <color name="night_color">#000000</color>
     <color name="light_color">#ffffff</color>
     <color name="light_color2">#ff87cefa</color>
+
+    <!--主题：蓝-->
+    <color name="colorPrimary_blue">#03a9f4</color>
+    <color name="colorPrimaryDark_blue">#0288d1</color>
+    <color name="colorAccent_blue">#795548</color>
+
+    <!--主题：红-->
+    <color name="colorPrimary_red">#e51c23</color>
+    <color name="colorPrimaryDark_red">#b7161c</color>
+    <color name="colorAccent_red">#e91e63</color>
 </resources>

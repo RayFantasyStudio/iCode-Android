@@ -91,7 +91,7 @@
     <string name="add_code_favorite">把它加入收藏列表</string>
 
 
-    //Error
+    <!--Error-->
     <string name="internet_error">网络错误</string>
     <string name="failed_to_analysis_local_data_error">解析传入的本地数据失败</string>
     <string name="failed_to_analysis_server_data_error">解析来自服务器的数据失败</string>
@@ -115,11 +115,16 @@
     <string name="unknow_error">未知错误</string>
     <string name="update">更新</string>
     <string name="version">版本：Null</string>
-    <string name="pref_theme">主题</string>
-    <string name="pref_theme_highlight">语法高亮主题</string>
+
+    <!--Settings-->
     <string name="pref_other">其他</string>
     <string name="pref_summary_clear_cache">清理缓存的数据和图片</string>
     <string name="pref_title_clear_cache">清理缓存</string>
 
+    <!--Theme-->
+    <string name="pref_theme">主题</string>
+    <string name="pref_theme_highlight">语法高亮主题</string>
+    <string name="entry_theme_blue">蓝蓝路</string>
+    <string name="entry_theme_red">姨妈红</string>
 
 </resources>

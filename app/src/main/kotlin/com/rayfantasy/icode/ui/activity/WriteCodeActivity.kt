@@ -10,7 +10,7 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityWriteCodeBinding
 import com.rayfantasy.icode.extension.snackBar
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.extension.e
@@ -25,7 +25,7 @@ class WriteCodeActivity : ActivityBindingStatus() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityWriteCodeBinding>(this, R.layout.activity_write_code).theme = iCodeTheme
+        DataBindingUtil.setContentView<ActivityWriteCodeBinding>(this, R.layout.activity_write_code).theme = ICodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val blockAdapter = EditBlockAdapter(this)

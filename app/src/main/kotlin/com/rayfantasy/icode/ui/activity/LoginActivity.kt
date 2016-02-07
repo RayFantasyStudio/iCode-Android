@@ -8,7 +8,7 @@ import com.android.volley.Request
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityLoginBinding
 import com.rayfantasy.icode.extension.snackBar
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.e
 import kotlinx.android.synthetic.main.content_login.*
@@ -20,7 +20,7 @@ class LoginActivity : ActivityBase() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login).theme = iCodeTheme
+        DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login).theme = ICodeTheme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         login_fab.onClick {

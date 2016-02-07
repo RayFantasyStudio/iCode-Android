@@ -16,14 +16,37 @@
 
 package com.rayfantasy.icode.model
 
+import android.content.Context
 import android.databinding.ObservableInt
+import com.rayfantasy.icode.R
+import org.jetbrains.anko.defaultSharedPreferences
 
-class ICodeTheme(colorPrimary: Int, colorPrimaryDark: Int, colorAccent: Int, icon: Int) {
-    val colorPrimary = ObservableInt(colorPrimary)
+object ICodeTheme {
+    const val PREF_ICODE_THEME = "pref_icode_theme"
+    const val THEME_BLUE = 0
+    const val THEME_RED = 1
+    const val THEME_DEFAULT = THEME_BLUE
+    internal val colorPrimaryRes = intArrayOf(R.color.colorPrimary_blue, R.color.colorPrimary_red)
+    internal val colorPrimaryDarkRes = intArrayOf(R.color.colorPrimaryDark_blue, R.color.colorPrimaryDark_red)
+    internal val colorAccentRes = intArrayOf(R.color.colorAccent_blue, R.color.colorAccent_red)
 
-    val colorPrimaryDark = ObservableInt(colorPrimaryDark)
+    fun init(ctx: Context) {
+        val theme = ctx.defaultSharedPreferences.getInt(PREF_ICODE_THEME, THEME_DEFAULT)
+        ctx.changeTheme(theme)
+    }
 
-    val colorAccent = ObservableInt(colorAccent)
+    val colorPrimary = ObservableInt()
 
-    val icon = ObservableInt(icon)
+    val colorPrimaryDark = ObservableInt()
+
+    val colorAccent = ObservableInt()
+
+    val icon = ObservableInt()
+}
+
+fun Context.changeTheme(theme: Int) = with(ICodeTheme) {
+    colorPrimary.set(resources.getColor(colorPrimaryRes[theme]))
+    colorPrimaryDark.set(resources.getColor(colorPrimaryDarkRes[theme]))
+    colorAccent.set(resources.getColor(colorAccentRes[theme]))
+    defaultSharedPreferences.edit().putInt(PREF_ICODE_THEME, theme).apply()
 }

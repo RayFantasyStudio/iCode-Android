@@ -9,10 +9,11 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.raizlabs.android.dbflow.sql.language.Delete
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.model.ICodeTheme
+import com.rayfantasy.icode.model.changeTheme
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.postutil.bean.User
-import com.rayfantasy.icode.postutil.extension.i
 import de.psdev.licensesdialog.LicensesDialog
 import org.evilbinary.utils.DirUtil
 import org.jetbrains.anko.async
@@ -23,10 +24,12 @@ class SettingFragment : PreferenceFragment() {
     companion object {
         const val PREF_HIGHLIGHT = "pref_highlight"
         const val PREF_CLEAR_CACHE = "pref_clear_cache"
+        const val PREF_THEME = "pref_theme"
         const val DEFAULT_HIGHLIGHT = "molokai"
     }
 
     private lateinit var highlight: ListPreference
+    private lateinit var theme: ListPreference
     private lateinit var sharedPreferences: SharedPreferences
     val highlightThemes by lazy {
         File(DirUtil.getFilesDir(ctx), "themes")
@@ -35,12 +38,13 @@ class SettingFragment : PreferenceFragment() {
                 .sorted()
                 .toTypedArray()
     }
+
     private val changeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
-        i("key = $key")
         when (key) {
-            PREF_HIGHLIGHT -> {
-                highlight.summary = sharedPreferences.getString(key, DEFAULT_HIGHLIGHT)
-                i("highlight.summary = ${highlight.summary}")
+            PREF_HIGHLIGHT -> highlight.summary = sharedPreferences.getString(key, DEFAULT_HIGHLIGHT)
+            PREF_THEME -> {
+                theme.summary = theme.entry
+                ctx.changeTheme(sharedPreferences.getString(PREF_THEME, ICodeTheme.THEME_DEFAULT.toString()).toInt())
             }
         }
     }
@@ -67,11 +71,13 @@ class SettingFragment : PreferenceFragment() {
             }
             true
         }
+        theme = findPreference(PREF_THEME) as ListPreference
     }
 
     override fun onResume() {
         super.onResume()
         highlight.summary = sharedPreferences.getString(PREF_HIGHLIGHT, DEFAULT_HIGHLIGHT)
+        theme.summary = theme.entry
         sharedPreferences.registerOnSharedPreferenceChangeListener(changeListener)
     }
 

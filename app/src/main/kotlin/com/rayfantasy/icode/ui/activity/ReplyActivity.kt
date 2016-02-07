@@ -2,14 +2,13 @@ package com.rayfantasy.icode.ui.activity
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityReplyBinding
-import com.rayfantasy.icode.iCodeTheme
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.postutil.bean.Reply_Table
@@ -19,15 +18,15 @@ import kotlinx.android.synthetic.main.activity_reply.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.support.v4.onRefresh
 
-class ReplyActivity : AppCompatActivity() {
-    private   var id : Int = 1
+class ReplyActivity : ActivityBindingStatus() {
+    private var id: Int = 1
     private lateinit var adapter: ReplyListAdapter
     private val isRefreshing: Boolean
         get() = request != null
     private var request: Request<*>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = iCodeTheme
+        DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = ICodeTheme
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
@@ -49,6 +48,7 @@ class ReplyActivity : AppCompatActivity() {
         reply_recyclerview.adapter = adapter
 
     }
+
     private fun loadReplys(refresh: Boolean) {
         //如果正在刷新，则不再发起新的刷新请求
         if (isRefreshing)
@@ -65,8 +65,7 @@ class ReplyActivity : AppCompatActivity() {
             if (it.isEmpty() ) {
                 //如果结果为空，则表示没有更多内容了
                 adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
-            }
-            else {
+            } else {
                 //如果需要刷新，将旧的列表清空
                 if (refresh) {
                     adapter.replyList.clear()
