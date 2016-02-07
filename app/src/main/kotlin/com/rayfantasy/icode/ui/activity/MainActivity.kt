@@ -101,11 +101,11 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+  /*  override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
-    }
+    }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -143,7 +143,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_home -> replaceFragment(mainFragment)
             R.id.nav_about -> replaceFragment(aboutFragment)
             R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
-            R.id.nav_favourite -> replaceFragment(favoriteFragment)
+//            R.id.nav_favourite -> replaceFragment(favoriteFragment)
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_homepage -> OpenWeb()
 
