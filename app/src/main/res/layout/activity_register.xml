@@ -52,8 +52,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:src="@mipmap/ic_create_new"
             android:layout_margin="@dimen/fab_margin"
-            app:imageResource="@{theme.icon}"
+
             app:backgroundTintList="@{theme.colorAccent}"/>
 
 </android.support.design.widget.CoordinatorLayout>

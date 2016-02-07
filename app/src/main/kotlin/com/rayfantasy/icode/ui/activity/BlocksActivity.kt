@@ -53,7 +53,7 @@ class BlocksActivity : ActivityBindingStatus() {
             toast("rc = $rc")
             t.printStackTrace()
         })
-        block_fab.onClick { toReply() }
+//        block_fab.onClick { toReply() }
     }
 
     fun toReply() {
