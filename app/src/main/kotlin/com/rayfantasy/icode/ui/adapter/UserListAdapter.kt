@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.alpha
@@ -19,25 +18,25 @@ import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.activity.BlocksActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
-import jp.wasabeef.glide.transformations.BlurTransformation
-import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
-import kotlinx.android.synthetic.main.item_recycler_user.view.*
-import org.jetbrains.anko.onClick
-import org.jetbrains.anko.startActivity
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.footer_recycler_view.view.*
-import org.jetbrains.anko.backgroundColor
+import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
+import kotlinx.android.synthetic.main.item_recycler_user.view.*
+import org.jetbrains.anko.image
+import org.jetbrains.anko.onClick
+import org.jetbrains.anko.startActivity
 
 /**
  * Created by qweas on 2016/1/22 0022.
  */
-class UserListAdapter(val activity: Activity,var username : String ,var codeGoods: MutableList<CodeGood>,private  val  onLoadingMore: () -> Unit ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UserListAdapter(val activity: Activity, var username: String, var codeGoods: MutableList<CodeGood>, private val  onLoadingMore: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val glide by lazy { Glide.with(activity) }
     private val circleTransformation by lazy { CropCircleTransformation(activity) }
     private var footerState: Int = 0
     private var hintNoMore = R.string.footer_msg_no_more
     private val footerViewHolder: FooterViewHolder
-     companion object {
+
+    companion object {
         const val VIEW_TYPE_HEADER = -1
         const val VIEW_TYPE_NORMAL = -2
         val FOOTER_STATE_LOADING = 0
@@ -48,6 +47,7 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
     }
 
     override fun getItemCount() = codeGoods.size + 1
+
     init {
         @SuppressLint("InflateParams")
         val footerView = LayoutInflater.from(activity).inflate(R.layout.footer_recycler_view, null, false)
@@ -59,19 +59,21 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
             onLoadingMore()
         }
     }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
 
         when (holder) {
             is UserViewHolder -> {
                 holder.username.text = username
                 holder.usericon.loadPortrait(username)
+
+                val colorDrawable = ColorDrawable(username.hashCode().alpha(0xff).shadowColor())
+                holder.user_bg.image = colorDrawable
                 glide.load(PostUtil.getProfilePicUrl(username))
-                     .error(ColorDrawable(username.hashCode().alpha(0xff).shadowColor()))
+                        .error(colorDrawable)
                         .centerCrop()
                         .crossFade()
-                    .into(holder.user_bg)
-
-
+                        .into(holder.user_bg)
             }
             is CodeViewHolder -> {
                 val codeGood = codeGoods[position - 1]
@@ -95,7 +97,7 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
                     activity.startActivity<BlocksActivity>("codeGood" to codeGood)
                 }
             }
-            is FooterViewHolder ->{
+            is FooterViewHolder -> {
                 setFooterState(FOOTER_STATE_LOADING)
                 onLoadingMore()
             }
@@ -105,12 +107,13 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
     override fun getItemViewType(position: Int)
             = if (position == 0) VIEW_TYPE_HEADER else if (position == getItemCount() + 2) VIEW_TYPE_FOOTER else VIEW_TYPE_NORMAL
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when(viewType){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         VIEW_TYPE_HEADER -> UserViewHolder(parent.inflate(R.layout.item_recycler_user))
         VIEW_TYPE_NORMAL -> CodeViewHolder(parent.inflate(R.layout.item_recycler_code_list))
         VIEW_TYPE_FOOTER -> FooterViewHolder(parent.inflate(R.layout.footer_recycler_view))
         else -> null
     }
+
     fun setFooterState(footerState: Int) {
         this.footerState = footerState
         when (footerState) {
@@ -136,13 +139,15 @@ class UserListAdapter(val activity: Activity,var username : String ,var codeGood
         }
 
     }
+
     fun setHintNoMore(hintNoMore: Int) {
         this.hintNoMore = hintNoMore
     }
+
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var username = itemView.user_item_username
         var usericon = itemView.user_item_avatar
-        var user_bg  = itemView.user_item_bg
+        var user_bg = itemView.user_item_bg
     }
 
     class CodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
