@@ -136,6 +136,7 @@
     <string name="repo_download_failed_http">Downloading %1$s failed: %2$d (%3$s)</string>
     <string name="repo_download_failed">Downloading %1$s failed: %2$s</string>
     <string name="title_new_version">发现新版本：%1$s</string>
+    <string name="msg_new_version">%1$s\n\n大小：%2$s</string>
     <string name="positive_new_version">更新</string>
 
 </resources>

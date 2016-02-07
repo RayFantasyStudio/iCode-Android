@@ -35,7 +35,6 @@ import com.rayfantasy.icode.postutil.URL_UPDATE_INFO
 import com.rayfantasy.icode.postutil.bean.UpdateInfo
 import com.rayfantasy.icode.postutil.bean.User
 import com.rayfantasy.icode.postutil.extension.fromJson
-import com.rayfantasy.icode.postutil.extension.i
 import com.rayfantasy.icode.ui.fragment.AboutFragment
 import com.rayfantasy.icode.ui.fragment.FavoriteFragment
 import com.rayfantasy.icode.ui.fragment.MainFragment
@@ -182,17 +181,17 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
                 alert {
                     val title = getString(R.string.title_new_version, updateInfo.versionName)
                     title(title)
-                    message(updateInfo.info)
+                    message(getString(R.string.msg_new_version, updateInfo.info, updateInfo.size))
                     positiveButton(R.string.positive_new_version) {
                         val downloadInfo = DownloadsUtil.add(applicationContext, title, updateInfo.url, null)
                         async() {
                             val applicationContext = applicationContext
-                            var info = DownloadsUtil.getById(applicationContext, downloadInfo.id)
-                            while ((info.status and (DownloadManager.STATUS_PENDING or DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_RUNNING)) != 0) {
-                                i { "info.status = ${info.status}" }
+                            var info: DownloadsUtil.DownloadInfo
+                            do {
                                 Thread.sleep(500)
                                 info = DownloadsUtil.getById(applicationContext, downloadInfo.id)
-                            }
+                            } while ((info.status and (DownloadManager.STATUS_PENDING or
+                                    DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_RUNNING)) != 0)
                             runOnUiThread {
                                 val intent = Intent(Intent.ACTION_VIEW)
                                 intent.setDataAndType(Uri.fromFile(File(info.localFilename)), DownloadsUtil.MIME_TYPE_APK)
