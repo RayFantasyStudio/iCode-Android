@@ -58,6 +58,7 @@ class SettingFragment : PreferenceFragment() {
             LicensesDialog.Builder(activity).setNotices(R.raw.licenses).setIncludeOwnLicense(true).build().show()
             true
         }
+        S_pref_ver.text = getString(R.string.version, BuildConfig.VERSION_NAME)
         highlight = findPreference(PREF_HIGHLIGHT) as ListPreference
         highlight.entries = highlightThemes
         highlight.entryValues = highlightThemes
