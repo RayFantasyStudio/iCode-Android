@@ -15,13 +15,11 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
-import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityMainBinding
 import com.rayfantasy.icode.databinding.NvLayoutBinding
 import com.rayfantasy.icode.extension.alert
-import com.rayfantasy.icode.extension.alpha
-import com.rayfantasy.icode.extension.shadowColor
+import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
 import com.rayfantasy.icode.postutil.PostUtil
@@ -30,19 +28,15 @@ import com.rayfantasy.icode.ui.fragment.AboutFragment
 import com.rayfantasy.icode.ui.fragment.FavoriteFragment
 import com.rayfantasy.icode.ui.fragment.MainFragment
 import com.rayfantasy.icode.ui.fragment.SettingFragment
-import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
-import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
 class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
 
     private val aboutFragment by lazy { AboutFragment() }
-    private val glide by lazy { Glide.with(this) }
-    private val circleTransformation    by lazy { CropCircleTransformation(this) }
     private val favoriteFragment by lazy { FavoriteFragment() }
     private val mainFragment by lazy { MainFragment() }
     private val settingFragment by lazy { SettingFragment() }
@@ -67,9 +61,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
 
-        refreshUserState()
-
-
         val headerView = nav_view.getHeaderView(0)
         NvLayoutBinding.bind(headerView).theme = ICodeTheme
         headerView.nv_user_icon.onClick {
@@ -78,18 +69,18 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
         broadcastManager = LocalBroadcastManager.getInstance(this)
         broadcastManager.registerReceiver(receiver, IntentFilter(ACTION_USER_STATE_CHANGED))
-
-
     }
 
-    private fun refreshUserState() {
-        if (PostUtil.user != null) {
-            nav_view.getHeaderView(0).nv_username.text = (PostUtil.user as User).username
-            glide.load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
-                    .bitmapTransform(circleTransformation)
-                    .into(nav_view.getHeaderView(0).nv_user_icon)
-        }
+    override fun onResume() {
+        super.onResume()
+        refreshUserState()
+    }
 
+    private fun refreshUserState() = PostUtil.user?.let {
+        val headerView = nav_view.getHeaderView(0)
+        val username = (PostUtil.user as User).username
+        headerView.nv_username.text = username
+        headerView.nv_user_icon.loadPortrait(username)
     }
 
 
@@ -124,7 +115,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
 
         //noinspection SimplifiableIfStatement
 
-        if (id == R.id.action_exit){
+        if (id == R.id.action_exit) {
             alert(getString(R.string.exit_icode_msg), getString(R.string.app_name)) {
                 positiveButton(getString(R.string.ok_btn)) { super.onBackPressed() }
                 negativeButton(getString(R.string.no_btn)) {}
