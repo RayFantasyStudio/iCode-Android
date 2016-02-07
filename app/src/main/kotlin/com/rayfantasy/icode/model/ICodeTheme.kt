@@ -18,6 +18,8 @@ package com.rayfantasy.icode.model
 
 import android.content.Context
 import android.databinding.ObservableInt
+import com.nineoldandroids.animation.ArgbEvaluator
+import com.nineoldandroids.animation.ValueAnimator
 import com.rayfantasy.icode.R
 import org.jetbrains.anko.defaultSharedPreferences
 
@@ -52,8 +54,21 @@ object ICodeTheme {
 }
 
 fun Context.changeTheme(theme: Int) = with(ICodeTheme) {
-    colorPrimary.set(resources.getColor(colorPrimaryRes[theme]))
-    colorPrimaryDark.set(resources.getColor(colorPrimaryDarkRes[theme]))
-    colorAccent.set(resources.getColor(colorAccentRes[theme]))
+    changeColor(colorPrimary, resources.getColor(colorPrimaryRes[theme]))
+    changeColor(colorPrimaryDark, resources.getColor(colorPrimaryDarkRes[theme]))
+    changeColor(colorAccent, resources.getColor(colorAccentRes[theme]))
     defaultSharedPreferences.edit().putInt(PREF_ICODE_THEME, theme).apply()
+}
+
+fun changeColor(observableInt: ObservableInt, color: Int) {
+    val i = observableInt.get()
+    if (i != 0) {
+        val anim = ValueAnimator.ofObject(ArgbEvaluator(), i, color)
+        anim.addUpdateListener {
+            observableInt.set(it.animatedValue as Int)
+        }
+        anim.setDuration(300)
+        anim.start()
+    } else
+        observableInt.set(color)
 }
