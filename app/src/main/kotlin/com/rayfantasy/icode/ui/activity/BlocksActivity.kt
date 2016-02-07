@@ -1,6 +1,5 @@
 package com.rayfantasy.icode.ui.activity
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +14,7 @@ import com.rayfantasy.icode.ui.adapter.BlockAdapter
 import kotlinx.android.synthetic.main.activity_blocks.*
 import kotlinx.android.synthetic.main.content_blocks.*
 import org.jetbrains.anko.onClick
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class BlocksActivity : ActivityBindingStatus() {
@@ -53,13 +53,7 @@ class BlocksActivity : ActivityBindingStatus() {
             toast("rc = $rc")
             t.printStackTrace()
         })
-//        block_fab.onClick { toReply() }
-    }
-
-    fun toReply() {
-        var intent: Intent = Intent(this, ReplyActivity::class.java)
-        intent.putExtra("id", codeGood.id)
-        startActivity(intent)
+        block_fab.onClick { startActivity<ReplyActivity>("id" to codeGood.id) }
     }
 
 }

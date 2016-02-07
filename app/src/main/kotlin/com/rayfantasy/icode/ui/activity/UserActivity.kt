@@ -97,7 +97,7 @@ class UserActivity : ActivityBindingStatus() {
                 alert(getString(R.string.exit_user_msg), getString(R.string.app_name)) {
                     positiveButton(getString(R.string.ok_btn)) {
                         PostUtil.logoutUser()
-                        nv_user_icon.setImageDrawable(getDrawable(R.mipmap.ic_nv_user))
+                        nv_user_icon.setImageDrawable(resources.getDrawable(R.mipmap.ic_nv_user))
                         nv_username.text = getText(R.string.not_Login)
 
                         finish()

@@ -48,22 +48,21 @@
         </android.support.v4.widget.SwipeRefreshLayout>
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/reply_bar">
 
             <android.support.v7.widget.AppCompatEditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
                     android:id="@+id/reply_sent_context"
-                    android:background="#dcdddd"
                     android:textCursorDrawable="@{theme.colorAccent}"
                     app:supportBackgroundTintList="@{theme.colorAccent}"/>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/commit"
-                    android:background="#dcdddd"
-                    android:id="@+id/reply_sent"/>
+                    android:id="@+id/btn_sent"/>
 
         </LinearLayout>
 

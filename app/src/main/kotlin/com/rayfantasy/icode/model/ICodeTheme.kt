@@ -62,6 +62,7 @@ fun Context.changeTheme(theme: Int) = with(ICodeTheme) {
 
 fun changeColor(observableInt: ObservableInt, color: Int) {
     val i = observableInt.get()
+    if (i == color) return
     if (i != 0) {
         val anim = ValueAnimator.ofObject(ArgbEvaluator(), i, color)
         anim.addUpdateListener {

@@ -8,15 +8,19 @@ import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityReplyBinding
+import com.rayfantasy.icode.extension.string
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.postutil.bean.Reply_Table
+import com.rayfantasy.icode.postutil.extension.e
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.ui.adapter.ReplyListAdapter
 import kotlinx.android.synthetic.main.activity_reply.*
 import org.apache.commons.collections4.list.SetUniqueList
+import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.onRefresh
+import org.jetbrains.anko.toast
 
 class ReplyActivity : ActivityBindingStatus() {
     private var id: Int = 1
@@ -31,7 +35,7 @@ class ReplyActivity : ActivityBindingStatus() {
         setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        id = intent.getSerializableExtra("id") as Int
+        id = intent.getIntExtra("id", 0)
         reply_swip?.onRefresh {
             loadReplys(true)
         }
@@ -39,6 +43,28 @@ class ReplyActivity : ActivityBindingStatus() {
         initRecyclerView()
         loadReplys(true)
 
+        if (PostUtil.user == null)
+            setReplyable(false)
+
+        btn_sent.onClick {
+            val reply = Reply(reply_sent_context.string, id)
+            setReplyable(false)
+            PostUtil.addReply(reply, {
+                reply_sent_context.string = ""
+                toast("Success")
+                setReplyable(true)
+                loadReplys(true)
+            }, { t, rc ->
+                toast("Failed, rc = $rc")
+                e("rc = $rc")
+                setReplyable(true)
+            })
+        }
+    }
+
+    private fun setReplyable(replyable: Boolean) {
+        reply_sent_context.isEnabled = replyable
+        btn_sent.isEnabled = replyable
     }
 
     private fun initRecyclerView() {

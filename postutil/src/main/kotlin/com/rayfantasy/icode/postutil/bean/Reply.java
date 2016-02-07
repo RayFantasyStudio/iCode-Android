@@ -54,6 +54,14 @@ public class Reply extends BaseModel implements Serializable {
     @SerializedName("createat")
     public Long createAt;
 
+    public Reply(String content, int goodId) {
+        this.content = content;
+        this.goodId = goodId;
+    }
+
+    public Reply() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Reply)) return false;

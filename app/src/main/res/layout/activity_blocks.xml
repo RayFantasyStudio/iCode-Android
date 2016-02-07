@@ -32,14 +32,14 @@
 
         <include layout="@layout/content_blocks"/>
 
-        <!--<android.support.design.widget.FloatingActionButton-->
-                <!--android:id="@+id/block_fab"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="bottom|end"-->
-                <!--android:layout_margin="@dimen/fab_margin"-->
-                <!--android:src="@mipmap/ic_reply_white"-->
-                <!--app:backgroundTintList="@{theme.colorAccent}"/>-->
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/block_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@mipmap/ic_reply_white"
+                app:backgroundTintList="@{theme.colorAccent}"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>
