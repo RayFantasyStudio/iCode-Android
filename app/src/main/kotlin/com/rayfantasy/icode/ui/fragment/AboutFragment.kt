@@ -1,12 +1,12 @@
 package com.rayfantasy.icode.ui.fragment
 
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.rayfantasy.icode.BuildConfig
 import com.rayfantasy.icode.R
+import kotlinx.android.synthetic.main.fragment_about.*
 
 
 class AboutFragment : FragmentBase() {
@@ -17,11 +17,8 @@ class AboutFragment : FragmentBase() {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
-    fun getVersion(): String {
-        var app_version: String
-        var pm: PackageManager = context.packageManager
-        var pi: PackageInfo = pm.getPackageInfo(context.packageManager.toString(), 0)
-        app_version = pi.versionName
-        return app_version
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tv_version.text = getString(R.string.version, BuildConfig.VERSION_NAME)
     }
 }

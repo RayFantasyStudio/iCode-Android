@@ -2,7 +2,6 @@ package com.rayfantasy.icode.ui.activity
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
@@ -32,9 +31,9 @@ class UserActivity : ActivityBindingStatus() {
         username = intent.getSerializableExtra("username").toString()
         title = username
         initRecyclerView()
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-//        }
+        //        fab.setOnClickListener { view ->
+        //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+        //        }
 
     }
 
@@ -111,8 +110,9 @@ class UserActivity : ActivityBindingStatus() {
             }
             R.id.account_setAccount -> {
                 startActivity<AccountSettingActivity>()
+                return true
             }
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 }

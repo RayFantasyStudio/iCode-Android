@@ -114,7 +114,7 @@
     <string name="cannot_find_id_in_codegood_database_error">在数据库中根据id找不到对应的对象</string>
     <string name="unknow_error">未知错误</string>
     <string name="update">更新</string>
-    <string name="version">版本：Null</string>
+    <string name="version">版本：%1$s</string>
 
     <!--Settings-->
     <string name="pref_other">其他</string>
