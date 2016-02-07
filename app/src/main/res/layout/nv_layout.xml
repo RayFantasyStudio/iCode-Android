@@ -22,40 +22,31 @@
                 name="theme"
                 type="com.rayfantasy.icode.model.ICodeTheme"/>
     </data>
-    <RelativeLayout
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
+            android:layout_height="211dp"
+            android:background="@{theme.colorPrimary}"
+            android:id="@+id/nv_bg"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+                android:id="@+id/nv_user_icon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@mipmap/ic_nv_user"
+                android:layout_marginTop="20dp"/>
+
+        <TextView
+                android:id="@+id/nv_username"
                 android:layout_width="match_parent"
-                android:layout_height="211dp"
-                android:background="@{theme.colorPrimary}"
-                android:id="@+id/nv_bg"
-                android:gravity="bottom"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="@string/nonLogin"
+                android:textColor="@color/nv_username"
+                android:textSize="25sp"
+                android:layout_marginTop="20dp"/>
+    </LinearLayout>
 
-            <ImageView
-                    android:id="@+id/nv_user_icon"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:src="@mipmap/ic_nv_user"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="72dp"/>
-
-            <TextView
-                    android:id="@+id/nv_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nonLogin"
-                    android:textColor="@color/nv_username"
-                    android:textSize="25sp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="72dp"
-                    android:layout_marginBottom="16dp"/>
-        </LinearLayout>
-
-    </RelativeLayout>
 </layout>
