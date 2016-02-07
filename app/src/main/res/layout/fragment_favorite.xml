@@ -1,13 +1,13 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/favo_swipe"
-    tools:context=".ui.fragment.FavoriteFragment">
+                                              xmlns:tools="http://schemas.android.com/tools"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent"
+                                              android:id="@+id/favo_swipe"
+                                              tools:context=".ui.fragment.FavoriteFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/favorite_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+            android:id="@+id/favorite_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 </android.support.v4.widget.SwipeRefreshLayout>

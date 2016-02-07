@@ -15,78 +15,78 @@
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/element_bg"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:layout_marginTop="4dp"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:transitionName="element_bg"
-    app:cardCornerRadius="0dp">
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/element_bg"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:layout_marginTop="4dp"
+                                    android:clickable="true"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:transitionName="element_bg"
+                                    app:cardCornerRadius="0dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/reply_user_pic"
-                android:layout_width="@dimen/profile_pic_size"
-                android:layout_height="@dimen/profile_pic_size"
-                android:src="@mipmap/ic_user_black"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="10dp" />
+                    android:id="@+id/reply_user_pic"
+                    android:layout_width="@dimen/profile_pic_size"
+                    android:layout_height="@dimen/profile_pic_size"
+                    android:src="@mipmap/ic_user_black"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/reply_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="User"
-                android:textColor="#8C8C8C"
-                android:textSize="15sp"
-                android:layout_marginLeft="26dp"
-                android:layout_marginStart="26dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/reply_user_pic"
-                android:layout_toEndOf="@+id/reply_user_pic" />
+                    android:id="@+id/reply_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="User"
+                    android:textColor="#8C8C8C"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/reply_user_pic"
+                    android:layout_toEndOf="@+id/reply_user_pic"/>
 
             <TextView
-                android:id="@+id/reply_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="32dp"
-                android:gravity="center"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="Time"
-                android:textColor="#8C8C8C"
-                android:textSize="15sp" />
+                    android:id="@+id/reply_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Time"
+                    android:textColor="#8C8C8C"
+                    android:textSize="15sp"/>
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/reply_context"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="32dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="Message"
-            android:textColor="#8C8C8C"
-            android:textSize="15sp"
-            android:layout_marginTop="16dp" />
+                android:id="@+id/reply_context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="32dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Message"
+                android:textColor="#8C8C8C"
+                android:textSize="15sp"
+                android:layout_marginTop="16dp"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

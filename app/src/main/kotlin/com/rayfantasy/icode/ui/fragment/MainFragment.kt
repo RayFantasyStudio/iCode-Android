@@ -27,6 +27,7 @@ class MainFragment : FragmentBase() {
     companion object {
         const val LOAD_ONCE = 10
     }
+
     private lateinit var adapter: CodeListAdapter
     private val isRefreshing: Boolean
         get() = request != null
