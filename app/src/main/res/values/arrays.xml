@@ -19,9 +19,17 @@
     <string-array name="pref_entries_theme">
         <item>@string/entry_theme_blue</item>
         <item>@string/entry_theme_red</item>
+        <item>@string/entry_theme_purple</item>
+        <item>@string/entry_theme_gray</item>
+        <item>@string/entry_theme_yellow</item>
+        <item>@string/entry_theme_deepblue</item>
     </string-array>
     <string-array name="pref_values_theme">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 </resources>

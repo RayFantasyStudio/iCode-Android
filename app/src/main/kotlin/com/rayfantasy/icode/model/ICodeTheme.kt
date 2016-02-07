@@ -25,10 +25,17 @@ object ICodeTheme {
     const val PREF_ICODE_THEME = "pref_icode_theme"
     const val THEME_BLUE = 0
     const val THEME_RED = 1
-    const val THEME_DEFAULT = THEME_BLUE
-    internal val colorPrimaryRes = intArrayOf(R.color.colorPrimary_blue, R.color.colorPrimary_red)
-    internal val colorPrimaryDarkRes = intArrayOf(R.color.colorPrimaryDark_blue, R.color.colorPrimaryDark_red)
-    internal val colorAccentRes = intArrayOf(R.color.colorAccent_blue, R.color.colorAccent_red)
+    const val THEME_PURPLE = 2
+    const val THEME_GRAY = 3
+    const val THEME_YELLOW = 4
+    const val THEME_DEEPBLUE = 5
+    const val THEME_DEFAULT = THEME_RED
+    internal val colorPrimaryRes = intArrayOf(R.color.colorPrimary_blue, R.color.colorPrimary_red,
+            R.color.colorPrimary_purple, R.color.colorPrimary_gray, R.color.colorPrimary_yellow, R.color.colorPrimary_deepblue)
+    internal val colorPrimaryDarkRes = intArrayOf(R.color.colorPrimaryDark_blue, R.color.colorPrimaryDark_red,
+            R.color.colorPrimaryDark_purple, R.color.colorPrimaryDark_gray, R.color.colorPrimaryDark_yellow, R.color.colorPrimaryDark_deepblue)
+    internal val colorAccentRes = intArrayOf(R.color.colorAccent_blue, R.color.colorAccent_red,
+            R.color.colorAccent_purple, R.color.colorAccent_gray, R.color.colorAccent_yellow, R.color.colorAccent_deepblue)
 
     fun init(ctx: Context) {
         val theme = ctx.defaultSharedPreferences.getInt(PREF_ICODE_THEME, THEME_DEFAULT)

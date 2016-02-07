@@ -12,7 +12,7 @@
                         android:title="@string/pref_theme"
                         android:entries="@array/pref_entries_theme"
                         android:entryValues="@array/pref_values_theme"
-                        android:defaultValue="0"/>
+                        android:defaultValue="1"/>
 
         <ListPreference android:key="pref_highlight"
                         android:title="@string/pref_theme_highlight"/>
