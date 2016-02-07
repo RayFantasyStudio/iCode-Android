@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="theme"
+            type="com.rayfantasy.icode.model.ICodeTheme"/>
+    </data>
+<android.support.v7.widget.CardView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                     android:clickable="true"
                                     android:foreground="?android:attr/selectableItemBackground"
                                     android:transitionName="element_bg"
-                                    app:cardCornerRadius="0dp"
-                                    android:translationZ="5dp">
+                                    app:cardCornerRadius="0dp">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +50,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000000"
+                android:textColor="@{theme.colorPrimaryDark}"
                 android:id="@+id/user_item_username"
                 android:text="User_Name"
                 android:textSize="35dp"
@@ -52,4 +59,5 @@
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+ </android.support.v7.widget.CardView>
+</layout>

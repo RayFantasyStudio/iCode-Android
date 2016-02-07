@@ -7,6 +7,10 @@
                 android:icon="@mipmap/ic_home_black"
                 android:title="@string/home"/>
         <item
+            android:id="@+id/nav_edit"
+            android:icon="@mipmap/ic_writecode_black"
+            android:title="@string/write"/>
+        <item
                 android:id="@+id/nav_setting"
                 android:icon="@mipmap/ic_setting_black"
                 android:title="@string/action_settings"/>
@@ -17,10 +21,7 @@
     </group>
     <item android:title="@string/about">
         <menu>
-            <item
-                    android:id="@+id/nav_edit"
-                    android:icon="@mipmap/ic_writecode_black"
-                    android:title="@string/write"/>
+
             <item
                     android:id="@+id/nav_homepage"
                     android:icon="@mipmap/ic_website_black"
