@@ -88,7 +88,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             glide.load(PostUtil.getProfilePicUrl(PostUtil.user!!.username))
                     .bitmapTransform(circleTransformation)
                     .into(nav_view.getHeaderView(0).nv_user_icon)
-            nav_view.getHeaderView(0).nv_bg.backgroundColor = (PostUtil.user as User).username.hashCode().alpha(0xff).shadowColor()
         }
 
     }
@@ -124,8 +123,12 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         val id = item.itemId
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true
+
+        if (id == R.id.action_exit){
+            alert(getString(R.string.exit_icode_msg), getString(R.string.app_name)) {
+                positiveButton(getString(R.string.ok_btn)) { super.onBackPressed() }
+                negativeButton(getString(R.string.no_btn)) {}
+            }.show()
         }
 
         return super.onOptionsItemSelected(item)

@@ -23,4 +23,27 @@
     <color name="colorPrimary_red">#e51c23</color>
     <color name="colorPrimaryDark_red">#b7161c</color>
     <color name="colorAccent_red">#e91e63</color>
+
+    <!--主题：紫式部-->
+    <color name="colorPrimary_purple">#673ab7</color>
+    <color name="colorPrimaryDark_purple">#512da8</color>
+    <color name="colorAccent_purple">#e040fb</color>
+
+    <!--主题：灰鼠-->
+    <color name="colorPrimary_gray">#607d8b</color>
+    <color name="colorPrimaryDark_gray">#455a64</color>
+    <color name="colorAccent_gray">#9e9e9e</color>
+
+    <!--主题：黄藤-->
+    <color name="colorPrimary_yellow">#ffc107</color>
+    <color name="colorPrimaryDark_yellow">#ffa000</color>
+    <color name="colorAccent_yellow">#ff5722</color>
+
+    <!--主题：绀青-->
+    <color name="colorPrimary_deepblue">#3f51b5</color>
+    <color name="colorPrimaryDark_deepblue">#303f9f</color>
+    <color name="colorAccent_deepblue">#ff4081</color>
+
+
+
 </resources>

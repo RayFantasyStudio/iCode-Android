@@ -126,5 +126,6 @@
     <string name="pref_theme_highlight">语法高亮主题</string>
     <string name="entry_theme_blue">蓝蓝路</string>
     <string name="entry_theme_red">姨妈红</string>
+    <string name="exit">退出</string>
 
 </resources>
