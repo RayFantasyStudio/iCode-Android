@@ -20,8 +20,8 @@ abstract class LoadMoreAdapter<NV : RecyclerView.ViewHolder>(activity: Activity,
     private val footerViewHolder: FooterViewHolder
     var footerState = FOOTER_STATE_LOADING
         set(value) {
-            field = footerState
-            when (footerState) {
+            field = value
+            when (value) {
                 FOOTER_STATE_HIDDEN -> footerViewHolder.root.visibility = View.GONE
 
                 FOOTER_STATE_LOADING -> {

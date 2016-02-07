@@ -24,6 +24,9 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 
 class MainFragment : FragmentBase() {
+    companion object {
+        const val LOAD_ONCE = 10
+    }
     private lateinit var adapter: CodeListAdapter
     private val isRefreshing: Boolean
         get() = request != null
@@ -64,7 +67,7 @@ class MainFragment : FragmentBase() {
         //生成加载条件，目前加载3个，方便测试
 
         val condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateAt} " else ""}" +
-                "ORDER BY updateat DESC LIMIT 0, 10"
+                "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
         request = PostUtil.selectCodeGood(condition, {
             view.swipe_layout.isRefreshing = false
             request = null
