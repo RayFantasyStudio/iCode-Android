@@ -35,10 +35,14 @@ var FILES_PATH by Delegates.notNull<String>()
     private set
 
 class BaseApplication : Application() {
+
     private lateinit var refWatcher: RefWatcher
 
     override fun onCreate() {
         super.onCreate()
+
+        instence = this
+
         //初始化PostUtil
         PostUtil.init(this)
         CACHE_PATH = cacheDir.path
@@ -67,9 +71,15 @@ class BaseApplication : Application() {
     }
 
     companion object {
+        lateinit var instence: BaseApplication
+
+        @JvmStatic
+        fun getInstance() = instence
+
         fun getRefWatcher(context: Context): RefWatcher {
             val application: BaseApplication = context.applicationContext as BaseApplication;
             return application.refWatcher;
         }
+
     }
 }

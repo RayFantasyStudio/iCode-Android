@@ -1,6 +1,7 @@
 package com.rayfantasy.icode.ui.activity
 
 
+import android.app.DownloadManager
 import android.app.Fragment
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -13,8 +14,14 @@ import android.support.design.widget.NavigationView
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.Menu
 import android.view.MenuItem
+import com.android.volley.NetworkResponse
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.HttpHeaderParser
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.rayfantasy.icode.BuildConfig
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityMainBinding
 import com.rayfantasy.icode.databinding.NvLayoutBinding
@@ -22,19 +29,30 @@ import com.rayfantasy.icode.extension.alert
 import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.ACTION_USER_STATE_CHANGED
+import com.rayfantasy.icode.postutil.CHARSET
 import com.rayfantasy.icode.postutil.PostUtil
+import com.rayfantasy.icode.postutil.URL_UPDATE_INFO
+import com.rayfantasy.icode.postutil.bean.UpdateInfo
 import com.rayfantasy.icode.postutil.bean.User
+import com.rayfantasy.icode.postutil.extension.fromJson
+import com.rayfantasy.icode.postutil.extension.i
 import com.rayfantasy.icode.ui.fragment.AboutFragment
 import com.rayfantasy.icode.ui.fragment.FavoriteFragment
 import com.rayfantasy.icode.ui.fragment.MainFragment
 import com.rayfantasy.icode.ui.fragment.SettingFragment
+import com.rayfantasy.icode.util.DownloadsUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
+import org.jetbrains.anko.async
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
+import java.io.File
 
 class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
+    companion object {
+        const val TAG_CHECK_UPDATE = "tag_check_update"
+    }
 
     private val aboutFragment by lazy { AboutFragment() }
     private val favoriteFragment by lazy { FavoriteFragment() }
@@ -47,6 +65,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
     }
     private lateinit var binding: ActivityMainBinding
+    private val requestQueue by lazy { Volley.newRequestQueue(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +88,8 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
         broadcastManager = LocalBroadcastManager.getInstance(this)
         broadcastManager.registerReceiver(receiver, IntentFilter(ACTION_USER_STATE_CHANGED))
+
+        checkUpdate()
     }
 
     override fun onResume() {
@@ -101,11 +122,11 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-  /*  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }*/
+    /*  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+          // Inflate the menu; this adds items to the action bar if it is present.
+          menuInflater.inflate(R.menu.main, menu)
+          return true
+      }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
@@ -143,7 +164,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_home -> replaceFragment(mainFragment)
             R.id.nav_about -> replaceFragment(aboutFragment)
             R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
-//            R.id.nav_favourite -> replaceFragment(favoriteFragment)
+        //            R.id.nav_favourite -> replaceFragment(favoriteFragment)
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_homepage -> OpenWeb()
 
@@ -152,6 +173,50 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun checkUpdate() {
+        val request = object : StringRequest(Request.Method.GET, URL_UPDATE_INFO, {
+            val updateInfo = PostUtil.gson.fromJson<UpdateInfo>(it)
+            if (updateInfo.versionCode > BuildConfig.VERSION_CODE) {
+                alert {
+                    val title = getString(R.string.title_new_version, updateInfo.versionName)
+                    title(title)
+                    message(updateInfo.info)
+                    positiveButton(R.string.positive_new_version) {
+                        val downloadInfo = DownloadsUtil.add(applicationContext, title, updateInfo.url, null)
+                        async() {
+                            val applicationContext = applicationContext
+                            var info = DownloadsUtil.getById(applicationContext, downloadInfo.id)
+                            while ((info.status and (DownloadManager.STATUS_PENDING or DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_RUNNING)) != 0) {
+                                i { "info.status = ${info.status}" }
+                                Thread.sleep(500)
+                                info = DownloadsUtil.getById(applicationContext, downloadInfo.id)
+                            }
+                            runOnUiThread {
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.setDataAndType(Uri.fromFile(File(info.localFilename)), DownloadsUtil.MIME_TYPE_APK)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                applicationContext.startActivity(intent)
+                            }
+                        }
+                    }
+                    neutralButton(android.R.string.cancel)
+                    show()
+                }
+            }
+        }, { it.printStackTrace() }) {
+            override fun parseNetworkResponse(response: NetworkResponse?) = response?.let {
+                Response.success(String(response.data, CHARSET), HttpHeaderParser.parseCacheHeaders(response))
+            }
+        }
+        request.setTag(TAG_CHECK_UPDATE)
+        requestQueue.add(request)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requestQueue.cancelAll(TAG_CHECK_UPDATE)
     }
 
     private fun OpenWeb() {
