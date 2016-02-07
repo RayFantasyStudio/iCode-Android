@@ -30,58 +30,45 @@ Copyright 2015-2016 LollipopKit
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
+        <name>Android Design Library</name>
+        <url>http://source.android.com</url>
+        <copyright>Copyright(C) 2015 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
         <name>Apache Commons Collections</name>
         <url>http://commons.apache.org/proper/commons-collections/</url>
         <copyright>Copyright(C) 2001-2014 The Apache Software Foundation</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>LicensesDialog</name>
-        <url>https://github.com/PSDev/LicensesDialog</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>Junit</name>
-        <url>http://junit.org</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
         <name>TextDrawable</name>
         <url>https://github.com/amulyakhare/TextDrawable</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
-        <license>Apache Software License 2.0</license>
+        <copyright>Copyright (c) 2014 Amulya Khare</copyright>
+        <license>MIT License</license>
     </notice>
     <notice>
         <name>LikeButton</name>
         <url>https://github.com/jd-alexander/LikeButton</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <copyright>Copyright 2016 Joel Dean</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
         <name>GpuImage</name>
         <url>https://github.com/CyberAgent/android-gpuimage</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <copyright>Copyright 2012 CyberAgent, Inc.</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
         <name>Laekcanary</name>
         <url>https://github.com/square/leakcanary</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
+        <copyright>Copyright 2015 Square, Inc.</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
         <name>SlidingUpPanel</name>
         <url>https://github.com/Cheesebaron/SlidingUpPanel</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
         <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>FloatingActionButton</name>
-        <url>https://github.com/makovkastar/FloatingActionButton/</url>
-        <copyright>Copyright (c) 2014 Oleksandr Melnykov</copyright>
-        <license>MIT License</license>
     </notice>
     <notice>
         <name>Google Gson</name>
@@ -92,19 +79,30 @@ Copyright 2015-2016 LollipopKit
     <notice>
         <name>Glide</name>
         <url>https://github.com/bumptech/glide</url>
-        <copyright>Copyright(C) 2015 The Apache License</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>okio</name>
-        <url>http://square.github.io/okio/</url>
-        <copyright>Copyright 2013 Square, Inc.</copyright>
+        <copyright>Copyright 2014 Google, Inc. All rights reserved.</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
         <name>okhttp</name>
         <url>http://square.github.io/okhttp/</url>
         <copyright>Copyright 2013 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>AppIntro</name>
+        <url>https://github.com/PaoloRotolo/AppIntro</url>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>recyclerview-animators</name>
+        <url>https://github.com/wasabeef/recyclerview-animators/</url>
+        <copyright>Copyright 2015 Wasabeef</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Advanced RecyclerView</name>
+        <url>https://github.com/h6ah4i/android-advancedrecyclerview</url>
+        <copyright>Copyright (C) 2015 Haruki Hasegawa</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
 </notices>
