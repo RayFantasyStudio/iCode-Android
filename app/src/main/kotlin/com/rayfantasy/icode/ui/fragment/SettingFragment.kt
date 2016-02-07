@@ -55,7 +55,7 @@ class SettingFragment : PreferenceFragment() {
         sharedPreferences = preferenceManager.sharedPreferences
         val license = findPreference("licenses")
         license.onPreferenceClickListener = OnPreferenceClickListener {
-            LicensesDialog.Builder(activity).setNotices(R.raw.notices).setIncludeOwnLicense(true).build().show()
+            LicensesDialog.Builder(activity).setNotices(R.raw.licenses).setIncludeOwnLicense(true).build().show()
             true
         }
         highlight = findPreference(PREF_HIGHLIGHT) as ListPreference
