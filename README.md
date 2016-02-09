@@ -32,15 +32,20 @@ appKey=申请的bugly的appKey
 更多信息交流讨论：
 - QQ  : 49162418
 
+<<<<<<< HEAD
+=======
 ## 项目预览
-<img src="./art/Demo1.png" alt="Example App" style="width: 200px; height: 355px" />
-<img src="./art/Demo2.png" alt="Example App" style="width: 200px; height: 355px" />
-<img src="./art/Demo3.png" alt="Example App" style="width: 200px; height: 355px" />
-<img src="./art/Demo4.png" alt="Example App" style="width: 200px; height: 355px" />
-<img src="./art/Demo5.png" alt="Example App" style="width: 200px; height: 355px" />
-<img src="./art/Demo6.png" alt="Example App" style="width: 200px; height: 355px" />
-<img src="./art/Demo7.png" alt="Example App" style="width: 200px; height: 355px" />
+<img src="./art/Demo1.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo2.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo3.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo4.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo5.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo6.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo7.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo8.png" alt="Example App" style="width: 100px; height: 175px" />
+<img src="./art/Demo9.png" alt="Example App" style="width: 100px; height: 175px" />
 
+>>>>>>> branch 'master' of https://github.com/RayFantasyStudio/iCode-Android.git
 ## 许可证
 ``` 
 Copyright 2015-2016 Alex Zhang aka. ztc1997
