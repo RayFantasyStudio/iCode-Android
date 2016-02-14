@@ -17,7 +17,6 @@
 package com.rayfantasy.icode.ui.adapter
 
 import android.app.Activity
-import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -50,12 +49,13 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         holder.pic.onClick {
             activity.startActivity<UserActivity>("username" to codeGood.username.toString())
         }
-        if (codeGood.highlight ?: false) {
+        holder.binding.highlight = codeGood.highlight ?: false
+        /*if (codeGood.highlight ?: false) {
             holder.title.setTextColor(Color.RED)
             holder.username.setTextColor(Color.RED)
             holder.subTitle.setTextColor(Color.RED)
             holder.username.append("被管理员临时高亮!")
-        }
+        }*/
 
         holder.bg.onClick {
             activity.startActivity<BlocksActivity>("codeGood" to codeGood)
@@ -72,9 +72,11 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         val title = itemView.title
         val subTitle = itemView.sub_title
         val bg = itemView.element_bg
+        val binding: ItemRecyclerCodeListBinding
 
         init {
-            ItemRecyclerCodeListBinding.bind(itemView).theme = ICodeTheme
+            binding = ItemRecyclerCodeListBinding.bind(itemView)
+            binding.theme = ICodeTheme
         }
     }
 }
