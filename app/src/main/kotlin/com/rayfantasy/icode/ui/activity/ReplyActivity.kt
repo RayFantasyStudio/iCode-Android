@@ -23,6 +23,9 @@ import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.toast
 
 class ReplyActivity : ActivityBindingStatus() {
+    companion object{
+        const val LOAD_ONCE = 5
+    }
     private var id: Int = 1
     private lateinit var adapter: ReplyListAdapter
     private val isRefreshing: Boolean
@@ -83,7 +86,7 @@ class ReplyActivity : ActivityBindingStatus() {
         //生成加载条件，目前加载5个，方便测试
 
         val condition = "WHERE ${if (!refresh && adapter.replyList.isNotEmpty()) "createat < ${adapter.replyList.last().createAt} " else ""}good_id=$id " +
-                "ORDER BY createat DESC LIMIT 0, 5"
+                "ORDER BY createat DESC LIMIT 0, $LOAD_ONCE"
         request = PostUtil.findReply(condition, {
             reply_swip.isRefreshing = false
             request = null

@@ -46,7 +46,7 @@ class BlockAdapter(ctx: Context, val  codeGood: CodeGood, var blocks: List<CodeG
 
     }
 
-    override fun getItemCount() = blocks.size + 2
+    override fun getItemCount() = blocks.size + 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code) as ViewGroup, highlightTheme)
@@ -57,7 +57,7 @@ class BlockAdapter(ctx: Context, val  codeGood: CodeGood, var blocks: List<CodeG
 
     }
 
-    override fun getItemViewType(position: Int) = if (position == 0) TITLE_VIEW else if (position == blocks.size+1) FAVORITE_VIEW else {
+    override fun getItemViewType(position: Int) = if (position == 0) TITLE_VIEW/* else if (position == blocks.size+1) FAVORITE_VIEW */else {
         blocks[position - 1].blockType
     }
 
