@@ -1,5 +1,6 @@
 /* Copyright (C) 2015 evilbinary.
  * rootdebug@163.com
+ * Copyright 2016 Alex Zhang aka. ztc1997
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -17,14 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package org.evilbinary.highliter;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.graphics.Typeface;
+import android.graphics.*;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.method.ScrollingMovementMethod;
 import android.text.style.CharacterStyle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -32,7 +28,6 @@ import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Scroller;
-
 import org.evilbinary.highliter.parsers.MyTagToSpannedConverter;
 import org.evilbinary.highliter.parsers.SyntaxHighlight;
 import org.evilbinary.managers.Configure;
@@ -91,6 +86,9 @@ public class HighlightEditText extends EditText implements OnGestureListener {
 
     public HighlightEditText(Context context, Configure conf) {
         super(context);
+
+        setTextIsSelectable(true);
+
         mConfigure = conf;
 
         mPaintNumbers = new Paint();
@@ -276,7 +274,7 @@ public class HighlightEditText extends EditText implements OnGestureListener {
         // wordwrap
         setHorizontallyScrolling(!mConfigure.mSettings.WORDWRAP);
         if (!mConfigure.mSettings.WORDWRAP)// 卡顿问题
-            setMovementMethod(ScrollingMovementMethod.getInstance());
+            setMovementMethod(SelectableScrollingMovementMethod.getInstance());
 
         // setTextColor(Color.BLACK);
         mPaintHighlight.setColor(mConfigure.mLineHighlightColor);
