@@ -28,8 +28,6 @@ class BlocksActivity : ActivityBindingStatus() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         codeGood = intent.getSerializableExtra("codeGood") as CodeGood
         title = codeGood.title
-
-        toolbar.subtitle = codeGood.subtitle
         with(recyclerView) {
             layoutManager = LinearLayoutManager(this@BlocksActivity)
             itemAnimator = RefactoredDefaultItemAnimator()
