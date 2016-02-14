@@ -9,7 +9,6 @@
     <color name="editor_backgroud">#ffffffff</color>
     <color name="current_row_backgroud">#ffccddff</color>
     <color name="syntax_error">#ffdd4b39</color>
-    <color name="background_material_dark">#ececec</color>
     <color name="night_color">#000000</color>
     <color name="light_color">#ffffff</color>
     <color name="light_color2">#ff87cefa</color>
