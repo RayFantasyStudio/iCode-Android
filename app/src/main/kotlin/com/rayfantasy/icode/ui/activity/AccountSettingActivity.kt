@@ -26,7 +26,7 @@ import org.jetbrains.anko.onClick
 import java.io.File
 import java.net.URI
 
-class AccountSettingActivity : ActivityBase() {
+class AccountSettingActivity : ActivityBindingStatus() {
     private val glide by lazy { Glide.with(this) }
     private val circleTransformation by lazy { CropCircleTransformation(this) }
     final val REQUEST_SELECT_PICTURE: Int = 0x01
