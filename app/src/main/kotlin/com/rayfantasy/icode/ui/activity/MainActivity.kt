@@ -190,6 +190,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
                             do {
                                 Thread.sleep(500)
                                 info = DownloadsUtil.getById(applicationContext, downloadInfo.id)
+                                if (isFinishing) break
                             } while ((info.status and (DownloadManager.STATUS_PENDING or
                                     DownloadManager.STATUS_PAUSED or DownloadManager.STATUS_RUNNING)) != 0)
                             runOnUiThread {
