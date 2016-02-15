@@ -88,12 +88,12 @@ class BaseApplication : MultiDexApplication() {
 
     }
     fun loadFavorite(){
-        PostUtil.findFavorite({
-            Toast.makeText(this,"同步收藏中", Toast.LENGTH_SHORT).show()
-            it.forEach {
-                it.save()
-            }
-            Toast.makeText(this,"同步收藏完成", Toast.LENGTH_SHORT).show()
-        },{t,rc -> Toast.makeText(this,"取消收藏失败,$rc", Toast.LENGTH_SHORT).show()})
-    }
+      /*  PostUtil.findFavorite({
+        Toast.makeText(this,"同步收藏中", Toast.LENGTH_SHORT).show()
+        it.forEach {
+            it.save()
+        }
+        Toast.makeText(this,"同步收藏完成", Toast.LENGTH_SHORT).show()
+    },{t,rc -> Toast.makeText(this,"取消收藏失败,$rc", Toast.LENGTH_SHORT).show()})*/
+}
 }

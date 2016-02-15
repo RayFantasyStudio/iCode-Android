@@ -38,6 +38,15 @@ public class Favorite extends BaseModel implements Serializable {
     @SerializedName("createat")
     public Long createAt;
 
+    public Favorite(){
+
+    }
+
+    public Favorite(Integer goodId, Long createAt) {
+        this.goodId = goodId;
+        this.createAt = createAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Favorite)) return false;

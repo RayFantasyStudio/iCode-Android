@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.like.*
+import com.raizlabs.android.dbflow.sql.language.Delete
+import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.extension.onLike
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
+import com.rayfantasy.icode.postutil.bean.Favorite
+import com.rayfantasy.icode.postutil.bean.Favorite_Table
 import com.rayfantasy.icode.ui.fragment.SettingFragment
 import kotlinx.android.synthetic.main.item_block_favorite.view.*
 import kotlinx.android.synthetic.main.item_block_text.view.*
@@ -46,12 +50,19 @@ class BlockAdapter(var  ctx: Context, val  codeGood: CodeGood, var blocks: List<
 
             }
             is FavoriteViewHolder ->{
+                val favorite = Select().from(Favorite::class.java).where(Favorite_Table.goodId.`is`(codeGood.id)).querySingle()
+                holder.favorite.setLiked(favorite != null)
                 holder.favorite.onLike {
                     liked {
-                        PostUtil.addFavorite(codeGood.id,{Toast.makeText(ctx,"收藏成功",Toast.LENGTH_LONG).show()},{t,rc -> Toast.makeText(ctx,"收藏失败,$rc",Toast.LENGTH_LONG).show()})
+                        PostUtil.addFavorite(codeGood.id,{Toast.makeText(ctx,"收藏成功",Toast.LENGTH_LONG).show(); Favorite(codeGood.id, System.currentTimeMillis()).save()},{t,rc -> Toast.makeText(ctx,"收藏失败,$rc",Toast.LENGTH_LONG).show()})
                     }
                     unLiked {
-                        PostUtil.delFavorite(codeGood.id,{Toast.makeText(ctx,"取消收藏成功",Toast.LENGTH_LONG).show()},{t,rc -> Toast.makeText(ctx,"取消收藏失败,$rc",Toast.LENGTH_LONG).show()})
+                        PostUtil.delFavorite(codeGood.id,{Toast.makeText(ctx,"取消收藏成功",Toast.LENGTH_LONG).show()
+                            Delete()
+                                    .from(Favorite::class.java)
+                                    .where(Favorite_Table.goodId.`is`(codeGood.id))
+                                    .execute()
+                                },{t,rc -> Toast.makeText(ctx,"取消收藏失败,$rc",Toast.LENGTH_LONG).show()})
                     }
                 }
 

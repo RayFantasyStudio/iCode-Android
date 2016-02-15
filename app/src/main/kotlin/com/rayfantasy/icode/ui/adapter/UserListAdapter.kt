@@ -7,20 +7,24 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.raizlabs.android.dbflow.sql.language.Delete
+import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ItemCodeListBinding
 import com.rayfantasy.icode.databinding.ItemRecyclerCodeListBinding
-import com.rayfantasy.icode.extension.alpha
-import com.rayfantasy.icode.extension.inflate
-import com.rayfantasy.icode.extension.loadPortrait
-import com.rayfantasy.icode.extension.shadowColor
+import com.rayfantasy.icode.extension.*
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
+import com.rayfantasy.icode.postutil.bean.Favorite
+import com.rayfantasy.icode.postutil.bean.Favorite_Table
 import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.footer_recycler_view.view.*
+import kotlinx.android.synthetic.main.item_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_user.view.*
 import org.jetbrains.anko.onClick
@@ -82,6 +86,24 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
                 holder.username.text = codeGood.username
                 holder.binding.highlight = codeGood.highlight ?: false
                 holder.pic.loadPortrait(username)
+                val favorite = Select().from(Favorite::class.java).where(Favorite_Table.goodId.`is`(codeGood.id)).querySingle()
+                holder.like.setLiked(favorite != null)
+                holder.like.onLike {
+                    liked {
+                        PostUtil.addFavorite(codeGood.id,{ Toast.makeText(activity,"成功", Toast.LENGTH_SHORT)
+                        Favorite(codeGood.id, System.currentTimeMillis()).save()
+                            holder.like_count.text = "被收藏${codeGood.favorite +1 }次"},{ t, rc -> Toast.makeText(activity,"失败", Toast.LENGTH_SHORT) }) }
+                    unLiked {
+                        PostUtil.delFavorite(codeGood.id,{ Toast.makeText(activity,"成功", Toast.LENGTH_SHORT)
+                            holder.like_count.text = "被收藏${codeGood.favorite - 1}次"
+                            Delete()
+                                    .from(Favorite::class.java)
+                                    .where(Favorite_Table.goodId.`is`(codeGood.id))
+                                    .execute()},
+                                { t, rc -> Toast.makeText(activity,"失败", Toast.LENGTH_SHORT) }) }
+                }
+                holder.reply_count.text = "共${codeGood.reply}条回复"
+                holder.like_count.text = "被收藏${codeGood.favorite}次"
                 holder.bg.onClick { holder.bg.startBlockActivity(codeGood, false) }
             }
             is FooterViewHolder -> {
@@ -96,7 +118,7 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         VIEW_TYPE_HEADER -> UserViewHolder(parent.inflate(R.layout.item_recycler_user))
-        VIEW_TYPE_NORMAL -> CodeViewHolder(parent.inflate(R.layout.item_recycler_code_list))
+        VIEW_TYPE_NORMAL -> CodeViewHolder(parent.inflate(R.layout.item_code_list))
         VIEW_TYPE_FOOTER -> FooterViewHolder(parent.inflate(R.layout.footer_recycler_view))
         else -> null
     }
@@ -138,16 +160,19 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
     }
 
     class CodeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val pic = itemView.pic
-        val username = itemView.username
-        val time = itemView.time
-        val title = itemView.title
-        val subTitle = itemView.sub_title
-        val bg = itemView.element_bg
-        val binding: ItemRecyclerCodeListBinding
+        val pic = itemView.code_usericon
+        val username = itemView.code_username
+        val time = itemView.code_time
+        val title = itemView.code_title
+        val subTitle = itemView.code_subtitle
+        val bg = itemView.code_card
+        val like = itemView.code_like
+        val like_count = itemView.code_favoCount
+        val reply_count = itemView.code_replyCount
+        val binding: ItemCodeListBinding
 
         init {
-            binding = ItemRecyclerCodeListBinding.bind(itemView)
+            binding = ItemCodeListBinding.bind(itemView)
             binding.theme = ICodeTheme
         }
     }
