@@ -2,10 +2,10 @@ package com.rayfantasy.icode.ui.activity
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityBlocksBinding
+import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
@@ -29,7 +29,7 @@ class BlocksActivity : ActivityBindingStatus() {
         codeGood = intent.getSerializableExtra("codeGood") as CodeGood
         title = codeGood.title
         with(recyclerView) {
-            layoutManager = LinearLayoutManager(this@BlocksActivity)
+            layoutManager = PreloadLinearLayoutManager(this@BlocksActivity)
             itemAnimator = RefactoredDefaultItemAnimator()
         }
 

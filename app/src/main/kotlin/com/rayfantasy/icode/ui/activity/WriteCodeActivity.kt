@@ -3,13 +3,13 @@ package com.rayfantasy.icode.ui.activity
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityWriteCodeBinding
 import com.rayfantasy.icode.extension.snackBar
+import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
@@ -33,7 +33,7 @@ class WriteCodeActivity : ActivityBindingStatus() {
         recyclerViewDragDropManager.setInitiateOnLongPress(true)
         recyclerViewDragDropManager.setInitiateOnMove(false)
         with(recyclerView) {
-            layoutManager = LinearLayoutManager(this@WriteCodeActivity)
+            layoutManager = PreloadLinearLayoutManager(this@WriteCodeActivity)
             adapter = recyclerViewDragDropManager.createWrappedAdapter(blockAdapter)
             itemAnimator = RefactoredDefaultItemAnimator()
             recyclerViewDragDropManager.attachRecyclerView(this)

@@ -1,13 +1,13 @@
 package com.rayfantasy.icode.ui.fragment
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.databinding.FragmentMainBinding
+import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
@@ -54,7 +54,7 @@ class MainFragment : FragmentBase() {
     }
 
     private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = PreloadLinearLayoutManager(activity)
         view.recyclerView.layoutManager = layoutManager
         adapter = CodeListAdapter(activity, SetUniqueList.setUniqueList(getCacheData())) { loadCodeGoods(false) }
         view.recyclerView.adapter = adapter
@@ -77,13 +77,13 @@ class MainFragment : FragmentBase() {
                 //如果结果为空，则表示没有更多内容了
                 adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
             } else {
-
                 if (refresh) {
                     adapter.codeGoods.clear()
                 }
                 //否则将结果加入codeGoods，并刷新adapter
                 adapter.codeGoods.addAll(it)
-                adapter.notifyDataSetChanged()
+                if (refresh) adapter.notifyDataSetChanged()
+                else adapter.notifyItemRangeInserted(adapter.itemCount - 1 - it.size, it.size)
                 cacheData(adapter.codeGoods)
             }
             /*}*/

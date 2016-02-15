@@ -2,13 +2,13 @@ package com.rayfantasy.icode.ui.activity
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityReplyBinding
 import com.rayfantasy.icode.extension.string
+import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
@@ -71,8 +71,7 @@ class ReplyActivity : ActivityBindingStatus() {
     }
 
     private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        reply_recyclerview.layoutManager = layoutManager
+        reply_recyclerview.layoutManager = PreloadLinearLayoutManager(this)
         adapter = ReplyListAdapter(this, SetUniqueList.setUniqueList(getCacheData())) { loadReplys(false) }
         reply_recyclerview.adapter = adapter
 
