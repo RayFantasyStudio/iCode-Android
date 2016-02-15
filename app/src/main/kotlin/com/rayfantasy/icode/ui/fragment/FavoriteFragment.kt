@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.rayfantasy.icode.R
 
 class FavoriteFragment : FragmentBase() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
