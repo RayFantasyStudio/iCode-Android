@@ -7,4 +7,9 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
+
+    <style name="AppTheme.NoActionBar.TransparentStatusBar">
+        <item name="android:statusBarColor">@color/appbar_overlay_top</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
 </resources>

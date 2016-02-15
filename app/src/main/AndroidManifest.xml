@@ -66,11 +66,11 @@
         <activity
                 android:name=".ui.activity.BlocksActivity"
                 android:label="@string/title_activity_blocks"
-                android:theme="@style/AppTheme.NoActionBar.Transparent"/>
+                android:theme="@style/AppTheme.NoActionBar.TransparentBackground"/>
         <activity
                 android:name=".ui.activity.UserActivity"
                 android:label="@string/title_activity_user"
-                android:theme="@style/AppTheme"/>
+                android:theme="@style/AppTheme.NoActionBar.TransparentStatusBar"/>
         <activity
                 android:name=".ui.activity.ReplyActivity"
                 android:label="@string/title_activity_reply"

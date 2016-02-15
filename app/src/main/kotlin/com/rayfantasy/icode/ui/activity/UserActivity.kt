@@ -18,7 +18,7 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import java.util.*
 
-class UserActivity : ActivityBindingStatus() {
+class UserActivity : ActivityBase() {
     private lateinit var adapter: UserListAdapter
     private var isRefreshing: Boolean = false
     private lateinit var request: Request<out Any>
