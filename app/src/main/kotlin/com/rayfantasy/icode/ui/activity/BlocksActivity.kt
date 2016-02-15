@@ -25,7 +25,7 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
-class BlocksActivity : ActivityBindingStatus() {
+class BlocksActivity : ActivityBase() {
     companion object {
         private const val TRANSFORM_DURATION_BG: Long = 300
         private const val TRANSFORM_DURATION_MENU: Int = (TRANSFORM_DURATION_BG * 1.5).toInt()
@@ -40,6 +40,9 @@ class BlocksActivity : ActivityBindingStatus() {
     private var transformFinished = false
     private var scaleY = 0f
     private var translationY = 0f
+
+    override val bindingStatus: Boolean
+        get() = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

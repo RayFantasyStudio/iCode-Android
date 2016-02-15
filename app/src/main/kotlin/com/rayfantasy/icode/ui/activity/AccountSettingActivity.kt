@@ -26,12 +26,16 @@ import org.jetbrains.anko.onClick
 import java.io.File
 import java.net.URI
 
-class AccountSettingActivity : ActivityBindingStatus() {
+class AccountSettingActivity : ActivityBase() {
     private val glide by lazy { Glide.with(this) }
     private val circleTransformation by lazy { CropCircleTransformation(this) }
     final val REQUEST_SELECT_PICTURE: Int = 0x01
     lateinit var tagetUri: Uri
     lateinit var DestinationUri: Uri
+
+    override val bindingStatus: Boolean
+        get() = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityAccountSettingBinding>(this, R.layout.activity_account_setting).theme = ICodeTheme

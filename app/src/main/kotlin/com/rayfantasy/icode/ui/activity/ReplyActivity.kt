@@ -22,15 +22,20 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.toast
 
-class ReplyActivity : ActivityBindingStatus() {
-    companion object{
+class ReplyActivity : ActivityBase() {
+    companion object {
         const val LOAD_ONCE = 5
     }
+
     private var id: Int = 1
     private lateinit var adapter: ReplyListAdapter
     private val isRefreshing: Boolean
         get() = request != null
     private var request: Request<*>? = null
+
+    override val bindingStatus: Boolean
+        get() = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = ICodeTheme
