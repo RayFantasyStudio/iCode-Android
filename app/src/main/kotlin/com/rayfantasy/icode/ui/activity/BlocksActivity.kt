@@ -26,14 +26,15 @@ import org.jetbrains.anko.toast
 
 class BlocksActivity : ActivityBindingStatus() {
     companion object {
-        private const val TRANSFORM_DURATION = 300
+        private const val TRANSFORM_DURATION_BG: Long = 300
+        private const val TRANSFORM_DURATION_MENU: Int = (TRANSFORM_DURATION_BG * 1.5).toInt()
     }
 
     private lateinit var codeGood: CodeGood
     private lateinit var binding: ActivityBlocksBinding
     private val menuDrawable by lazy {
         MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN,
-                (TRANSFORM_DURATION * 1.5).toInt())
+                TRANSFORM_DURATION_MENU)
     }
     private var transformFinished = false
     private var scaleY = 0f
@@ -92,7 +93,7 @@ class BlocksActivity : ActivityBindingStatus() {
                         .setInterpolator(DecelerateInterpolator())
                         .translationY(0f)
                         .scaleY(1f)
-                        .setDuration(TRANSFORM_DURATION.toLong())
+                        .setDuration(TRANSFORM_DURATION_BG)
                         .start()
             }
         } else {
@@ -101,7 +102,7 @@ class BlocksActivity : ActivityBindingStatus() {
 
         recyclerView.postDelayed({
             codeGood.content?.let { recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content)) }
-        }, TRANSFORM_DURATION.toLong())
+        }, TRANSFORM_DURATION_BG)
     }
 
     override fun onBackPressed() {
@@ -114,7 +115,7 @@ class BlocksActivity : ActivityBindingStatus() {
                     .setInterpolator(DecelerateInterpolator())
                     .translationY(translationY)
                     .scaleY(scaleY)
-                    .setDuration(TRANSFORM_DURATION.toLong())
+                    .setDuration(TRANSFORM_DURATION_BG)
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
                             super@BlocksActivity.onBackPressed()
