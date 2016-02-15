@@ -4,10 +4,14 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.like.*
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.loadPortrait
+import com.rayfantasy.icode.extension.onLike
+import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.fragment.SettingFragment
 import kotlinx.android.synthetic.main.item_block_favorite.view.*
@@ -16,8 +20,9 @@ import kotlinx.android.synthetic.main.item_block_title.view.*
 import org.evilbinary.highliter.HighlightEditText
 import org.evilbinary.managers.Configure
 import org.jetbrains.anko.defaultSharedPreferences
+import org.jetbrains.anko.onClick
 
-class BlockAdapter(ctx: Context, val  codeGood: CodeGood, var blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BlockAdapter(var  ctx: Context, val  codeGood: CodeGood, var blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TITLE_VIEW = 998
     private val FAVORITE_VIEW = 999
     private val highlightTheme = ctx.defaultSharedPreferences.getString(SettingFragment.PREF_HIGHLIGHT, SettingFragment.DEFAULT_HIGHLIGHT)
@@ -40,13 +45,25 @@ class BlockAdapter(ctx: Context, val  codeGood: CodeGood, var blocks: List<CodeG
                 holder.user_icon.loadPortrait(codeGood.username)
 
             }
-            is FavoriteViewHolder ->{}
+            is FavoriteViewHolder ->{
+                holder.favorite.onLike {
+                    liked {
+                        PostUtil.addFavorite(codeGood.id,{Toast.makeText(ctx,"收藏成功",Toast.LENGTH_LONG).show()},{t,rc -> Toast.makeText(ctx,"收藏失败,$rc",Toast.LENGTH_LONG).show()})
+                    }
+                    unLiked {
+                        PostUtil.delFavorite(codeGood.id,{Toast.makeText(ctx,"取消收藏成功",Toast.LENGTH_LONG).show()},{t,rc -> Toast.makeText(ctx,"取消收藏失败,$rc",Toast.LENGTH_LONG).show()})
+                    }
+                }
+
+            }
+
+            }
 
         }
 
-    }
 
-    override fun getItemCount() = blocks.size + 1
+
+    override fun getItemCount() = blocks.size + 2
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code) as ViewGroup, highlightTheme)
@@ -57,7 +74,7 @@ class BlockAdapter(ctx: Context, val  codeGood: CodeGood, var blocks: List<CodeG
 
     }
 
-    override fun getItemViewType(position: Int) = if (position == 0) TITLE_VIEW/* else if (position == blocks.size+1) FAVORITE_VIEW */else {
+    override fun getItemViewType(position: Int) = if (position == 0) TITLE_VIEW else if (position == blocks.size+1) FAVORITE_VIEW else {
         blocks[position - 1].blockType
     }
 
