@@ -17,12 +17,12 @@
 package com.rayfantasy.icode.postutil.bean;
 
 import android.support.annotation.NonNull;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.rayfantasy.icode.postutil.database.PostUtilDatabase;
 
@@ -82,6 +82,17 @@ public class CodeGood extends BaseModel implements Serializable {
         if (!(o instanceof CodeGood)) return false;
         CodeGood codeGood = (CodeGood) o;
         return codeGood.id.equals(id) && codeGood.updateAt.equals(updateAt);
+    }
+
+    public void loadContentFromCache() {
+        if (content == null) {
+            CodeGood codeGood = new Select(CodeGood_Table.content)
+                    .from(CodeGood.class)
+                    .where(CodeGood_Table.id.is(id))
+                    .querySingle();
+            if (codeGood != null)
+                content = codeGood.content;
+        }
     }
 
     public CodeGood() {

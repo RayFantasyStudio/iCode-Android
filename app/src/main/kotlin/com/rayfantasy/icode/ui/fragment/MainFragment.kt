@@ -103,6 +103,7 @@ class MainFragment : FragmentBase() {
     //本地缓存
     fun cacheData(data: List<CodeGood>) {
         data.forEach {
+            it.loadContentFromCache()
             it.save()
         }
     }

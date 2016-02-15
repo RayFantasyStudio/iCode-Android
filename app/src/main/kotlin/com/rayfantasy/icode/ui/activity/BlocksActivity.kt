@@ -33,6 +33,7 @@ class BlocksActivity : ActivityBindingStatus() {
             itemAnimator = RefactoredDefaultItemAnimator()
         }
 
+        codeGood.loadContentFromCache()
         codeGood.content?.let { recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content)) }
 
         PostUtil.loadCodeContent(codeGood.id!!,
