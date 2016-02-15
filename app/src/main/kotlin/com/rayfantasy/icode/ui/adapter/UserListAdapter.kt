@@ -23,7 +23,6 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.footer_recycler_view.view.*
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_user.view.*
-import org.jetbrains.anko.image
 import org.jetbrains.anko.onClick
 
 /**
@@ -68,11 +67,10 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
                 holder.usericon.loadPortrait(username)
 
                 val colorDrawable = ColorDrawable(username.hashCode().alpha(0xff).shadowColor())
-                holder.user_bg.image = colorDrawable
                 glide.load(PostUtil.getProfilePicUrl(username))
                         .error(colorDrawable)
+                        .placeholder(colorDrawable)
                         .centerCrop()
-                        .crossFade()
                         .into(holder.user_bg)
             }
             is CodeViewHolder -> {
