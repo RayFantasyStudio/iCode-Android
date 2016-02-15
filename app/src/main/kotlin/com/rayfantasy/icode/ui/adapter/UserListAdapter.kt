@@ -16,7 +16,7 @@ import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.extension.shadowColor
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
-import com.rayfantasy.icode.ui.activity.BlocksActivity
+import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.footer_recycler_view.view.*
@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_user.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.onClick
-import org.jetbrains.anko.startActivity
 
 /**
  * Created by qweas on 2016/1/22 0022.
@@ -93,9 +92,7 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
                     holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
                 }
                 holder.pic.loadPortrait(username)
-                holder.bg.onClick {
-                    activity.startActivity<BlocksActivity>("codeGood" to codeGood)
-                }
+                holder.bg.onClick { holder.bg.startBlockActivity(codeGood, false) }
             }
             is FooterViewHolder -> {
                 setFooterState(FOOTER_STATE_LOADING)

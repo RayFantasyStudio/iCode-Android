@@ -26,8 +26,8 @@ import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.bean.CodeGood
-import com.rayfantasy.icode.ui.activity.BlocksActivity
 import com.rayfantasy.icode.ui.activity.UserActivity
+import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import org.jetbrains.anko.onClick
@@ -58,7 +58,15 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         }*/
 
         holder.bg.onClick {
-            activity.startActivity<BlocksActivity>("codeGood" to codeGood)
+            holder.bg.startBlockActivity(codeGood)
+            /*val location = intArrayOf(0,0)
+            holder.bg.getLocationOnScreen(location)
+            val y = location[1]
+            val height = holder.bg.height
+            activity.startActivity<BlocksActivity>("codeGood" to codeGood,
+                    "y" to y.toFloat(),
+                    "height" to height.toFloat())
+            activity.overridePendingTransition(0, 0)*/
         }
     }
 

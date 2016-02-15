@@ -18,6 +18,7 @@ android {
         targetSdkVersion Integer.parseInt("$targetSdkVer")
         versionCode Integer.parseInt("$verCode")
         versionName "$verName"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -117,6 +118,8 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
     compile 'com.github.jd-alexander:LikeButton:0.1.8'
+
+    compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
 }
 
 bugly {
