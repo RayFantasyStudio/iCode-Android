@@ -12,6 +12,7 @@ import com.balysv.materialmenu.MaterialMenuDrawable
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityBlocksBinding
+import com.rayfantasy.icode.extension.toggle
 import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
@@ -72,7 +73,7 @@ class BlocksActivity : ActivityBindingStatus() {
             toast("rc = $rc")
             t.printStackTrace()
         })
-        block_fab.onClick { startActivity<ReplyActivity>("id" to codeGood.id) }
+        fab.onClick { startActivity<ReplyActivity>("id" to codeGood.id) }
 
         toolbar.navigationIcon = menuDrawable
         if (intent.hasExtra("y") && intent.hasExtra("height")) {
@@ -81,6 +82,14 @@ class BlocksActivity : ActivityBindingStatus() {
                 menuDrawable.animateIconState(MaterialMenuDrawable.IconState.ARROW)
             } else {
                 menuDrawable.iconState = MaterialMenuDrawable.IconState.ARROW
+                with(fab) {
+                    alpha = 0f
+                    post {
+                        toggle(false, 0)
+                        alpha = 1f
+                        toggle(true, TRANSFORM_DURATION_BG)
+                    }
+                }
             }
             recyclerView.alpha = 0f
             recyclerView.post {
@@ -109,6 +118,8 @@ class BlocksActivity : ActivityBindingStatus() {
         if (intent.hasExtra("y") && intent.hasExtra("height")) {
             if (intent.getBooleanExtra("arrowAnim", true)) {
                 menuDrawable.animateIconState(MaterialMenuDrawable.IconState.BURGER)
+            } else {
+                fab.toggle(false, TRANSFORM_DURATION_BG)
             }
             recyclerView.adapter = null
             recyclerView.animate()
