@@ -2,7 +2,6 @@ package com.rayfantasy.icode.ui.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ItemRecyclerCodeListBinding
 import com.rayfantasy.icode.extension.alpha
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.extension.shadowColor
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.activity.startBlockActivity
@@ -81,16 +82,7 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
                 holder.subTitle.text = codeGood.subtitle
                 holder.time.text = ms2RelativeDate(activity, codeGood.createAt!!)
                 holder.username.text = codeGood.username
-                if (codeGood.highlight ?: false) {
-                    holder.title.setTextColor(Color.RED)
-                    holder.username.setTextColor(Color.RED)
-                    holder.subTitle.setTextColor(Color.RED)
-                    holder.username.append("被管理员临时高亮!")
-                } else {
-                    holder.title.setTextColor(Color.rgb(0, 136, 255))
-                    holder.username.setTextColor(Color.rgb(140, 140, 140))
-                    holder.subTitle.setTextColor(Color.rgb(140, 140, 140))
-                }
+                holder.binding.highlight = codeGood.highlight ?: false
                 holder.pic.loadPortrait(username)
                 holder.bg.onClick { holder.bg.startBlockActivity(codeGood, false) }
             }
@@ -154,6 +146,12 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
         val title = itemView.title
         val subTitle = itemView.sub_title
         val bg = itemView.element_bg
+        val binding: ItemRecyclerCodeListBinding
+
+        init {
+            binding = ItemRecyclerCodeListBinding.bind(itemView)
+            binding.theme = ICodeTheme
+        }
     }
 
     class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
