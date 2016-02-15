@@ -143,12 +143,23 @@ public class HighlightEditText extends EditText implements OnGestureListener {
         }
     }
 
-    public void setSource(String source) {
+    public void setSource(final String source) {
         if (source != null) {
             setText(source);
-            String result = mMaker.pase(source);
-            Spanned spanText = mConverter.convert(result);
-            render(spanText, 0);
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    String result = mMaker.pase(source);
+                    final Spanned spanText = mConverter.convert(result);
+                    post(new Runnable() {
+                        @Override
+                        public void run() {
+                            render(spanText, 0);
+                        }
+                    });
+                }
+            }.start();
         }
     }
 
