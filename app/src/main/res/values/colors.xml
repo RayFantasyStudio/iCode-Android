@@ -13,6 +13,9 @@
     <color name="light_color">#ffffff</color>
     <color name="light_color2">#ff87cefa</color>
 
+    <color name="appbar_overlay_top">#99000000</color>
+    <color name="appbar_overlay_bottom">#00000000</color>
+
     <!--主题：蓝-->
     <color name="colorPrimary_blue">#03a9f4</color>
     <color name="colorPrimaryDark_blue">#0288d1</color>
