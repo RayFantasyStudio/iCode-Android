@@ -16,10 +16,20 @@
 
 package com.rayfantasy.icode.postutil.database;
 
-import com.raizlabs.android.dbflow.annotation.Database;
+import com.raizlabs.android.dbflow.annotation.Migration;
+import com.raizlabs.android.dbflow.sql.SQLiteType;
+import com.raizlabs.android.dbflow.sql.migration.AlterTableMigration;
+import com.rayfantasy.icode.postutil.bean.CodeGood;
 
-@Database(version = PostUtilDatabase.VERSION, name = PostUtilDatabase.NAME, generatedClassSeparator = "_")
-public class PostUtilDatabase {
-    public static final String NAME = "icode_postutil";
-    public static final int VERSION = 2;
+@Migration(version = 2, database = PostUtilDatabase.class)
+public class Migration2 extends AlterTableMigration<CodeGood> {
+    public Migration2() {
+        super(CodeGood.class);
+    }
+
+    @Override
+    public void onPreMigrate() {
+        super.onPreMigrate();
+        addColumn(SQLiteType.INTEGER, "reply");
+    }
 }
