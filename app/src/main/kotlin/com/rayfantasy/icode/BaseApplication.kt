@@ -16,9 +16,9 @@
 
 package com.rayfantasy.icode
 
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
+import android.support.multidex.MultiDexApplication
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
@@ -34,7 +34,7 @@ var CACHE_PATH by Delegates.notNull<String>()
 var FILES_PATH by Delegates.notNull<String>()
     private set
 
-class BaseApplication : Application() {
+class BaseApplication : MultiDexApplication() {
 
     private lateinit var refWatcher: RefWatcher
 
@@ -63,6 +63,7 @@ class BaseApplication : Application() {
         FlowManager.init(this)
 
         ICodeTheme.init(this)
+
     }
 
     override fun onTerminate() {

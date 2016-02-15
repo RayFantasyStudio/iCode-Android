@@ -120,6 +120,8 @@ dependencies {
     compile 'com.github.jd-alexander:LikeButton:0.1.8'
 
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
+
+    compile 'com.android.support:multidex:1.0.0'
 }
 
 bugly {
