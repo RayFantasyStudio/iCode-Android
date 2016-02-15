@@ -214,6 +214,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         requestQueue.add(request)
     }
 
+
     override fun onPause() {
         super.onPause()
         requestQueue.cancelAll(TAG_CHECK_UPDATE)
