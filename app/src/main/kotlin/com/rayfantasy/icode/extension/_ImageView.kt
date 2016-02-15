@@ -21,17 +21,16 @@ import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.postutil.PostUtil
 import jp.wasabeef.glide.transformations.CropCircleTransformation
-import org.jetbrains.anko.image
 
-fun ImageView.loadPortrait(username: String, errorRes: Int? = null) {
-    val errorIcon = errorRes?.let { resources.getDrawable(errorRes) } ?:
+fun ImageView.loadPortrait(username: String, placeholderRes: Int? = null) {
+    val placeholder = placeholderRes?.let { resources.getDrawable(placeholderRes) } ?:
             TextDrawable
                     .builder().buildRound(username[0].toString().toUpperCase(),
                     username.hashCode().alpha(0xff).shadowColor())
-    image = errorIcon
     Glide.with(context)
             .load(PostUtil.getProfilePicUrl(username))
-            .error(errorIcon)
+            .placeholder(placeholder)
+            .error(placeholder)
             .bitmapTransform(CropCircleTransformation(context))
             .into(this)
 }
