@@ -160,4 +160,16 @@ Copyright 2015-2016 LollipopKit
         <copyright>Copyright (c) 2014 Raizlabs</copyright>
         <license>MIT License</license>
     </notice>
+    <notice>
+        <name>material-menu</name>
+        <url>https://github.com/balysv/material-menu/</url>
+        <copyright>Copyright 2014 Balys Valentukevicius</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Multidex Support Library</name>
+        <url>http://source.android.com</url>
+        <copyright>Copyright (c) 2008-2011 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
 </notices>
