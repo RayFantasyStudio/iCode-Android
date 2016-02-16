@@ -11,4 +11,11 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="recycler_space">5dp</dimen>
+
+
+    <dimen name="bullet_radius">2dp</dimen>
+    <dimen name="bullet_gap_width">8dp</dimen>
+    <dimen name="quote_stripe_width">8dp</dimen>
+    <dimen name="quote_gap_width">2dp</dimen>
+
 </resources>

@@ -76,6 +76,7 @@
     <string name="title_activity_blocks">BlocksActivity</string>
     <string name="block_type_text">文字</string>
     <string name="block_type_code">代码</string>
+    <string name="block_type_richtext">高级文本</string>
     <string name="btn_add_text">添加文字</string>
     <string name="btn_add_code">添加代码</string>
     <string name="title_choose_language">请选择语言</string>

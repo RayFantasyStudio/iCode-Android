@@ -21,6 +21,7 @@ import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.ui.fragment.SettingFragment
+import io.github.mthli.knife.KnifeText
 import kotlinx.android.synthetic.main.footer_edit.view.*
 import kotlinx.android.synthetic.main.header_edit.view.*
 import kotlinx.android.synthetic.main.item_edit_code.view.*
@@ -179,6 +180,20 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
             content.setHint(R.string.block_type_code)
             itemView.linearLayout.addView(content)
         }
+    }
+    class RichTextHolder(itemView: View) : BlockViewHolder(itemView){
+        override val blockTypeStringRes: Int
+            get() = R.string.block_type_richtext
+        override val content: KnifeText = KnifeText(itemView.context)
+            init{
+                content.bold(true)
+                content.italic(true)
+                content.underline(true)
+                content.bullet(true)
+                content.quote(true)
+                content.strikethrough(true)
+            }
+
     }
 
     class TextViewHolder(itemView: View) : BlockViewHolder(itemView) {

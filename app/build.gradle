@@ -122,6 +122,8 @@ dependencies {
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
 
     compile 'com.android.support:multidex:1.0.0'
+
+    compile 'com.github.mthli:Knife:v1.1'
 }
 
 bugly {
