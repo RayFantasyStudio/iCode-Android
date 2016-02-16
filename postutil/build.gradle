@@ -70,12 +70,3 @@ dependencies {
     compile "com.github.Raizlabs.DBFlow:dbflow-core:$dbFlowVer"
     compile "com.github.Raizlabs.DBFlow:dbflow:$dbFlowVer"
 }
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
-    }
-}
