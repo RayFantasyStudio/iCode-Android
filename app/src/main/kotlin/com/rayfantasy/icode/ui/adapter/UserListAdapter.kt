@@ -9,9 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 import com.raizlabs.android.dbflow.sql.language.Delete
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
@@ -24,8 +21,9 @@ import com.rayfantasy.icode.postutil.bean.Favorite
 import com.rayfantasy.icode.postutil.bean.Favorite_Table
 import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
-import jp.wasabeef.blurry.Blurry
+import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropCircleTransformation
+import jp.wasabeef.glide.transformations.CropTransformation
 import kotlinx.android.synthetic.main.footer_recycler_view.view.*
 import kotlinx.android.synthetic.main.item_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_user.view.*
@@ -76,21 +74,9 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
                 glide.load(PostUtil.getProfilePicUrl(username))
                         .error(colorDrawable)
                         .placeholder(colorDrawable)
-                        .centerCrop()
-                        .into(object : GlideDrawableImageViewTarget(holder.user_bg) {
-                            override fun onResourceReady(resource: GlideDrawable?, animation: GlideAnimation<in GlideDrawable>) {
-                                super.onResourceReady(resource, animation)
-                                Blurry
-                                        .with(activity)
-                                        .radius(15)
-                                        .sampling(4)
-                                        .async()
-                                        .animate(500)
-                                        .capture(holder.user_bg)
-                                        .into(holder.user_bg)
-                                animation.animate(resource, this)
-                            }
-                        })
+                        .bitmapTransform(CropTransformation(activity, holder.user_bg.width, holder.user_bg.height),
+                                BlurTransformation(activity, 15, 4))
+                        .into(holder.user_bg)
             }
             is CodeViewHolder -> {
                 val codeGood = codeGoods[position - 1]
