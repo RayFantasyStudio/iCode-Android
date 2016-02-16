@@ -1,7 +1,5 @@
 package com.rayfantasy.icode.ui.activity
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.graphics.Color
@@ -12,6 +10,7 @@ import com.balysv.materialmenu.MaterialMenuDrawable
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityBlocksBinding
+import com.rayfantasy.icode.extension.onAnimationEnd
 import com.rayfantasy.icode.extension.toggle
 import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
@@ -108,14 +107,12 @@ class BlocksActivity : ActivityBase() {
                         .translationY(0f)
                         .scaleY(1f)
                         .setDuration(TRANSFORM_DURATION_BG)
-                        .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator?) {
-                                codeGood.content?.let {
-                                    recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
-                                }
-                                transformFinished = true
+                        .onAnimationEnd {
+                            codeGood.content?.let {
+                                recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
                             }
-                        })
+                            transformFinished = true
+                        }
                         .start()
             }
         } else {
@@ -136,12 +133,10 @@ class BlocksActivity : ActivityBase() {
                     .translationY(translationY)
                     .scaleY(scaleY)
                     .setDuration(TRANSFORM_DURATION_BG)
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator?) {
-                            super@BlocksActivity.onBackPressed()
-                            overridePendingTransition(0, 0)
-                        }
-                    })
+                    .onAnimationEnd {
+                        super.onBackPressed()
+                        overridePendingTransition(0, 0)
+                    }
                     .start()
         } else {
             super.onBackPressed()

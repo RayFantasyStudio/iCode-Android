@@ -109,7 +109,7 @@ dependencies {
     compile 'com.yalantis:ucrop:1.1.+'
 
     // Fab Transformation https://github.com/konifar/fab-transformation
-    compile 'konifar:fab-transformation:1.0.0'
+    //compile 'konifar:fab-transformation:1.0.0'
 
     //glide-transformations https://github.com/wasabeef/glide-transformations
     compile 'jp.wasabeef:glide-transformations:1.3.1'
@@ -125,6 +125,10 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
 
     compile 'com.github.mthli:Knife:v1.1'
+
+    compile('com.github.ozodrukh:CircularReveal:1.3.1@aar') {
+        transitive = true;
+    }
 }
 
 bugly {

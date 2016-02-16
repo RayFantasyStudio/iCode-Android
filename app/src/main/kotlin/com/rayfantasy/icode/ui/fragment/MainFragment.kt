@@ -12,7 +12,7 @@ import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.CodeGood_Table
-import com.rayfantasy.icode.ui.activity.WriteCodeActivity
+import com.rayfantasy.icode.ui.activity.startWriteCodeActivity
 import com.rayfantasy.icode.ui.adapter.CodeListAdapter
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.util.SpaceItemDecoration
@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.onClick
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 
 class MainFragment : FragmentBase() {
@@ -49,7 +48,7 @@ class MainFragment : FragmentBase() {
 
         initRecyclerView()
         loadCodeGoods(true)
-        fab_main.onClick { startActivity<WriteCodeActivity>() }
+        fab_main.onClick { fab_main.startWriteCodeActivity() }
         recyclerView.addItemDecoration(SpaceItemDecoration())
     }
 
