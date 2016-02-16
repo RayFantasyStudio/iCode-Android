@@ -6,22 +6,22 @@ import com.like.OnLikeListener
  * Created by qweas on 2016/2/15 0015.
  */
 class _OnLikeListener() : OnLikeListener{
-    private var _liked: ((LikeButton?) -> Unit)? = null
-    private var _unLiked: ((LikeButton?) -> Unit)? = null
+    private var _liked: ((LikeButton) -> Unit)? = null
+    private var _unLiked: ((LikeButton) -> Unit)? = null
 
-    override fun liked(p0: LikeButton?) {
+    override fun liked(p0: LikeButton) {
         _liked?.invoke(p0)
     }
 
-    override fun unLiked(p0: LikeButton?) {
+    override fun unLiked(p0: LikeButton) {
         _unLiked?.invoke(p0)
     }
 
-    fun liked(listener: (LikeButton?) -> Unit){
+    fun liked(listener: (LikeButton) -> Unit) {
         _liked = listener
     }
 
-    fun unLiked(listener: (LikeButton?) -> Unit){
+    fun unLiked(listener: (LikeButton) -> Unit) {
         _unLiked = listener
     }
 }

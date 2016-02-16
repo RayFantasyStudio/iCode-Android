@@ -20,15 +20,13 @@ import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.raizlabs.android.dbflow.sql.language.Delete
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ItemCodeListBinding
-import com.rayfantasy.icode.databinding.ItemRecyclerCodeListBinding
 import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.extension.onLike
+import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
@@ -38,7 +36,6 @@ import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import kotlinx.android.synthetic.main.item_code_list.view.*
-import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
@@ -62,26 +59,30 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         holder.bg.onClick {
             holder.bg.startBlockActivity(codeGood)
         }
-        val favorite = Select().from(Favorite::class.java).where(Favorite_Table.goodId.`is`(codeGood.id)).querySingle()
-        holder.like.setLiked(favorite != null)
-        holder.like.onLike {
-            liked { PostUtil.addFavorite(codeGood.id,
-                    {
-                        Toast.makeText(activity,"成功",Toast.LENGTH_SHORT)
-                        Favorite(codeGood.id, System.currentTimeMillis()).save()
-                        holder.like_count.text = "被收藏${codeGood.favorite +1}次"
+        with(holder.like) {
+            isEnabled = PostUtil.user != null
+            val favorite = Select().from(Favorite::class.java).where(Favorite_Table.goodId.`is`(codeGood.id)).querySingle()
+            setLiked(favorite != null)
+            onLike {
+                liked {
+                    PostUtil.addFavorite(codeGood.id, {
+                        snackBar("成功")
+                        codeGood.liked()
+                        holder.like_count.text = "被收藏${codeGood.favorite}次"
 
-                    },
-                    {t,rc -> Toast.makeText(activity,"失败",Toast.LENGTH_SHORT) }) }
-            unLiked { PostUtil.delFavorite(codeGood.id,{
-                Toast.makeText(activity,"成功",Toast.LENGTH_SHORT)
-                Delete()
-                        .from(Favorite::class.java)
-                        .where(Favorite_Table.goodId.`is`(codeGood.id))
-                        .execute()
-                holder.like_count.text = "被收藏${codeGood.favorite -1}次"
-            },
-                    {t,rc -> Toast.makeText(activity,"失败",Toast.LENGTH_SHORT) })
+                    }, { t, rc ->
+                        snackBar("失败, rc = $rc")
+                    })
+                }
+                unLiked {
+                    PostUtil.delFavorite(codeGood.id, {
+                        snackBar("成功")
+                        codeGood.unLiked()
+                        holder.like_count.text = "被收藏${codeGood.favorite}次"
+                    }, { t, rc ->
+                        snackBar("失败, rc = $rc")
+                    })
+                }
             }
         }
         holder.reply_count.text = "共${codeGood.reply}条回复"

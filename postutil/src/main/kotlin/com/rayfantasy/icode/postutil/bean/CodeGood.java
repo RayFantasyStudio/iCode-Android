@@ -17,11 +17,13 @@
 package com.rayfantasy.icode.postutil.bean;
 
 import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.rayfantasy.icode.postutil.database.PostUtilDatabase;
@@ -107,6 +109,21 @@ public class CodeGood extends BaseModel implements Serializable {
         this.title = title;
         this.subtitle = subtitle;
         this.content = content;
+    }
+
+    public void liked() {
+        new Favorite(id, System.currentTimeMillis()).save();
+        favorite++;
+        save();
+    }
+
+    public void unLiked() {
+        new Delete()
+                .from(Favorite.class)
+                .where(Favorite_Table.goodId.is(id))
+                .execute();
+        favorite--;
+        save();
     }
 
     public static class Block {
