@@ -11,7 +11,6 @@ import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.adapter.UserListAdapter
-import kotlinx.android.synthetic.main.activity_user.*
 import kotlinx.android.synthetic.main.content_user.*
 import kotlinx.android.synthetic.main.nv_layout.*
 import org.jetbrains.anko.alert
@@ -26,7 +25,6 @@ class UserActivity : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityUserBinding>(this, R.layout.activity_user).theme = ICodeTheme
-        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         username = intent.getSerializableExtra("username").toString()
         title = username
@@ -85,7 +83,7 @@ class UserActivity : ActivityBase() {
             menuInflater.inflate(R.menu.user_menu, menu)
             return true
         }
-        return false
+        return super.onCreateOptionsMenu(menu)
 
     }
 
