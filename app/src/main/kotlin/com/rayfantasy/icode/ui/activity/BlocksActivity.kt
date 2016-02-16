@@ -21,6 +21,7 @@ import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.ui.adapter.BlockAdapter
 import kotlinx.android.synthetic.main.activity_blocks.*
 import kotlinx.android.synthetic.main.content_blocks.*
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -96,8 +97,9 @@ class BlocksActivity : ActivityBase() {
             }
             recyclerView.alpha = 0f
             recyclerView.post {
-                scaleY = (intent.getFloatExtra("height", 0f) / recyclerView.height).toFloat()
-                translationY = intent.getFloatExtra("y", 0f) - (recyclerView.height / 2)
+                val height = intent.getFloatExtra("height", 0f)
+                scaleY = (height / recyclerView.height).toFloat()
+                translationY = intent.getFloatExtra("y", 0f) - (recyclerView.height ushr 1) + dip(25)
                 recyclerView.scaleY = scaleY
                 recyclerView.translationY = translationY
                 recyclerView.alpha = 1f
@@ -106,15 +108,19 @@ class BlocksActivity : ActivityBase() {
                         .translationY(0f)
                         .scaleY(1f)
                         .setDuration(TRANSFORM_DURATION_BG)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator?) {
+                                codeGood.content?.let {
+                                    recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                                }
+                                transformFinished = true
+                            }
+                        })
                         .start()
             }
         } else {
             menuDrawable.iconState = MaterialMenuDrawable.IconState.ARROW
         }
-
-        recyclerView.postDelayed({
-            codeGood.content?.let { recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content)) }
-        }, TRANSFORM_DURATION_BG)
     }
 
     override fun onBackPressed() {
