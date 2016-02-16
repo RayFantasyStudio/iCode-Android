@@ -19,18 +19,29 @@ package com.rayfantasy.icode.extension
 import android.widget.ImageView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 import com.rayfantasy.icode.postutil.PostUtil
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 
-fun ImageView.loadPortrait(username: String, placeholderRes: Int? = null) {
+fun ImageView.loadPortrait(username: String, placeholderRes: Int? = null, circle: Boolean = true,
+                           onResourceReady: ((GlideDrawable, GlideAnimation<in GlideDrawable>) -> Unit)? = null) {
     val placeholder = placeholderRes?.let { resources.getDrawable(placeholderRes) } ?:
             TextDrawable
                     .builder().buildRound(username[0].toString().toUpperCase(),
                     username.hashCode().alpha(0xff).shadowColor())
-    Glide.with(context)
+    val builder = Glide.with(context)
             .load(PostUtil.getProfilePicUrl(username))
             .placeholder(placeholder)
             .error(placeholder)
-            .bitmapTransform(CropCircleTransformation(context))
-            .into(this)
+            .centerCrop()
+    if (circle)
+        builder.bitmapTransform(CropCircleTransformation(context))
+    builder.into(object : GlideDrawableImageViewTarget(this) {
+        override fun onResourceReady(resource: GlideDrawable, animation: GlideAnimation<in GlideDrawable>) {
+            super.onResourceReady(resource, animation)
+            onResourceReady?.invoke(resource, animation)
+        }
+    })
 }

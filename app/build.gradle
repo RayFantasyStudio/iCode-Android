@@ -125,6 +125,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
 
     compile 'com.github.mthli:Knife:v1.1'
+
+    compile 'jp.wasabeef:blurry:1.0.5'
 }
 
 bugly {

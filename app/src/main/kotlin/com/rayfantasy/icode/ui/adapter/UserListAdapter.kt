@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 import com.raizlabs.android.dbflow.sql.language.Delete
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ItemCodeListBinding
-import com.rayfantasy.icode.databinding.ItemRecyclerCodeListBinding
 import com.rayfantasy.icode.extension.*
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
@@ -22,17 +24,17 @@ import com.rayfantasy.icode.postutil.bean.Favorite
 import com.rayfantasy.icode.postutil.bean.Favorite_Table
 import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
+import jp.wasabeef.blurry.Blurry
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.footer_recycler_view.view.*
 import kotlinx.android.synthetic.main.item_code_list.view.*
-import kotlinx.android.synthetic.main.item_recycler_code_list.view.*
 import kotlinx.android.synthetic.main.item_recycler_user.view.*
 import org.jetbrains.anko.onClick
 
 /**
  * Created by qweas on 2016/1/22 0022.
  */
-class UserListAdapter(val activity: Activity, var username: String, var codeGoods: MutableList<CodeGood>, private val  onLoadingMore: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UserListAdapter(val activity: Activity, var username: String, var codeGoods: MutableList<CodeGood>, private val onLoadingMore: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val glide by lazy { Glide.with(activity) }
     private val circleTransformation by lazy { CropCircleTransformation(activity) }
     private var footerState: Int = 0
@@ -75,7 +77,20 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
                         .error(colorDrawable)
                         .placeholder(colorDrawable)
                         .centerCrop()
-                        .into(holder.user_bg)
+                        .into(object : GlideDrawableImageViewTarget(holder.user_bg) {
+                            override fun onResourceReady(resource: GlideDrawable?, animation: GlideAnimation<in GlideDrawable>) {
+                                super.onResourceReady(resource, animation)
+                                Blurry
+                                        .with(activity)
+                                        .radius(15)
+                                        .sampling(4)
+                                        .async()
+                                        .animate(500)
+                                        .capture(holder.user_bg)
+                                        .into(holder.user_bg)
+                                animation.animate(resource, this)
+                            }
+                        })
             }
             is CodeViewHolder -> {
                 val codeGood = codeGoods[position - 1]
@@ -90,17 +105,23 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
                 holder.like.setLiked(favorite != null)
                 holder.like.onLike {
                     liked {
-                        PostUtil.addFavorite(codeGood.id,{ Toast.makeText(activity,"成功", Toast.LENGTH_SHORT)
-                        Favorite(codeGood.id, System.currentTimeMillis()).save()
-                            holder.like_count.text = "被收藏${codeGood.favorite +1 }次"},{ t, rc -> Toast.makeText(activity,"失败", Toast.LENGTH_SHORT) }) }
+                        PostUtil.addFavorite(codeGood.id, {
+                            Toast.makeText(activity, "成功", Toast.LENGTH_SHORT)
+                            Favorite(codeGood.id, System.currentTimeMillis()).save()
+                            holder.like_count.text = "被收藏${codeGood.favorite + 1 }次"
+                        }, { t, rc -> Toast.makeText(activity, "失败", Toast.LENGTH_SHORT) })
+                    }
                     unLiked {
-                        PostUtil.delFavorite(codeGood.id,{ Toast.makeText(activity,"成功", Toast.LENGTH_SHORT)
+                        PostUtil.delFavorite(codeGood.id, {
+                            Toast.makeText(activity, "成功", Toast.LENGTH_SHORT)
                             holder.like_count.text = "被收藏${codeGood.favorite - 1}次"
                             Delete()
                                     .from(Favorite::class.java)
                                     .where(Favorite_Table.goodId.`is`(codeGood.id))
-                                    .execute()},
-                                { t, rc -> Toast.makeText(activity,"失败", Toast.LENGTH_SHORT) }) }
+                                    .execute()
+                        },
+                                { t, rc -> Toast.makeText(activity, "失败", Toast.LENGTH_SHORT) })
+                    }
                 }
                 holder.reply_count.text = "共${codeGood.reply}条回复"
                 holder.like_count.text = "被收藏${codeGood.favorite}次"
