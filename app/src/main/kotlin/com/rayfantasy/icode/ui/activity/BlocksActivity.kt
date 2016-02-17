@@ -20,7 +20,6 @@ import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.ui.adapter.BlockAdapter
 import kotlinx.android.synthetic.main.activity_blocks.*
 import kotlinx.android.synthetic.main.content_blocks.*
-import org.jetbrains.anko.dip
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -38,6 +37,7 @@ class BlocksActivity : ActivityBase() {
                 TRANSFORM_DURATION_MENU)
     }
     private var transformFinished = false
+    private var backPressed = false
     private var scaleY = 0f
     private var translationY = 0f
 
@@ -96,9 +96,9 @@ class BlocksActivity : ActivityBase() {
             }
             recyclerView.alpha = 0f
             recyclerView.post {
-                val height = intent.getFloatExtra("height", 0f)
-                scaleY = (height / recyclerView.height).toFloat()
-                translationY = intent.getFloatExtra("y", 0f) - (recyclerView.height ushr 1) + dip(25)
+                val height = intent.getIntExtra("height", 0)
+                scaleY = height / recyclerView.height.toFloat()
+                translationY = (intent.getIntExtra("y", 0) - (recyclerView.height ushr 1) + (height ushr 1) - toolbar.height).toFloat()
                 recyclerView.scaleY = scaleY
                 recyclerView.translationY = translationY
                 recyclerView.alpha = 1f
@@ -108,10 +108,12 @@ class BlocksActivity : ActivityBase() {
                         .scaleY(1f)
                         .setDuration(TRANSFORM_DURATION_BG)
                         .onAnimationEnd {
-                            codeGood.content?.let {
-                                recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                            if (!backPressed) {
+                                codeGood.content?.let {
+                                    recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                                }
+                                transformFinished = true
                             }
-                            transformFinished = true
                         }
                         .start()
             }
@@ -121,6 +123,7 @@ class BlocksActivity : ActivityBase() {
     }
 
     override fun onBackPressed() {
+        backPressed = true
         if (intent.hasExtra("y") && intent.hasExtra("height")) {
             if (intent.getBooleanExtra("arrowAnim", true)) {
                 menuDrawable.animateIconState(MaterialMenuDrawable.IconState.BURGER)
@@ -149,8 +152,8 @@ fun View.startBlockActivity(codeGood: CodeGood, arrowAnim: Boolean = true) {
     getLocationOnScreen(location)
     val y = location[1]
     context.startActivity<BlocksActivity>("codeGood" to codeGood,
-            "y" to y.toFloat(),
-            "height" to height.toFloat(),
+            "y" to y,
+            "height" to height.toInt(),
             "arrowAnim" to arrowAnim)
     if (context is Activity)
         (context as Activity).overridePendingTransition(0, 0)
