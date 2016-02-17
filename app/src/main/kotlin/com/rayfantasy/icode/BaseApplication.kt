@@ -16,10 +16,9 @@
 
 package com.rayfantasy.icode
 
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
-import android.widget.Toast
+import android.support.multidex.MultiDexApplication
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
@@ -27,8 +26,6 @@ import com.rayfantasy.icode.postutil.extension.v
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import com.tencent.bugly.crashreport.CrashReport
-import com.tencent.bugly.proguard.t
-import android.support.multidex.MultiDexApplication
 import org.evilbinary.managers.ConfigureManager
 import kotlin.properties.Delegates
 
@@ -87,13 +84,14 @@ class BaseApplication : MultiDexApplication() {
         }
 
     }
-    fun loadFavorite(){
-      /*  PostUtil.findFavorite({
-        Toast.makeText(this,"同步收藏中", Toast.LENGTH_SHORT).show()
-        it.forEach {
-            it.save()
-        }
-        Toast.makeText(this,"同步收藏完成", Toast.LENGTH_SHORT).show()
-    },{t,rc -> Toast.makeText(this,"取消收藏失败,$rc", Toast.LENGTH_SHORT).show()})*/
-}
+
+    fun loadFavorite() {
+        /*  PostUtil.findFavorite({
+          Toast.makeText(this,"同步收藏中", Toast.LENGTH_SHORT).show()
+          it.forEach {
+              it.save()
+          }
+          Toast.makeText(this,"同步收藏完成", Toast.LENGTH_SHORT).show()
+      },{t,rc -> Toast.makeText(this,"取消收藏失败,$rc", Toast.LENGTH_SHORT).show()})*/
+    }
 }

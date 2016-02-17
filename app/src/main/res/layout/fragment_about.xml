@@ -1,31 +1,31 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.fragment.AboutFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.AboutFragment">
 
     <ImageView
-            android:layout_width="185dp"
-            android:layout_height="185dp"
-            android:id="@+id/AboutFragment_iv"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="30dp"/>
+        android:layout_width="185dp"
+        android:layout_height="185dp"
+        android:id="@+id/AboutFragment_iv"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="30dp" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/app_name_cn"
-            android:id="@+id/AboutFragment_tv_icode"
-            android:layout_gravity="center"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name_cn"
+        android:id="@+id/AboutFragment_tv_icode"
+        android:layout_gravity="center" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/version"
-            android:id="@+id/tv_version"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/version"
+        android:id="@+id/tv_version"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp" />
 </FrameLayout>

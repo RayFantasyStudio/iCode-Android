@@ -15,26 +15,26 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/footer_root"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center"
-              android:orientation="horizontal"
-              android:padding="10dip">
+    android:id="@+id/footer_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dip">
 
     <ProgressBar
-            android:id="@+id/footer_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/footer_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
-            android:id="@+id/footer_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginStart="10dip"
-            android:textColor="#A1A1A1"
-            android:textSize="18sp"/>
+        android:id="@+id/footer_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginStart="10dip"
+        android:textColor="#A1A1A1"
+        android:textSize="18sp" />
 
 </LinearLayout>
 

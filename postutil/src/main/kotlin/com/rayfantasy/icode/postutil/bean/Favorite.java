@@ -38,7 +38,7 @@ public class Favorite extends BaseModel implements Serializable {
     @SerializedName("createat")
     public Long createAt;
 
-    public Favorite(){
+    public Favorite() {
 
     }
 

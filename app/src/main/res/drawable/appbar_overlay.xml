@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2016 Alex Zhang aka. ztc1997
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +15,8 @@
   -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:angle="90"
-              android:startColor="@color/appbar_overlay_bottom"
-              android:endColor="@color/appbar_overlay_top"/>
+    <gradient
+        android:angle="90"
+        android:startColor="@color/appbar_overlay_bottom"
+        android:endColor="@color/appbar_overlay_top" />
 </shape>

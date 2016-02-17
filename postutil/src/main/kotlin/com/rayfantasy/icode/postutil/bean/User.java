@@ -51,7 +51,8 @@ public class User extends BaseModel implements Serializable {
         return user.username.equals(username);
     }
 
-    public User(){}
+    public User() {
+    }
 
     public User(String username, Integer id, Long createAt) {
         this.username = username;

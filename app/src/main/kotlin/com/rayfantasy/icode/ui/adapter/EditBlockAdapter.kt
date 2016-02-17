@@ -181,18 +181,20 @@ class EditBlockAdapter(val ctx: Context, blocks: List<CodeGood.Block>? = null) :
             itemView.linearLayout.addView(content)
         }
     }
-    class RichTextHolder(itemView: View) : BlockViewHolder(itemView){
+
+    class RichTextHolder(itemView: View) : BlockViewHolder(itemView) {
         override val blockTypeStringRes: Int
             get() = R.string.block_type_richtext
         override val content: KnifeText = KnifeText(itemView.context)
-            init{
-                content.bold(true)
-                content.italic(true)
-                content.underline(true)
-                content.bullet(true)
-                content.quote(true)
-                content.strikethrough(true)
-            }
+
+        init {
+            content.bold(true)
+            content.italic(true)
+            content.underline(true)
+            content.bullet(true)
+            content.quote(true)
+            content.strikethrough(true)
+        }
 
     }
 

@@ -2,10 +2,11 @@ package com.rayfantasy.icode.extension
 
 import com.like.LikeButton
 import com.like.OnLikeListener
+
 /**
  * Created by qweas on 2016/2/15 0015.
  */
-class _OnLikeListener() : OnLikeListener{
+class _OnLikeListener() : OnLikeListener {
     private var _liked: ((LikeButton) -> Unit)? = null
     private var _unLiked: ((LikeButton) -> Unit)? = null
 
@@ -26,6 +27,6 @@ class _OnLikeListener() : OnLikeListener{
     }
 }
 
-fun LikeButton.onLike(init: _OnLikeListener.() -> Unit){
+fun LikeButton.onLike(init: _OnLikeListener.() -> Unit) {
     setOnLikeListener(_OnLikeListener().apply(init))
 }

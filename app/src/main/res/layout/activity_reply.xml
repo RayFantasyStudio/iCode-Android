@@ -1,68 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-                name="theme"
-                type="com.rayfantasy.icode.model.ICodeTheme"/>
+            name="theme"
+            type="com.rayfantasy.icode.model.ICodeTheme" />
     </data>
+
     <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity">
 
         <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                android:id="@+id/view">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:id="@+id/view">
 
             <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@{theme.colorPrimary}"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@{theme.colorPrimary}"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.0"
-                android:id="@+id/reply_swip"
-                tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity"
-                tools:showIn="@layout/activity_reply">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:id="@+id/reply_swip"
+            tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity"
+            tools:showIn="@layout/activity_reply">
 
             <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:id="@+id/reply_recyclerview"
-                    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:id="@+id/reply_recyclerview"
+                android:layout_height="match_parent">
 
             </android.support.v7.widget.RecyclerView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
+
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/reply_bar">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/reply_bar">
 
             <android.support.v7.widget.AppCompatEditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:id="@+id/reply_sent_context"
-                    android:textCursorDrawable="@{theme.colorAccent}"
-                    app:supportBackgroundTintList="@{theme.colorAccent}"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:id="@+id/reply_sent_context"
+                android:textCursorDrawable="@{theme.colorAccent}"
+                app:supportBackgroundTintList="@{theme.colorAccent}" />
+
             <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/commit"
-                    android:id="@+id/btn_sent"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/commit"
+                android:id="@+id/btn_sent" />
 
         </LinearLayout>
 

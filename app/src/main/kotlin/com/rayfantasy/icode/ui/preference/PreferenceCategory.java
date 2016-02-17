@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
+
 import com.rayfantasy.icode.model.ICodeTheme;
 
 public class PreferenceCategory extends android.preference.PreferenceCategory {

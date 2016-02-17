@@ -6,93 +6,103 @@
 
         <variable
             name="theme"
-            type="com.rayfantasy.icode.model.ICodeTheme"/>
+            type="com.rayfantasy.icode.model.ICodeTheme" />
 
-        <variable name="highlight" type="boolean"/>
+        <variable
+            name="highlight"
+            type="boolean" />
     </data>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:id="@+id/code_card"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content"
             android:weightSum="1">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp">
-            <ImageView
-                android:layout_width="@dimen/profile_pic_size"
-                android:layout_height="@dimen/profile_pic_size"
-                android:id="@+id/code_usericon"
-                android:src="@mipmap/ic_account_box_black"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/code_username"
-                android:text="Username"
-                android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/code_usericon"
-                android:layout_toEndOf="@+id/code_usericon"
-                android:layout_marginLeft="15dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/code_time"
-                android:text="time"
-                android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
-                android:layout_marginRight="16dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp" />
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp">
+
+                <ImageView
+                    android:layout_width="@dimen/profile_pic_size"
+                    android:layout_height="@dimen/profile_pic_size"
+                    android:id="@+id/code_usericon"
+                    android:src="@mipmap/ic_account_box_black"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/code_username"
+                    android:text="Username"
+                    android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/code_usericon"
+                    android:layout_toEndOf="@+id/code_usericon"
+                    android:layout_marginLeft="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/code_time"
+                    android:text="time"
+                    android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
+                    android:layout_marginRight="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp" />
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:background="#dddd"
                 android:layout_height="1dp">
 
             </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="3dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/code_title"
-                android:textColor="@{highlight ? theme.colorAccent : theme.colorPrimaryDark}"
-                android:text="Title"
-                android:layout_marginLeft="16dp"
-                android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="subtitle"
-                android:id="@+id/code_subtitle"
-                android:layout_marginLeft="16dp"
-                android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/code_title"
-                android:layout_toEndOf="@+id/code_title"
-                android:layout_marginTop="3dp" />
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/code_title"
+                    android:textColor="@{highlight ? theme.colorAccent : theme.colorPrimaryDark}"
+                    android:text="Title"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="subtitle"
+                    android:id="@+id/code_subtitle"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/code_title"
+                    android:layout_toEndOf="@+id/code_title"
+                    android:layout_marginTop="3dp" />
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <com.like.LikeButton
                     app:icon_type="heart"
@@ -105,6 +115,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="15dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

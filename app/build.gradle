@@ -70,7 +70,7 @@ dependencies {
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.0'
 
     //recyclerview-animators
-    compile 'jp.wasabeef:recyclerview-animators:1.2.2'
+    //compile 'jp.wasabeef:recyclerview-animators:1.2.2'
 
     //android-validation-komensky
     //compile 'eu.inmite.android.lib:android-validation-komensky:0.9.4@aar'
@@ -78,7 +78,7 @@ dependencies {
     //glide
     compile 'com.github.bumptech.glide:glide:3.6.1'
 
-    compile 'com.sothree.slidinguppanel:library:3.2.0'
+    //compile 'com.sothree.slidinguppanel:library:3.2.0'
 
     //postutil
     compile project(':postutil')
