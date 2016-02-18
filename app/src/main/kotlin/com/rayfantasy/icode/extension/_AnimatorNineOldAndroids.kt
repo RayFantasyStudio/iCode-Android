@@ -16,12 +16,12 @@
 
 package com.rayfantasy.icode.extension
 
-import android.animation.Animator
+import com.nineoldandroids.animation.Animator
 
-fun Animator.addListener(init: _AnimatorListener.() -> Unit)
-        = addListener(_AnimatorListener().apply(init))
+fun Animator.addListener(init: _AnimatorListenerNineOldAndroids.() -> Unit)
+        = addListener(_AnimatorListenerNineOldAndroids().apply(init))
 
-class _AnimatorListener : Animator.AnimatorListener {
+class _AnimatorListenerNineOldAndroids : Animator.AnimatorListener {
     private var _onAnimationRepeat: ((Animator) -> Unit)? = null
     private var _onAnimationEnd: ((Animator) -> Unit)? = null
     private var _onAnimationCancel: ((Animator) -> Unit)? = null

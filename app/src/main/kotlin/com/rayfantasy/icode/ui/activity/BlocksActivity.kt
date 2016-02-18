@@ -123,6 +123,7 @@ class BlocksActivity : ActivityBase() {
     }
 
     override fun onBackPressed() {
+        if (backPressed) return
         backPressed = true
         if (intent.hasExtra("y") && intent.hasExtra("height")) {
             if (intent.getBooleanExtra("arrowAnim", true)) {
@@ -137,6 +138,7 @@ class BlocksActivity : ActivityBase() {
                     .scaleY(scaleY)
                     .setDuration(TRANSFORM_DURATION_BG)
                     .onAnimationEnd {
+                        recyclerView.visibility = View.INVISIBLE
                         super.onBackPressed()
                         overridePendingTransition(0, 0)
                     }

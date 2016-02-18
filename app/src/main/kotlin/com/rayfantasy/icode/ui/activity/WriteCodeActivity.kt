@@ -16,7 +16,7 @@ import com.nineoldandroids.animation.ArgbEvaluator
 import com.nineoldandroids.animation.ValueAnimator
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityWriteCodeBinding
-import com.rayfantasy.icode.extension.onAnimationEnd
+import com.rayfantasy.icode.extension.addListener
 import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
@@ -44,6 +44,7 @@ class WriteCodeActivity : ActivityBase() {
                 TRANSFORM_DURATION_MENU)
     }
     private lateinit var supportAnimator: SupportAnimator
+    private var backPressed = false
     private var request: Request<*>? = null
 
     override val bindingStatus: Boolean
@@ -101,28 +102,37 @@ class WriteCodeActivity : ActivityBase() {
                 recyclerView.backgroundColor = it.animatedValue as Int
             }
             valueAnim.duration = TRANSFORM_DURATION_BG
-            valueAnim.onAnimationEnd {
-                recyclerView.adapter = recyclerViewDragDropManager.createWrappedAdapter(blockAdapter)
-                recyclerViewDragDropManager.attachRecyclerView(recyclerView)
+            valueAnim.addListener {
+                onAnimationEnd {
+                    if (!backPressed) {
+                        recyclerView.adapter = recyclerViewDragDropManager.createWrappedAdapter(blockAdapter)
+                        recyclerViewDragDropManager.attachRecyclerView(recyclerView)
+                    }
+                }
             }
             valueAnim.start()
         }
     }
 
     override fun onBackPressed() {
+        if (backPressed) return
+        backPressed = true
         menuDrawable.animateIconState(MaterialMenuDrawable.IconState.BURGER)
         recyclerView.adapter = null
-        supportAnimator.reverse().start()
+        supportAnimator.cancel()
+        revealLayout.post { supportAnimator.reverse().start() }
         val valueAnim = ValueAnimator.ofObject(ArgbEvaluator(),
                 resources.getColor(R.color.background_material_light), ICodeTheme.colorAccent.get())
         valueAnim.addUpdateListener {
             recyclerView.backgroundColor = it.animatedValue as Int
         }
         valueAnim.duration = TRANSFORM_DURATION_BG
-        valueAnim.onAnimationEnd {
-            recyclerView.visibility = View.INVISIBLE
-            super.onBackPressed()
-            overridePendingTransition(0, 0)
+        valueAnim.addListener {
+            onAnimationEnd {
+                recyclerView.visibility = View.INVISIBLE
+                super.onBackPressed()
+                overridePendingTransition(0, 0)
+            }
         }
         valueAnim.start()
     }
