@@ -80,7 +80,9 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         drawer_layout.setDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
-        configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) { drawer_layout.fitsSystemWindows = true }
+        configuration(sdk = Build.VERSION_CODES.KITKAT) {
+            drawer_layout.fitsSystemWindows = false
+        }
 
         val headerView = nav_view.getHeaderView(0)
         NvLayoutBinding.bind(headerView).theme = ICodeTheme
