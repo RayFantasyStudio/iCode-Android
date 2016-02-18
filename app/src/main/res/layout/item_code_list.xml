@@ -16,8 +16,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:id="@+id/code_card"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content">
 
@@ -68,7 +68,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:background="#dddd"
-                android:layout_height="1dp">
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
 
             </LinearLayout>
 
@@ -99,10 +101,18 @@
                     android:layout_toEndOf="@+id/code_title"
                     android:layout_marginTop="3dp" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="#dddd"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
 
                 <com.like.LikeButton
                     app:icon_type="heart"
@@ -136,7 +146,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginTop="24dp" />
+                    android:layout_marginTop="14dp" />
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

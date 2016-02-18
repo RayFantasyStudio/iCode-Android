@@ -24,7 +24,7 @@ import org.jetbrains.anko.toast
 
 class ReplyActivity : ActivityBase() {
     companion object {
-        const val LOAD_ONCE = 5
+        const val LOAD_ONCE = 10
     }
 
     private var id: Int = 1
@@ -105,10 +105,10 @@ class ReplyActivity : ActivityBase() {
                 }
                 //否则将结果加入codeGoods，并刷新adapter
                 adapter.replyList.addAll(it)
-                adapter.notifyDataSetChanged()
+                if(refresh) adapter.notifyDataSetChanged()
+                else adapter.notifyItemRangeInserted(adapter.itemCount -1 - it.size,it.size)
                 cacheData(adapter.replyList)
             }
-            /*}*/
         }, { t, rc ->
             reply_swip.isRefreshing = false
             request = null
