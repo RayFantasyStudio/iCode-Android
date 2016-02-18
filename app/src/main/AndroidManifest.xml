@@ -62,7 +62,7 @@
         <activity
             android:name=".ui.activity.AccountSettingActivity"
             android:label="@string/title_activity_account_setting"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.BlocksActivity"
             android:label="@string/title_activity_blocks"
@@ -74,7 +74,7 @@
         <activity
             android:name=".ui.activity.ReplyActivity"
             android:label="@string/title_activity_reply"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

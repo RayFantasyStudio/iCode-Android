@@ -8,13 +8,14 @@
         <variable
             name="theme"
             type="com.rayfantasy.icode.model.ICodeTheme" />
+
     </data>
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        app:statusBarBackgroundColor="@{theme.colorPrimaryDark}"
         tools:openDrawer="start">
 
         <include
@@ -30,8 +31,8 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nv_layout"
-            app:menu="@menu/nv_menu"
-            app:itemSelectColor="@{theme.colorPrimary}" />
+            app:itemSelectColor="@{theme.colorPrimary}"
+            app:menu="@menu/nv_menu" />
 
     </android.support.v4.widget.DrawerLayout>
 </layout>

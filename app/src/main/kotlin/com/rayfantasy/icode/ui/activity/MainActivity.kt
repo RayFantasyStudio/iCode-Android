@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.content.LocalBroadcastManager
@@ -44,6 +45,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
 import org.jetbrains.anko.async
+import org.jetbrains.anko.configuration
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import java.io.File
@@ -78,6 +80,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         drawer_layout.setDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+        configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) { drawer_layout.fitsSystemWindows = true }
 
         val headerView = nav_view.getHeaderView(0)
         NvLayoutBinding.bind(headerView).theme = ICodeTheme
@@ -227,8 +230,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        if (fragment != mainFragment)
-            app_bar.setExpanded(false)
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.main_contain, fragment).commit()
     }
