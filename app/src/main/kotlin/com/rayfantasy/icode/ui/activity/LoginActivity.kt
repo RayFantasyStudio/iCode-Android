@@ -18,6 +18,9 @@ import org.jetbrains.anko.startActivity
 class LoginActivity : ActivityBase() {
     private var request: Request<*>? = null
 
+    override val bindingStatus: Boolean
+        get() = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login).theme = ICodeTheme

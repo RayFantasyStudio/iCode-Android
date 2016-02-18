@@ -30,6 +30,10 @@ class RegisterActivity : ActivityBase() {
 
     private var request: Request<*>? = null
     private lateinit var binding: ActivityRegisterBinding
+
+    override val bindingStatus: Boolean
+        get() = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
