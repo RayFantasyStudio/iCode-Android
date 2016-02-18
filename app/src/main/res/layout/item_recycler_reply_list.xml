@@ -28,6 +28,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:id="@+id/reply_bg"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -71,6 +72,16 @@
                 android:text="Time"
                 android:textColor="#8C8C8C"
                 android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/reply_delete"
+
+                android:layout_above="@+id/reply_time"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
         <TextView

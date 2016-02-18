@@ -55,6 +55,8 @@
     <color name="hight_light_purple">#3C2F41</color>
     <color name="hight_light_red">#CB4042</color>
     <color name="hight_light_yellow">#F05E1C</color>
+    <color name="high_light_deepblue">#2E5C6E</color>
+    <color name="high_light_gray">#373C38</color>
 
 
 </resources>
