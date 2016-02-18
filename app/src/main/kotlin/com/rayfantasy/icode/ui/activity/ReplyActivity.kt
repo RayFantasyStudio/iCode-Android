@@ -89,7 +89,7 @@ class ReplyActivity : ActivityBase() {
 
         //生成加载条件，目前加载5个，方便测试
 
-        val condition = "WHERE ${if (!refresh && adapter.replyList.isNotEmpty()) "createat < ${adapter.replyList.last().createAt} " else ""}good_id=$id " +
+        val condition = "WHERE ${if (!refresh && adapter.replyList.isNotEmpty()) "createat < ${adapter.replyList.last().createAt} AND " else ""}good_id=$id " +
                 "ORDER BY createat DESC LIMIT 0, $LOAD_ONCE"
         request = PostUtil.findReply(condition, {
             reply_swip.isRefreshing = false
