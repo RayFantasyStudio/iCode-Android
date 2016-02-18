@@ -38,6 +38,8 @@ object ICodeTheme {
             R.color.colorPrimaryDark_purple, R.color.colorPrimaryDark_gray, R.color.colorPrimaryDark_yellow, R.color.colorPrimaryDark_deepblue)
     internal val colorAccentRes = intArrayOf(R.color.colorAccent_blue, R.color.colorAccent_red,
             R.color.colorAccent_purple, R.color.colorAccent_gray, R.color.colorAccent_yellow, R.color.colorAccent_deepblue)
+    internal val colorHighLightRes = intArrayOf(R.color.high_light_blue, R.color.high_light_red,
+            R.color.high_light_purple, R.color.high_light_gray, R.color.high_light_yellow, R.color.high_light_deepblue)
 
     fun init(ctx: Context) {
         val theme = ctx.defaultSharedPreferences.getInt(PREF_ICODE_THEME, THEME_DEFAULT)
@@ -50,6 +52,8 @@ object ICodeTheme {
 
     val colorAccent = ObservableInt()
 
+    val colorHighLight = ObservableInt()
+
     val icon = ObservableInt()
 }
 
@@ -57,6 +61,7 @@ fun Context.changeTheme(theme: Int) = with(ICodeTheme) {
     changeColor(colorPrimary, resources.getColor(colorPrimaryRes[theme]))
     changeColor(colorPrimaryDark, resources.getColor(colorPrimaryDarkRes[theme]))
     changeColor(colorAccent, resources.getColor(colorAccentRes[theme]))
+    changeColor(colorHighLight, resources.getColor(colorHighLightRes[theme]))
     defaultSharedPreferences.edit().putInt(PREF_ICODE_THEME, theme).apply()
 }
 
@@ -68,7 +73,7 @@ fun changeColor(observableInt: ObservableInt, color: Int) {
         anim.addUpdateListener {
             observableInt.set(it.animatedValue as Int)
         }
-        anim.setDuration(300)
+        anim.duration = 300
         anim.start()
     } else
         observableInt.set(color)

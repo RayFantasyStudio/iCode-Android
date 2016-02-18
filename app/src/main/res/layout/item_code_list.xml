@@ -14,17 +14,18 @@
     </data>
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
         android:id="@+id/code_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_height="wrap_content">
+        app:cardBackgroundColor="@{highlight ? theme.colorHighLight : 0}">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:weightSum="1">
 
             <RelativeLayout
@@ -33,120 +34,124 @@
                 android:layout_marginBottom="4dp">
 
                 <ImageView
+                    android:id="@+id/code_usericon"
                     android:layout_width="@dimen/profile_pic_size"
                     android:layout_height="@dimen/profile_pic_size"
-                    android:id="@+id/code_usericon"
-                    android:src="@mipmap/ic_account_box_black"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:src="@mipmap/ic_account_box_black" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/code_username"
-                    android:text="Username"
-                    android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/code_usericon"
-                    android:layout_toEndOf="@+id/code_usericon"
-                    android:layout_marginLeft="15dp" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/code_time"
-                    android:text="time"
-                    android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
-                    android:layout_marginRight="16dp"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/code_usericon"
+                    android:layout_toRightOf="@+id/code_usericon"
+                    android:text="Username"
+                    android:textColor="@{highlight ? (int) @android:color/white : (int) @color/secondary_text_default_material_light}" />
+
+                <TextView
+                    android:id="@+id/code_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="time"
+                    android:textColor="@{highlight ? (int) @android:color/white : (int) @color/secondary_text_default_material_light}" />
 
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="#dddd"
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="10dp"
+                android:background="#dddd">
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginBottom="3dp">
+                android:layout_marginBottom="3dp"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/code_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/code_title"
-                    android:textColor="@{highlight ? theme.colorAccent : theme.colorPrimaryDark}"
-                    android:text="Title"
                     android:layout_marginLeft="16dp"
+                    android:text="Title"
+                    android:textColor="@{highlight ? (int) @android:color/white : theme.colorPrimaryDark}"
                     android:textSize="20dp" />
 
                 <TextView
+                    android:id="@+id/code_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="subtitle"
-                    android:id="@+id/code_subtitle"
-                    android:layout_marginLeft="16dp"
-                    android:textColor="@{highlight ? theme.colorAccent : 0xFF8C8C8C}"
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/code_title"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="3dp"
                     android:layout_toEndOf="@+id/code_title"
-                    android:layout_marginTop="3dp" />
+                    android:layout_toRightOf="@+id/code_title"
+                    android:text="subtitle"
+                    android:textColor="@{highlight ? (int) @android:color/white : (int) @color/secondary_text_default_material_light}" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:background="#dddd"
                 android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:background="#dddd">
 
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
 
                 <com.like.LikeButton
-                    app:icon_type="heart"
-                    app:icon_size="16dp"
                     android:id="@+id/code_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginStart="15dp" />
+                    android:layout_marginStart="15dp"
+                    app:icon_size="16dp"
+                    app:icon_type="heart" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Favo_Count"
                     android:id="@+id/code_favoCount"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/code_like"
-                    android:layout_toEndOf="@+id/code_like"
-                    android:layout_marginLeft="5dp" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="reply_Count"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/code_like"
+                    android:layout_toRightOf="@+id/code_like"
+                    android:text="Favo_Count"
+                    android:textColor="@{highlight ? (int) @android:color/white : (int) @color/secondary_text_default_material_light}" />
+
+                <TextView
                     android:id="@+id/code_replyCount"
-                    android:layout_alignTop="@+id/code_favoCount"
-                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/code_favoCount"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginTop="14dp" />
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="14dp"
+                    android:textColor="@{highlight ? (int) @android:color/white : (int) @color/secondary_text_default_material_light}" />
+                android:text="reply_Count" />
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
