@@ -49,4 +49,12 @@
     <color name="colorPrimaryDark_deepblue">#303f9f</color>
     <color name="colorAccent_deepblue">#ff4081</color>
 
+    <!--code高亮颜色-->
+    <color name="hight_light_brown">#724938</color>
+    <color name="hight_light_blue">#0D5661</color>
+    <color name="hight_light_purple">#3C2F41</color>
+    <color name="hight_light_red">#CB4042</color>
+    <color name="hight_light_yellow">#F05E1C</color>
+
+
 </resources>
