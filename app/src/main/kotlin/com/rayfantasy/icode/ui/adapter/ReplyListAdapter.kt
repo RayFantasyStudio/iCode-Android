@@ -75,7 +75,8 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         val time = itemView.reply_time
         val reply = itemView.reply_context
         val reply_bg = itemView.reply_bg
-        val del = itemView.reply_delete
+
+
     }
 
 

@@ -44,12 +44,9 @@ class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<Co
                 holder.username.text = codeGood.username
                 holder.subtitle.text = codeGood.subtitle
                 holder.user_icon.loadPortrait(codeGood.username)
-
-            }
-            is FavoriteViewHolder -> {
                 val favorite = Select().from(Favorite::class.java).where(Favorite_Table.goodId.`is`(codeGood.id)).querySingle()
-                holder.favorite.setLiked(favorite != null)
-                holder.favorite.onLike {
+                holder.like_btn.setLiked(favorite != null)
+                holder.like_btn.onLike {
                     liked {
                         PostUtil.addFavorite(codeGood.id, { Toast.makeText(ctx, "收藏成功", Toast.LENGTH_LONG).show(); Favorite(codeGood.id, System.currentTimeMillis()).save() }, { t, rc -> Toast.makeText(ctx, "收藏失败,$rc", Toast.LENGTH_LONG).show() })
                     }
@@ -64,25 +61,25 @@ class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<Co
                     }
                 }
 
-            }
+                holder.likecount.text = "${codeGood.favorite}"
 
+            }
         }
 
     }
 
 
-    override fun getItemCount() = blocks.size + 2
+    override fun getItemCount() = blocks.size +1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code) as ViewGroup, highlightTheme)
         TITLE_VIEW -> TitleViewHolder(parent.inflate(R.layout.item_block_title))
-        FAVORITE_VIEW -> FavoriteViewHolder(parent.inflate(R.layout.item_block_favorite))
         CodeGood.BlockType.TEXT -> TextViewHolder(parent.inflate(R.layout.item_block_text))
-        else -> FavoriteViewHolder(parent.inflate(R.layout.item_block_favorite))
+        else -> TextViewHolder(parent.inflate(R.layout.item_block_favorite))
 
     }
 
-    override fun getItemViewType(position: Int) = if (position == 0) TITLE_VIEW else if (position == blocks.size + 1) FAVORITE_VIEW else {
+    override fun getItemViewType(position: Int) = if (position == 0) TITLE_VIEW else {
         blocks[position - 1].blockType
     }
 
@@ -108,9 +105,7 @@ class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<Co
         val username = itemView.block_username
         val subtitle = itemView.block_sub_title
         val user_icon = itemView.block_userIcon
-    }
-
-    class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val favorite = itemView.favo_btn
+        val like_btn = itemView.block_like_title
+        val likecount = itemView.block_likecount_title
     }
 }
