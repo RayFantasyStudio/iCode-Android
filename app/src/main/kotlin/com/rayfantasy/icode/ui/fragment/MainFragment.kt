@@ -69,6 +69,7 @@ class MainFragment : FragmentBase() {
         val condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateAt} " else ""}" +
                 "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
         request = PostUtil.selectCodeGood(condition, {
+            if (isDetached) return@selectCodeGood
             view.swipe_layout.isRefreshing = false
             request = null
 
@@ -87,6 +88,7 @@ class MainFragment : FragmentBase() {
             }
             /*}*/
         }, { t, rc ->
+            if (isDetached) return@selectCodeGood
             view.swipe_layout.isRefreshing = false
             request = null
             adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
