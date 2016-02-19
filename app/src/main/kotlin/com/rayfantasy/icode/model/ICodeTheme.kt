@@ -18,9 +18,8 @@ package com.rayfantasy.icode.model
 
 import android.content.Context
 import android.databinding.ObservableInt
-import com.nineoldandroids.animation.ArgbEvaluator
-import com.nineoldandroids.animation.ValueAnimator
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.extension.colorAnim
 import org.jetbrains.anko.defaultSharedPreferences
 
 object ICodeTheme {
@@ -65,16 +64,11 @@ fun Context.changeTheme(theme: Int) = with(ICodeTheme) {
     defaultSharedPreferences.edit().putInt(PREF_ICODE_THEME, theme).apply()
 }
 
-fun changeColor(observableInt: ObservableInt, color: Int) {
+private fun changeColor(observableInt: ObservableInt, color: Int) {
     val i = observableInt.get()
     if (i == color) return
     if (i != 0) {
-        val anim = ValueAnimator.ofObject(ArgbEvaluator(), i, color)
-        anim.addUpdateListener {
-            observableInt.set(it.animatedValue as Int)
-        }
-        anim.duration = 300
-        anim.start()
+        colorAnim(i, color, 300) { observableInt.set(it) }
     } else
         observableInt.set(color)
 }

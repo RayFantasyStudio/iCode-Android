@@ -1,6 +1,8 @@
 package com.rayfantasy.icode.ui.activity
 
+import android.app.ActivityManager
 import android.databinding.Observable
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
@@ -12,10 +14,27 @@ import org.jetbrains.anko.find
 
 abstract class ActivityBase : ActivityConverter() {
     open val bindingStatus = false
+    open val bindTaskDescription = false
     private val callback by lazy {
         object : Observable.OnPropertyChangedCallback() {
+            private val icon by lazy {
+                BitmapFactory.decodeResource(resources, R.mipmap.ic_task_desc)
+            }
+
+            private val appName by lazy {
+                getString(R.string.app_name)
+            }
+
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                window.statusBarColor = ICodeTheme.colorPrimaryDark.get()
+                if (bindingStatus) {
+                    val colorPrimaryDark = ICodeTheme.colorPrimaryDark.get()
+                    window.statusBarColor = colorPrimaryDark
+                }
+                if (bindTaskDescription) {
+                    val colorPrimary = ICodeTheme.colorPrimary.get()
+                    val tDesc = ActivityManager.TaskDescription(appName, icon, colorPrimary)
+                    setTaskDescription(tDesc)
+                }
             }
         }
     }
@@ -42,18 +61,19 @@ abstract class ActivityBase : ActivityConverter() {
 
     override fun onResume() {
         super.onResume()
-        if (bindingStatus)
-            configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
-                window.statusBarColor = ICodeTheme.colorPrimaryDark.get()
+        configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
+            if (bindingStatus || bindTaskDescription) {
+                callback.onPropertyChanged(null, 0)
                 ICodeTheme.colorPrimaryDark.addOnPropertyChangedCallback(callback)
             }
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        if (bindingStatus)
-            configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
+        configuration(fromSdk = Build.VERSION_CODES.LOLLIPOP) {
+            if (bindingStatus || bindTaskDescription)
                 ICodeTheme.colorPrimaryDark.removeOnPropertyChangedCallback(callback)
-            }
+        }
     }
 }

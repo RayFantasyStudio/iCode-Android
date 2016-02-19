@@ -68,6 +68,8 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     private lateinit var binding: ActivityMainBinding
     private val requestQueue by lazy { Volley.newRequestQueue(this) }
 
+    override val bindTaskDescription: Boolean
+        get() = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
