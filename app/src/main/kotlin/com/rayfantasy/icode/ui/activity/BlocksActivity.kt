@@ -76,7 +76,7 @@ class BlocksActivity : ActivityBase() {
             toast("rc = $rc")
             t.printStackTrace()
         })
-        fab.onClick { startActivity<ReplyActivity>("id" to codeGood.id) }
+        fab.onClick { fab.startFabTransformActivity<ReplyActivity>("id" to codeGood.id) }
 
         toolbar.navigationIcon = menuDrawable
         if (intent.hasExtra("y") && intent.hasExtra("height")) {

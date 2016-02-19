@@ -38,10 +38,10 @@ abstract class ActivityBase : ActivityConverter() {
             }
         }
     }
+    protected val toolbar: Toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
-        val toolbar = find<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
     }
 

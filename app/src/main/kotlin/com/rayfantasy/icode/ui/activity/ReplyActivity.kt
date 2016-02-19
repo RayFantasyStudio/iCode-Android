@@ -3,6 +3,7 @@ package com.rayfantasy.icode.ui.activity
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
@@ -22,19 +23,25 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.toast
 
-class ReplyActivity : ActivityBase() {
+class ReplyActivity : FabTransformActivity() {
+
     companion object {
         const val LOAD_ONCE = 10
     }
 
+    override val revealLayout: ViewGroup
+        get() = reveal_layout
+
     private var id: Int = 1
-    private lateinit var adapter: ReplyListAdapter
+    private var adapter: ReplyListAdapter? = null
     private val isRefreshing: Boolean
         get() = request != null
     private var request: Request<*>? = null
 
     override val bindingStatus: Boolean
         get() = true
+
+    private val replyList by lazy { SetUniqueList.setUniqueList(getCacheData()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +75,11 @@ class ReplyActivity : ActivityBase() {
                 setReplyable(true)
             })
         }
+
+        onStartAnimEnd = {
+            adapter = ReplyListAdapter(this, replyList) { loadReplys(false) }
+            reply_recyclerview.adapter = adapter
+        }
     }
 
     private fun setReplyable(replyable: Boolean) {
@@ -77,8 +89,6 @@ class ReplyActivity : ActivityBase() {
 
     private fun initRecyclerView() {
         reply_recyclerview.layoutManager = PreloadLinearLayoutManager(this)
-        adapter = ReplyListAdapter(this, SetUniqueList.setUniqueList(getCacheData())) { loadReplys(false) }
-        reply_recyclerview.adapter = adapter
 
     }
 
@@ -89,31 +99,38 @@ class ReplyActivity : ActivityBase() {
 
         //生成加载条件，目前加载5个，方便测试
 
-        val condition = "WHERE ${if (!refresh && adapter.replyList.isNotEmpty()) "createat < ${adapter.replyList.last().createAt} AND " else ""}good_id=$id " +
+        val condition = "WHERE ${if (!refresh && replyList.isNotEmpty()) "createat < ${replyList.last().createAt} AND " else ""}good_id=$id " +
                 "ORDER BY createat DESC LIMIT 0, $LOAD_ONCE"
         request = PostUtil.findReply(condition, {
             reply_swip.isRefreshing = false
             request = null
+            //如果需要刷新，将旧的列表清空
+            if (refresh) {
+                replyList.clear()
+            }
+            //否则将结果加入codeGoods
+            replyList.addAll(it)
+            cacheData(replyList)
 
-            if (it.isEmpty() ) {
-                //如果结果为空，则表示没有更多内容了
-                adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
-            } else {
-                //如果需要刷新，将旧的列表清空
-                if (refresh) {
-                    adapter.replyList.clear()
+            if (adapter != null) {
+                if (it.isEmpty() ) {
+                    //如果结果为空，则表示没有更多内容了
+                    adapter?.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
+                } else {
+                    if (refresh) (adapter as ReplyListAdapter).notifyDataSetChanged()
+                    else adapter?.notifyItemRangeInserted((adapter as ReplyListAdapter).itemCount - 1 - it.size, it.size)
                 }
-                //否则将结果加入codeGoods，并刷新adapter
-                adapter.replyList.addAll(it)
-                if(refresh) adapter.notifyDataSetChanged()
-                else adapter.notifyItemRangeInserted(adapter.itemCount -1 - it.size,it.size)
-                cacheData(adapter.replyList)
             }
         }, { t, rc ->
             reply_swip.isRefreshing = false
             request = null
-            adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
+            adapter?.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
         })
+    }
+
+    override fun onBackPressed() {
+        reveal_content.removeAllViews()
+        super.onBackPressed()
     }
 
     override fun onDestroy() {

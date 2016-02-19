@@ -68,7 +68,7 @@ private fun changeColor(observableInt: ObservableInt, color: Int) {
     val i = observableInt.get()
     if (i == color) return
     if (i != 0) {
-        colorAnim(i, color, 300) { observableInt.set(it) }
+        colorAnim(i, color, 300, { observableInt.set(it) })
     } else
         observableInt.set(color)
 }

@@ -11,9 +11,9 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity">
 
         <android.support.design.widget.AppBarLayout
@@ -32,43 +32,55 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <io.codetail.widget.RevealFrameLayout
+            android:id="@+id/reveal_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.0"
-            android:id="@+id/reply_swip"
-            tools:context="com.rayfantasy.icode.ui.activity.ReplyActivity"
-            tools:showIn="@layout/activity_reply">
+            android:layout_weight="1.0">
 
-            <android.support.v7.widget.RecyclerView
+            <LinearLayout
+                android:id="@+id/reveal_content"
                 android:layout_width="match_parent"
-                android:id="@+id/reply_recyclerview"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/reply_swip"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0">
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/reply_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/reply_bar">
+                    </android.support.v7.widget.RecyclerView>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:id="@+id/reply_sent_context"
-                android:textCursorDrawable="@{theme.colorAccent}"
-                app:supportBackgroundTintList="@{theme.colorAccent}" />
+                </android.support.v4.widget.SwipeRefreshLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/commit"
-                android:id="@+id/btn_sent" />
+                <LinearLayout
+                    android:id="@+id/reply_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        </LinearLayout>
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/reply_sent_context"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:textCursorDrawable="@{theme.colorAccent}"
+                        app:supportBackgroundTintList="@{theme.colorAccent}" />
+
+                    <Button
+                        android:id="@+id/btn_sent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/commit" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </io.codetail.widget.RevealFrameLayout>
 
         <!--<include layout="@layout/content_reply"
                  android:layout_height="match_parent"
