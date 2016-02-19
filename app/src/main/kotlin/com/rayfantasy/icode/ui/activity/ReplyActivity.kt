@@ -3,7 +3,6 @@ package com.rayfantasy.icode.ui.activity
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
@@ -33,6 +32,7 @@ class ReplyActivity : FabTransformActivity() {
         get() = reveal_layout
 
     private var id: Int = 1
+    private var reply_count = 0
     private var adapter: ReplyListAdapter? = null
     private val isRefreshing: Boolean
         get() = request != null
@@ -48,7 +48,8 @@ class ReplyActivity : FabTransformActivity() {
         DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = ICodeTheme
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-
+        reply_count = intent.getIntExtra("reply_count",0)
+        toolbar.title = "评论区-共${reply_count}条评论"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getIntExtra("id", 0)
         reply_swip?.onRefresh {
