@@ -28,6 +28,7 @@ class ReplyActivity : ActivityBase() {
     }
 
     private var id: Int = 1
+    private var reply_count = 0
     private lateinit var adapter: ReplyListAdapter
     private val isRefreshing: Boolean
         get() = request != null
@@ -41,7 +42,8 @@ class ReplyActivity : ActivityBase() {
         DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = ICodeTheme
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-
+        reply_count = intent.getIntExtra("reply_count",0)
+        toolbar.title = "评论区-共${reply_count}条评论"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getIntExtra("id", 0)
         reply_swip?.onRefresh {

@@ -16,7 +16,6 @@ import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.Favorite
 import com.rayfantasy.icode.postutil.bean.Favorite_Table
 import com.rayfantasy.icode.ui.fragment.SettingFragment
-import kotlinx.android.synthetic.main.item_block_favorite.view.*
 import kotlinx.android.synthetic.main.item_block_text.view.*
 import kotlinx.android.synthetic.main.item_block_title.view.*
 import org.evilbinary.highliter.HighlightEditText
@@ -74,8 +73,7 @@ class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<Co
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code) as ViewGroup, highlightTheme)
         TITLE_VIEW -> TitleViewHolder(parent.inflate(R.layout.item_block_title))
-        CodeGood.BlockType.TEXT -> TextViewHolder(parent.inflate(R.layout.item_block_text))
-        else -> TextViewHolder(parent.inflate(R.layout.item_block_favorite))
+        else -> TextViewHolder(parent.inflate(R.layout.item_block_text))
 
     }
 
