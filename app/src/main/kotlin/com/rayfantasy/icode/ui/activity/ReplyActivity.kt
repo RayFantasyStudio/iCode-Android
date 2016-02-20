@@ -3,6 +3,7 @@ package com.rayfantasy.icode.ui.activity
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
@@ -52,7 +53,7 @@ class ReplyActivity : FabTransformActivity() {
         DataBindingUtil.setContentView<ActivityReplyBinding>(this, R.layout.activity_reply).theme = ICodeTheme
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
-        reply_count = intent.getIntExtra("reply_count",0)
+        reply_count = intent.getIntExtra("reply_count", 0)
         toolbar.title = "评论区-共${reply_count}条评论"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getIntExtra("id", 0)
@@ -81,7 +82,9 @@ class ReplyActivity : FabTransformActivity() {
             })
         }
 
+        reply_bar.visibility = View.INVISIBLE
         onStartAnimEnd = {
+            reply_bar.visibility = View.VISIBLE
             adapter = ReplyListAdapter(this, replyList) { loadReplys(false) }
             reply_recyclerview.adapter = adapter
         }

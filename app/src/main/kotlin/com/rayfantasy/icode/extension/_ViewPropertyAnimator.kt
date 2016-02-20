@@ -29,3 +29,9 @@ fun ViewPropertyAnimator.onAnimationEnd(listener: (Animator?) -> Unit): ViewProp
     })
     return this
 }
+
+fun ViewPropertyAnimator.setListener(init: _AnimatorListener.() -> Unit): ViewPropertyAnimator {
+    setListener(_AnimatorListener().apply(init))
+    return this
+}
+

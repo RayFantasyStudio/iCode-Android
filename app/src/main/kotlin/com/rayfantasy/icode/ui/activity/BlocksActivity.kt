@@ -10,7 +10,9 @@ import com.balysv.materialmenu.MaterialMenuDrawable
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityBlocksBinding
+import com.rayfantasy.icode.extension.colorAnim
 import com.rayfantasy.icode.extension.onAnimationEnd
+import com.rayfantasy.icode.extension.setListener
 import com.rayfantasy.icode.extension.toggle
 import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
@@ -20,6 +22,7 @@ import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.ui.adapter.BlockAdapter
 import kotlinx.android.synthetic.main.activity_blocks.*
 import kotlinx.android.synthetic.main.content_blocks.*
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -101,21 +104,29 @@ class BlocksActivity : ActivityBase() {
                 translationY = (intent.getIntExtra("y", 0) - (recyclerView.height ushr 1) + (height ushr 1) - toolbar.height).toFloat()
                 recyclerView.scaleY = scaleY
                 recyclerView.translationY = translationY
-                recyclerView.alpha = 1f
                 recyclerView.animate()
                         .setInterpolator(DecelerateInterpolator())
                         .translationY(0f)
                         .scaleY(1f)
                         .setDuration(TRANSFORM_DURATION_BG)
-                        .onAnimationEnd {
-                            if (!backPressed) {
-                                codeGood.content?.let {
-                                    recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                        .setListener {
+                            onAnimationStart { recyclerView.alpha = 1f }
+                            onAnimationEnd {
+                                if (!backPressed) {
+                                    codeGood.content?.let {
+                                        recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                                    }
+                                    transformFinished = true
                                 }
-                                transformFinished = true
                             }
                         }
                         .start()
+                if (codeGood.highlight)
+                    colorAnim(ICodeTheme.colorHighLight.get(),
+                            resources.getColor(R.color.background_material_light), TRANSFORM_DURATION_BG, {
+                        if (!backPressed)
+                            recyclerView.backgroundColor = it
+                    })
             }
         } else {
             menuDrawable.iconState = MaterialMenuDrawable.IconState.ARROW
@@ -143,6 +154,11 @@ class BlocksActivity : ActivityBase() {
                         overridePendingTransition(0, 0)
                     }
                     .start()
+            if (codeGood.highlight)
+                colorAnim(resources.getColor(R.color.background_material_light),
+                        ICodeTheme.colorHighLight.get(), TRANSFORM_DURATION_BG, {
+                    recyclerView.backgroundColor = it
+                })
         } else {
             super.onBackPressed()
         }
