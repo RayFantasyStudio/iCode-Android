@@ -35,7 +35,6 @@ class WriteCodeActivity : FabTransformActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityWriteCodeBinding>(this, R.layout.activity_write_code).theme = ICodeTheme
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val blockAdapter = EditBlockAdapter(this)
         val recyclerViewDragDropManager = RecyclerViewDragDropManager()

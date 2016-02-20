@@ -52,6 +52,7 @@ abstract class FabTransformActivity : ActivityBase() {
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.navigationIcon = menuDrawable
         if (arrowAnim) {
             menuDrawable.iconState = MaterialMenuDrawable.IconState.BURGER
