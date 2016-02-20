@@ -3,6 +3,7 @@ package com.rayfantasy.icode.ui.activity
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
@@ -30,6 +31,9 @@ class ReplyActivity : FabTransformActivity() {
 
     override val revealLayout: ViewGroup
         get() = reveal_layout
+
+    override val arrowAnim: Boolean
+        get() = false
 
     private var id: Int = 1
     private var reply_count = 0
