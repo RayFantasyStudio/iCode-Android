@@ -4,6 +4,8 @@ import android.app.Activity
 import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import com.balysv.materialmenu.MaterialMenuDrawable
@@ -169,6 +171,22 @@ class BlocksActivity : ActivityBase() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.block_menu,menu)
+        return true
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        val id = item!!.itemId
+        when (id){
+            R.id.action_edit -> {
+                startActivity<WriteCodeActivity>("data" to codeGood)
+            }
+            else -> return false
+        }
+        return false
     }
 }
 
