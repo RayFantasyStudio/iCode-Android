@@ -97,7 +97,7 @@ class BlocksActivity : ActivityBase() {
                     }
                 }
             }
-            recyclerView.alpha = 0f
+
             recyclerView.post {
                 val height = intent.getIntExtra("height", 0)
                 scaleY = height / recyclerView.height.toFloat()
@@ -110,7 +110,7 @@ class BlocksActivity : ActivityBase() {
                         .scaleY(1f)
                         .setDuration(TRANSFORM_DURATION_BG)
                         .setListener {
-                            onAnimationStart { recyclerView.alpha = 1f }
+                            onAnimationStart { recyclerView.postDelayed({ recyclerView.visibility = View.VISIBLE }, 10) }
                             onAnimationEnd {
                                 if (!backPressed) {
                                     codeGood.content?.let {
