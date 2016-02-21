@@ -89,9 +89,9 @@ class MainFragment : FragmentBase() {
             }
             /*}*/
         }, { t, rc ->
-            if (isDetached) return@selectCodeGood
-            view.swipe_layout.isRefreshing = false
             request = null
+            if (isDetached || view == null) return@selectCodeGood
+            view.swipe_layout.isRefreshing = false
             adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
         })
     }
