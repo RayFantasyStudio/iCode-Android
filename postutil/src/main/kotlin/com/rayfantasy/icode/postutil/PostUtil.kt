@@ -85,6 +85,18 @@ object PostUtil {
         return request
     }
 
+    fun delCodeGood(id:Int,onSuccess: () -> Unit,onFailed: (Throwable, Int) -> Unit) : Request<out  Any>?{
+        if (user == null || key == null) {
+            onFailed(PostException("登陆后才能进行此操作"), -4)
+            return null
+        }
+        val data = JSONObject()
+        data.put("id",id)
+        data.put("key",key)
+        val request = EncryptedRequest(URI_DEL_CODEGOOD,data.toString(), { onSuccess() }, onFailed)
+        requestQueue.add(request)
+        return  request
+    }
     /**
      * 从服务器数据库批量查询已有CodeGood
 
