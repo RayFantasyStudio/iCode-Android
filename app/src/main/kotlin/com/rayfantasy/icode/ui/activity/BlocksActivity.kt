@@ -13,7 +13,6 @@ import com.rayfantasy.icode.databinding.ActivityBlocksBinding
 import com.rayfantasy.icode.extension.colorAnim
 import com.rayfantasy.icode.extension.onAnimationEnd
 import com.rayfantasy.icode.extension.setListener
-import com.rayfantasy.icode.extension.toggle
 import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
@@ -24,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_blocks.*
 import kotlinx.android.synthetic.main.content_blocks.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.onClick
+import org.jetbrains.anko.recyclerview.v7.onScrollListener
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -130,6 +130,13 @@ class BlocksActivity : ActivityBase() {
             }
         } else {
             menuDrawable.iconState = MaterialMenuDrawable.IconState.ARROW
+        }
+
+        recyclerView.onScrollListener {
+            onScrolled { recyclerView, dx, dy ->
+                if (Math.abs(dy) > 20)
+                    fab.toggle(dy < 0, 100)
+            }
         }
     }
 
