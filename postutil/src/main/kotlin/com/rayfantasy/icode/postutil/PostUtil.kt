@@ -93,7 +93,7 @@ object PostUtil {
         val data = JSONObject()
         data.put("id",id)
         data.put("key",key)
-        val request = EncryptedRequest(URI_DEL_CODEGOOD,data.toString(), { onSuccess() }, onFailed)
+        val request = EncryptedRequest(URL_DEL_CODEGOOD,data.toString(), { onSuccess() }, onFailed)
         requestQueue.add(request)
         return  request
     }

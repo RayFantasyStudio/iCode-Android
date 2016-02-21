@@ -84,6 +84,7 @@ class MainFragment : FragmentBase() {
                 //否则将结果加入codeGoods，并刷新adapter
                 adapter.codeGoods.addAll(it)
                 if (refresh) adapter.notifyDataSetChanged()
+
                 else adapter.notifyItemRangeInserted(adapter.itemCount - 1 - it.size, it.size)
                 cacheData(adapter.codeGoods)
             }
