@@ -56,7 +56,7 @@ class UserActivity : ActivityBase() {
             return
         isRefreshing = true
         //按照username查找
-        request = PostUtil.selectCodeGood("WHERE username = '$username'", {
+        request = PostUtil.selectCodeGood("WHERE username = '$username' ORDER BY updateat DESC", {
             isRefreshing = false
             if (it.isEmpty()) {
                 adapter.setFooterState(UserListAdapter.FOOTER_STATE_NO_MORE)
