@@ -1,6 +1,10 @@
 package com.rayfantasy.icode.ui.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.LocalBroadcastManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +28,11 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.onRefresh
 
 class MainFragment : FragmentBase() {
+    private lateinit var broadcastManager: LocalBroadcastManager
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+        }
+    }
     companion object {
         const val LOAD_ONCE = 10
     }
@@ -46,6 +55,7 @@ class MainFragment : FragmentBase() {
         view?.swipe_layout?.onRefresh {
             loadCodeGoods(true)
         }
+        broadcastManager = LocalBroadcastManager.getInstance(activity)
 
         initRecyclerView()
         loadCodeGoods(true)

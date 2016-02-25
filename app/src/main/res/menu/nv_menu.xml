@@ -14,14 +14,18 @@
             android:id="@+id/nav_setting"
             android:icon="@mipmap/ic_setting_black"
             android:title="@string/action_settings" />
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@mipmap/ic_info_black"
-            android:title="@string/about" />
+
     </group>
     <item android:title="@string/about">
         <menu>
-
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@mipmap/ic_info_black"
+                android:title="@string/about" />
+            <item
+                android:id="@+id/nav_update"
+                android:icon="@mipmap/ic_update"
+                android:title="@string/check_update" />
             <item
                 android:id="@+id/nav_homepage"
                 android:icon="@mipmap/ic_website_black"

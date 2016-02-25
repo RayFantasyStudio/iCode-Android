@@ -16,6 +16,7 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.widget.Toast
 import com.android.volley.NetworkResponse
 import com.android.volley.Request
 import com.android.volley.Response
@@ -116,6 +117,9 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         broadcastManager.unregisterReceiver(receiver)
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -173,6 +177,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         //            R.id.nav_favourite -> replaceFragment(favoriteFragment)
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_homepage -> OpenWeb()
+            R.id.nav_update -> checkUpdate()
 
         //etc...
             else -> return false
@@ -211,6 +216,9 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
                     neutralButton(android.R.string.cancel)
                     show()
                 }
+            }
+            else {
+                Toast.makeText(this,"已经是最新版本:${BuildConfig.VERSION_NAME}",Toast.LENGTH_SHORT).show()
             }
         }, { it.printStackTrace() }) {
             override fun parseNetworkResponse(response: NetworkResponse?) = response?.let {

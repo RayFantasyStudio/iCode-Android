@@ -83,10 +83,23 @@
                 android:text="Message"
                 android:textColor="#000"
                 android:textSize="16dp"
-                android:layout_alignBottom="@+id/reply_user_pic"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="65dp" />
+                android:layout_below="@+id/reply_username"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="16dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="30dp"
+                android:id="@+id/reply_delete"
+                android:layout_height="30dp"
+                android:background="@mipmap/ic_close_black_48dp"
+                android:visibility="gone"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/reply_context"
+                android:layout_alignEnd="@+id/reply_context"></LinearLayout>
+
         </RelativeLayout>
 
     </LinearLayout>

@@ -45,19 +45,14 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
 
     override fun onBindNormalViewHolder(holder: NormalViewHolder, position: Int) {
         PostUtil.init(activity)
+
         val replyList = replyList[position]
         holder.username.text = replyList.username
         holder.reply.text = replyList.content
         holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
-       /* if(PostUtil.user == null || PostUtil.user!!.username.equals(replyList.username)){
-
-        }
-        else{
-            holder.del.text = "删除"
-
-        }*/
         holder.pic.loadPortrait(replyList.username)
         holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
+
     }
     fun deleteReply(id : Int){
         PostUtil.delReply(id,{Toast.makeText(activity,"删除回复成功",Toast.LENGTH_SHORT).show()
@@ -75,6 +70,7 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         val time = itemView.reply_time
         val reply = itemView.reply_context
         val reply_bg = itemView.reply_bg
+        val reply_del = itemView.reply_delete
 
 
     }

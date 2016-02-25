@@ -1,24 +1,31 @@
 package com.rayfantasy.icode.ui.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v4.content.LocalBroadcastManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import com.balysv.materialmenu.MaterialMenuDrawable
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
+import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityBlocksBinding
 import com.rayfantasy.icode.extension.colorAnim
 import com.rayfantasy.icode.extension.onAnimationEnd
 import com.rayfantasy.icode.extension.setListener
+import com.rayfantasy.icode.extension.snackBar
 import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
+import com.rayfantasy.icode.postutil.bean.CodeGood_Table
+import com.rayfantasy.icode.postutil.bean.Favorite
 import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.ui.adapter.BlockAdapter
 import kotlinx.android.synthetic.main.activity_blocks.*
@@ -36,6 +43,7 @@ class BlocksActivity : ActivityBase() {
     }
 
     private lateinit var codeGood: CodeGood
+    private lateinit var broadcastManager: LocalBroadcastManager
     private lateinit var binding: ActivityBlocksBinding
     private val menuDrawable by lazy {
         MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN,
@@ -172,21 +180,50 @@ class BlocksActivity : ActivityBase() {
             super.onBackPressed()
         }
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.block_menu,menu)
-        return true
+        if (PostUtil.user == null) return false
+        if (codeGood.username.equals(PostUtil.user!!.username)) {
+            menuInflater.inflate(R.menu.block_menu, menu)
+            return true
+        }
+        return false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item!!.itemId
+        when (id){
+            R.id.action_edit -> {
+                delCodeGood()
+                return true
+            }
+            else -> return false
+        }
+    }
+
+    fun delCodeGood(){
+
+        PostUtil.delCodeGood(codeGood.id,{
+            fab.snackBar("删除成功", Snackbar.LENGTH_SHORT)
+            SQLite.delete(CodeGood::class.java).where(CodeGood_Table.id.`is`(codeGood.id))
+            SQLite.delete(Favorite::class.java).where(CodeGood_Table.id.`is`(codeGood.id))
+            val intent : Intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("code_id",codeGood.id)
+            broadcastManager.sendBroadcast(intent)
+            finish()
+        },
+                {t,rc -> fab.snackBar("删除失败，错误代码：$rc",Snackbar.LENGTH_SHORT)})
     }
 
     override fun onContextItemSelected(item: MenuItem?): Boolean {
         val id = item!!.itemId
         when (id){
             R.id.action_edit -> {
-                startActivity<WriteCodeActivity>("data" to codeGood)
+                delCodeGood()
+                return true
             }
             else -> return false
         }
-        return false
+
     }
 }
 
