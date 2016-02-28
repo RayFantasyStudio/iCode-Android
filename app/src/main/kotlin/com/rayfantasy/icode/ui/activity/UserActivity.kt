@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.content_user.*
 import kotlinx.android.synthetic.main.nv_layout.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.onRefresh
 import java.util.*
 
 class UserActivity : ActivityBase() {
@@ -29,9 +30,7 @@ class UserActivity : ActivityBase() {
         username = intent.getSerializableExtra("username").toString()
         title = username
         initRecyclerView()
-        //        fab.setOnClickListener { view ->
-        //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-        //        }
+        user_swipe.onRefresh { refresh() }
 
     }
 
@@ -55,23 +54,36 @@ class UserActivity : ActivityBase() {
         if (isRefreshing)
             return
         isRefreshing = true
+        val condition = "WHERE ${if (!isRefreshing && adapter.codeGoods.isNotEmpty()) "createat < ${adapter.codeGoods.last().createAt} AND " else ""}username=$username " +
+                "ORDER BY createat DESC LIMIT 0,3"
         //按照username查找
-        request = PostUtil.selectCodeGood("WHERE username = '$username' ORDER BY updateat DESC", {
+        request = PostUtil.selectCodeGood(condition/*"WHERE username = '$username' ORDER BY updateat DESC"*/, {
             isRefreshing = false
-            if (it.isEmpty()) {
+            /* if (it.isEmpty()) {
                 adapter.setFooterState(UserListAdapter.FOOTER_STATE_NO_MORE)
+            }*/
+            if (isRefreshing) {
+                adapter.codeGoods.clear()
             }
+            adapter.codeGoods.addAll(it)
+
 
             //重复利用原来的adapter，节省内存
-            if (adapter == null) {
-                adapter = UserListAdapter(this, username, it) {}
-                user_recyclerview.adapter = adapter
-            } else {
-                adapter.codeGoods = it
-                adapter.notifyDataSetChanged()
+            if (adapter != null) {
+                if (it.isEmpty()) {
+                    /* adapter = UserListAdapter(this, username, it) {}
+                    user_recyclerview.adapter = adapter*/
+                    adapter.setFooterState(UserListAdapter.FOOTER_STATE_NO_MORE)
+                } else {
+               /* adapter.codeGoods = it
+                adapter.notifyDataSetChanged()*/
+                    if(isRefreshing) adapter.notifyDataSetChanged()
+                    else adapter.notifyItemRangeChanged(adapter.itemCount -1 - it.size,it.size)
             }
+        }
         }, { t, rc ->
             isRefreshing = false
+            adapter.setFooterState(UserListAdapter.FOOTER_STATE_FAILED)
             t.printStackTrace()
         }
         )

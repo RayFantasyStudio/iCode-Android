@@ -214,17 +214,6 @@ class BlocksActivity : ActivityBase() {
                 {t,rc -> fab.snackBar("删除失败，错误代码：$rc",Snackbar.LENGTH_SHORT)})
     }
 
-    override fun onContextItemSelected(item: MenuItem?): Boolean {
-        val id = item!!.itemId
-        when (id){
-            R.id.action_edit -> {
-                delCodeGood()
-                return true
-            }
-            else -> return false
-        }
-
-    }
 }
 
 fun View.startBlockActivity(codeGood: CodeGood, arrowAnim: Boolean = true) {

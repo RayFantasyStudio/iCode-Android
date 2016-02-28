@@ -217,9 +217,6 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
                     show()
                 }
             }
-            else {
-                Toast.makeText(this,"已经是最新版本:${BuildConfig.VERSION_NAME}",Toast.LENGTH_SHORT).show()
-            }
         }, { it.printStackTrace() }) {
             override fun parseNetworkResponse(response: NetworkResponse?) = response?.let {
                 Response.success(String(response.data, CHARSET), HttpHeaderParser.parseCacheHeaders(response))
