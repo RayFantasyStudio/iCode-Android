@@ -15,20 +15,16 @@
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/element_bg"
+    style="@style/FullWidthCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="3dp"
-    android:layout_marginTop="3dp"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:transitionName="element_bg"
-    app:cardCornerRadius="0dp">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
-        android:layout_width="match_parent"
         android:id="@+id/reply_bg"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -41,64 +37,64 @@
                 android:id="@+id/reply_user_pic"
                 android:layout_width="@dimen/profile_pic_size"
                 android:layout_height="@dimen/profile_pic_size"
-                android:src="@mipmap/ic_user_black"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/ic_user_black" />
 
             <TextView
                 android:id="@+id/reply_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/reply_user_pic"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:layout_toEndOf="@+id/reply_user_pic"
+                android:layout_toRightOf="@+id/reply_user_pic"
                 android:gravity="center"
                 android:text="User"
                 android:textColor="#8C8C8C"
-                android:textSize="14dp"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
-                android:layout_alignTop="@+id/reply_user_pic"
-                android:layout_toRightOf="@+id/reply_user_pic"
-                android:layout_toEndOf="@+id/reply_user_pic" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/reply_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/reply_context"
+                android:layout_alignRight="@+id/reply_context"
+                android:layout_alignTop="@+id/reply_username"
+                android:layout_marginRight="35dp"
                 android:gravity="center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="Time"
                 android:textColor="#8C8C8C"
-                android:textSize="15sp"
-                android:layout_alignTop="@+id/reply_username"
-                android:layout_alignRight="@+id/reply_context"
-                android:layout_alignEnd="@+id/reply_context"
-                android:layout_marginRight="35dp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/reply_context"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/reply_username"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="16dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="Message"
                 android:textColor="#000"
-                android:textSize="16dp"
-                android:layout_below="@+id/reply_username"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginLeft="64dp"
-                android:layout_marginRight="16dp" />
+                android:textSize="16dp" />
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="30dp"
                 android:id="@+id/reply_delete"
+                android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@mipmap/ic_close_black_48dp"
-                android:visibility="gone"
+                android:layout_alignEnd="@+id/reply_context"
                 android:layout_alignParentTop="true"
                 android:layout_alignRight="@+id/reply_context"
-                android:layout_alignEnd="@+id/reply_context"></LinearLayout>
+                android:background="@mipmap/ic_close_black_48dp"
+                android:orientation="horizontal"
+                android:visibility="gone"></LinearLayout>
 
         </RelativeLayout>
 

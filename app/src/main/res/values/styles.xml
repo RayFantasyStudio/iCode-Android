@@ -9,6 +9,7 @@
         <item name="android:colorBackground">@color/background_material_light</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeBackground">@color/background_material_dark</item>
+        <item name="android:windowBackground">@color/activity_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,7 +17,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.TransparentStatusBar"></style>
+    <style name="AppTheme.NoActionBar.TransparentStatusBar" />
 
     <style name="AppTheme.NoActionBar.TransparentBackground">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -30,6 +31,15 @@
     <style name="FullWidthEditText" parent="Widget.AppCompat.EditText">
         <item name="android:padding">16dp</item>
         <item name="android:background">@null</item>
+    </style>
+
+    <style name="FullWidthCardView" parent="CardView.Light">
+        <item name="android:layout_marginLeft">-3dp</item>
+        <item name="android:layout_marginRight">-3dp</item>
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
     </style>
     <!--<style name="AppSunTheme" >
         <item name="day_night_background">@color/light_color</item>

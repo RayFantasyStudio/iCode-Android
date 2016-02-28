@@ -37,7 +37,7 @@ class ReplyActivity : FabTransformActivity() {
 
     private var id: Int = 1
     private var reply_count = 0
-    private var adapter: ReplyListAdapter? = null
+    private val adapter by lazy { ReplyListAdapter(this, replyList) { loadReplys(false) } }
     private val isRefreshing: Boolean
         get() = request != null
     private var request: Request<*>? = null
@@ -81,7 +81,6 @@ class ReplyActivity : FabTransformActivity() {
         reply_bar.visibility = View.INVISIBLE
         onStartAnimEnd = {
             reply_bar.visibility = View.VISIBLE
-            adapter = ReplyListAdapter(this, replyList) { loadReplys(false) }
             reply_recyclerview.adapter = adapter
         }
     }
@@ -114,21 +113,21 @@ class ReplyActivity : FabTransformActivity() {
             }
             //否则将结果加入codeGoods
             replyList.addAll(it)
-            cacheData(replyList)
+            cacheData(it)
 
-            if (adapter != null) {
+            if (transformFinished) {
                 if (it.isEmpty() ) {
                     //如果结果为空，则表示没有更多内容了
-                    adapter?.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
+                    adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
                 } else {
-                    if (refresh) (adapter as ReplyListAdapter).notifyDataSetChanged()
-                    else adapter?.notifyItemRangeInserted((adapter as ReplyListAdapter).itemCount - 1 - it.size, it.size)
+                    if (refresh) adapter.notifyDataSetChanged()
+                    else adapter.notifyItemRangeInserted(adapter.itemCount - 1 - it.size, it.size)
                 }
             }
         }, { t, rc ->
             reply_swip.isRefreshing = false
             request = null
-            adapter?.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
+            adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
         })
     }
 

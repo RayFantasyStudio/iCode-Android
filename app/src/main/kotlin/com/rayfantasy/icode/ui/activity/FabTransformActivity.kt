@@ -47,8 +47,12 @@ abstract class FabTransformActivity : ActivityBase() {
                 TRANSFORM_DURATION_MENU)
     }
     private lateinit var supportAnimator: SupportAnimator
-    private var backPressed = false
+    protected var backPressed = false
+        private set
+    protected var transformFinished = false
+        private set
     protected open var onStartAnimEnd: (() -> Unit)? = null
+
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
@@ -70,11 +74,13 @@ abstract class FabTransformActivity : ActivityBase() {
             supportAnimator.interpolator = AccelerateDecelerateInterpolator()
             supportAnimator.duration = TRANSFORM_DURATION_BG
             supportAnimator.start()
-            colorAnim(ICodeTheme.colorAccent.get(), resources.getColor(R.color.background_material_light),
+            colorAnim(ICodeTheme.colorAccent.get(), resources.getColor(R.color.activity_background),
                     TRANSFORM_DURATION_BG, { childView.backgroundColor = it }, {
                 onAnimationEnd {
-                    if (!backPressed)
+                    if (!backPressed) {
                         onStartAnimEnd?.invoke()
+                        transformFinished = true
+                    }
                 }
             })
         }
@@ -89,7 +95,7 @@ abstract class FabTransformActivity : ActivityBase() {
         revealLayout.post {
             supportAnimator.reverse().start()
         }
-        colorAnim(resources.getColor(R.color.background_material_light), ICodeTheme.colorAccent.get(),
+        colorAnim(resources.getColor(R.color.activity_background), ICodeTheme.colorAccent.get(),
                 TRANSFORM_DURATION_BG, { childView.backgroundColor = it }, {
             onAnimationEnd {
                 revealLayout.visibility = View.INVISIBLE

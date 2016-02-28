@@ -133,7 +133,7 @@ class BlocksActivity : ActivityBase() {
                         .start()
                 if (codeGood.highlight)
                     colorAnim(ICodeTheme.colorHighLight.get(),
-                            resources.getColor(R.color.background_material_light), TRANSFORM_DURATION_BG, {
+                            resources.getColor(R.color.activity_background), TRANSFORM_DURATION_BG, {
                         if (!backPressed)
                             recyclerView.backgroundColor = it
                     })
@@ -172,7 +172,7 @@ class BlocksActivity : ActivityBase() {
                     }
                     .start()
             if (codeGood.highlight)
-                colorAnim(resources.getColor(R.color.background_material_light),
+                colorAnim(resources.getColor(R.color.activity_background),
                         ICodeTheme.colorHighLight.get(), TRANSFORM_DURATION_BG, {
                     recyclerView.backgroundColor = it
                 })

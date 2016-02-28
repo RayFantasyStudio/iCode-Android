@@ -24,7 +24,6 @@ import org.jetbrains.anko.onClick
 
 class WriteCodeActivity : FabTransformActivity() {
     private lateinit var supportAnimator: SupportAnimator
-    private var backPressed = false
     private var request: Request<*>? = null
     override val revealLayout: ViewGroup
         get() = reveal_layout

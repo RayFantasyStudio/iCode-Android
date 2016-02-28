@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -10,17 +9,14 @@
     </data>
 
     <android.support.v7.widget.CardView
+        style="@style/FullWidthCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:transitionName="element_bg"
-        app:cardCornerRadius="0dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:weightSum="1">
 
             <RelativeLayout
@@ -29,34 +25,34 @@
 
 
                 <ImageView
+                    android:id="@+id/user_item_bg"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:background="#FF5722"
-                    android:id="@+id/user_item_bg"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="28.79" />
+                    android:layout_weight="28.79"
+                    android:background="#FF5722" />
 
                 <ImageView
+                    android:id="@+id/user_item_avatar"
                     android:layout_width="88dp"
                     android:layout_height="88dp"
-                    android:id="@+id/user_item_avatar"
-                    android:src="@mipmap/ic_account_box_black"
-                    android:layout_gravity="center_horizontal"
-                    android:translationZ="10dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="135dp" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="135dp"
+                    android:src="@mipmap/ic_account_box_black"
+                    android:translationZ="10dp" />
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/user_item_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@{theme.colorPrimaryDark}"
-                android:id="@+id/user_item_username"
-                android:text="User_Name"
-                android:textSize="35dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:layout_marginBottom="10dp" />
+                android:text="User_Name"
+                android:textColor="@{theme.colorPrimaryDark}"
+                android:textSize="35dp" />
 
         </LinearLayout>
 
