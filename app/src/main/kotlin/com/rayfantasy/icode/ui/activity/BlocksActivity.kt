@@ -201,6 +201,7 @@ class BlocksActivity : ActivityBase() {
                 delCodeGood()
                 return true
             }
+
             else -> return false
         }
     }
