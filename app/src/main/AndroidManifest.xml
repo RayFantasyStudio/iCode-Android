@@ -75,6 +75,10 @@
             android:name=".ui.activity.ReplyActivity"
             android:label="@string/title_activity_reply"
             android:theme="@style/AppTheme.NoActionBar.TransparentBackground" />
+        <activity
+            android:name=".ui.activity.AccountActivity"
+            android:label="@string/title_activity_account"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

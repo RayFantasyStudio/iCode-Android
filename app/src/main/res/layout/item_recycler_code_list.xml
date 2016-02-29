@@ -34,9 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         android:clickable="true"
+        app:cardElevation="1000dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:transitionName="element_bg"
-        app:cardCornerRadius="0dp">
+        android:transitionGroup="true">
 
         <LinearLayout
             android:layout_width="match_parent"
