@@ -53,7 +53,6 @@ abstract class FabTransformActivity : ActivityBase() {
         private set
     protected open var onStartAnimEnd: (() -> Unit)? = null
 
-
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -65,7 +64,9 @@ abstract class FabTransformActivity : ActivityBase() {
             menuDrawable.iconState = MaterialMenuDrawable.IconState.ARROW
         revealLayout.post {
             val cx = intent.getIntExtra("x", 0)
-            val cy = intent.getIntExtra("y", 0) - toolbar.height
+            val location = intArrayOf(0, 0)
+            toolbar.getLocationOnScreen(location)
+            val cy = intent.getIntExtra("y", 0) - toolbar.height - location[1]
             val dx = Math.max(cx, revealLayout.width - cx).toDouble()
             val dy = Math.max(cy, revealLayout.height - cy).toDouble()
             val finalRadius = Math.hypot(dx, dy).toFloat()
@@ -113,8 +114,8 @@ inline fun <reified T : FabTransformActivity> FloatingActionButton.startFabTrans
     val y = location[1]
     val mutableList = params.toMutableList()
     mutableList.addAll(arrayOf(
-            "y" to y,
-            "x" to x + (width shr 1),
+            "y" to y + (height ushr 1),
+            "x" to x + (width ushr 1),
             "height" to height))
     val intent = Intent(context, T::class.java)
     mutableList.forEach { intent.putExtra(it.first, it.second) }

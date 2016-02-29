@@ -115,7 +115,7 @@ class BlocksActivity : ActivityBase() {
             recyclerView.post {
                 val height = intent.getIntExtra("height", 0)
                 scaleY = height / recyclerView.height.toFloat()
-                translationY = (intent.getIntExtra("y", 0) - (recyclerView.height ushr 1) + (height ushr 1) - toolbar.height).toFloat()
+                translationY = (intent.getIntExtra("y", 0) - (recyclerView.height ushr 1) + (height ushr 1) - toolbar.minimumHeight).toFloat()
                 recyclerView.scaleY = scaleY
                 recyclerView.translationY = translationY
                 recyclerView.animate()
