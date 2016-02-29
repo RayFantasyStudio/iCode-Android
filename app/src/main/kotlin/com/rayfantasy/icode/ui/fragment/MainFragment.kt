@@ -33,6 +33,7 @@ class MainFragment : FragmentBase() {
         override fun onReceive(context: Context, intent: Intent) {
         }
     }
+
     companion object {
         const val LOAD_ONCE = 10
     }
@@ -79,32 +80,33 @@ class MainFragment : FragmentBase() {
 
         val condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateAt} " else ""}" +
                 "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
-        request = PostUtil.selectCodeGood(condition, {
-            if (isDetached) return@selectCodeGood
-            view.swipe_layout.isRefreshing = false
-            request = null
+        request = PostUtil.selectCodeGood(condition) {
+            onSuccess {
+                if (isDetached) return@onSuccess
+                view.swipe_layout.isRefreshing = false
+                request = null
 
-            if (it.isEmpty() ) {
-                //如果结果为空，则表示没有更多内容了
-                adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
-            } else {
-                if (refresh) {
-                    adapter.codeGoods.clear()
+                if (it.isEmpty() ) {
+                    //如果结果为空，则表示没有更多内容了
+                    adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
+                } else {
+                    if (refresh) {
+                        adapter.codeGoods.clear()
+                    }
+                    //否则将结果加入codeGoods，并刷新adapter
+                    adapter.codeGoods.addAll(it)
+                    if (refresh) adapter.notifyDataSetChanged()
+                    else adapter.notifyItemRangeInserted(adapter.itemCount - 1 - it.size, it.size)
+                    cacheData(adapter.codeGoods)
                 }
-                //否则将结果加入codeGoods，并刷新adapter
-                adapter.codeGoods.addAll(it)
-                if (refresh) adapter.notifyDataSetChanged()
-
-                else adapter.notifyItemRangeInserted(adapter.itemCount - 1 - it.size, it.size)
-                cacheData(adapter.codeGoods)
+                onFailed { t, rc ->
+                    request = null
+                    if (isDetached || view == null) return@onFailed
+                    view.swipe_layout.isRefreshing = false
+                    adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
+                }
             }
-            /*}*/
-        }, { t, rc ->
-            request = null
-            if (isDetached || view == null) return@selectCodeGood
-            view.swipe_layout.isRefreshing = false
-            adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
-        })
+        }
     }
 
     override fun onStop() {

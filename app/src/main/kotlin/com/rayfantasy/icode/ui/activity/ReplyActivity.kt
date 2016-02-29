@@ -66,16 +66,19 @@ class ReplyActivity : FabTransformActivity() {
         btn_sent.onClick {
             val reply = Reply(reply_sent_context.string, id)
             setReplyable(false)
-            PostUtil.addReply(reply, {
-                reply_sent_context.string = ""
-                toast("Success")
-                setReplyable(true)
-                loadReplys(true)
-            }, { t, rc ->
-                toast("Failed, rc = $rc")
-                e("rc = $rc")
-                setReplyable(true)
-            })
+            PostUtil.addReply(reply) {
+                onSuccess {
+                    reply_sent_context.string = ""
+                    toast("Success")
+                    setReplyable(true)
+                    loadReplys(true)
+                }
+                onFailed { t, rc ->
+                    toast("Failed, rc = $rc")
+                    e("rc = $rc")
+                    setReplyable(true)
+                }
+            }
         }
 
         reply_bar.visibility = View.INVISIBLE
@@ -104,31 +107,34 @@ class ReplyActivity : FabTransformActivity() {
 
         val condition = "WHERE ${if (!refresh && replyList.isNotEmpty()) "createat < ${replyList.last().createAt} AND " else ""}good_id=$id " +
                 "ORDER BY createat DESC LIMIT 0, $LOAD_ONCE"
-        request = PostUtil.findReply(condition, {
-            reply_swip.isRefreshing = false
-            request = null
-            //如果需要刷新，将旧的列表清空
-            if (refresh) {
-                replyList.clear()
-            }
-            //否则将结果加入codeGoods
-            replyList.addAll(it)
-            cacheData(it)
+        request = PostUtil.findReply(condition) {
+            onSuccess {
+                reply_swip.isRefreshing = false
+                request = null
+                //如果需要刷新，将旧的列表清空
+                if (refresh) {
+                    replyList.clear()
+                }
+                //否则将结果加入codeGoods
+                replyList.addAll(it)
+                cacheData(it)
 
-            if (transformFinished) {
-                if (it.isEmpty() ) {
-                    //如果结果为空，则表示没有更多内容了
-                    adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
-                } else {
-                    if (refresh) adapter.notifyDataSetChanged()
-                    else adapter.notifyItemRangeInserted(adapter.itemCount - 1 - it.size, it.size)
+                if (transformFinished) {
+                    if (it.isEmpty() ) {
+                        //如果结果为空，则表示没有更多内容了
+                        adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
+                    } else {
+                        if (refresh) adapter.notifyDataSetChanged()
+                        else adapter.notifyItemRangeInserted(adapter.itemCount - 1 - it.size, it.size)
+                    }
                 }
             }
-        }, { t, rc ->
-            reply_swip.isRefreshing = false
-            request = null
-            adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
-        })
+            onFailed { t, rc ->
+                reply_swip.isRefreshing = false
+                request = null
+                adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
+            }
+        }
     }
 
     override fun onBackPressed() {

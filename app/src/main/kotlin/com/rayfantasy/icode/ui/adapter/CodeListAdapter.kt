@@ -65,23 +65,24 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
             setLiked(favorite != null)
             onLike {
                 liked {
-                    PostUtil.addFavorite(codeGood.id, {
-                        snackBar("成功")
-                        codeGood.liked()
-                        holder.like_count.text = "被收藏${codeGood.favorite}次"
-
-                    }, { t, rc ->
-                        snackBar("失败, rc = $rc")
-                    })
+                    PostUtil.addFavorite(codeGood.id) {
+                        onSuccess {
+                            snackBar("成功")
+                            codeGood.liked()
+                            holder.like_count.text = "被收藏${codeGood.favorite}次"
+                        }
+                        onFailed { throwable, rc -> snackBar("失败, rc = $rc") }
+                    }
                 }
                 unLiked {
-                    PostUtil.delFavorite(codeGood.id, {
-                        snackBar("成功")
-                        codeGood.unLiked()
-                        holder.like_count.text = "被收藏${codeGood.favorite}次"
-                    }, { t, rc ->
-                        snackBar("失败, rc = $rc")
-                    })
+                    PostUtil.delFavorite(codeGood.id) {
+                        onSuccess {
+                            snackBar("成功")
+                            codeGood.unLiked()
+                            holder.like_count.text = "被收藏${codeGood.favorite}次"
+                        }
+                        onFailed { throwable, rc -> snackBar("失败, rc = $rc") }
+                    }
                 }
             }
         }

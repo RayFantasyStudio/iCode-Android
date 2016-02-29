@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.raizlabs.android.dbflow.sql.language.Delete
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
@@ -21,6 +20,7 @@ import kotlinx.android.synthetic.main.item_block_title.view.*
 import org.evilbinary.highliter.HighlightEditText
 import org.evilbinary.managers.Configure
 import org.jetbrains.anko.defaultSharedPreferences
+import org.jetbrains.anko.longToast
 
 class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TITLE_VIEW = 998
@@ -47,16 +47,25 @@ class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<Co
                 holder.like_btn.setLiked(favorite != null)
                 holder.like_btn.onLike {
                     liked {
-                        PostUtil.addFavorite(codeGood.id, { Toast.makeText(ctx, "收藏成功", Toast.LENGTH_LONG).show(); Favorite(codeGood.id, System.currentTimeMillis()).save() }, { t, rc -> Toast.makeText(ctx, "收藏失败,$rc", Toast.LENGTH_LONG).show() })
+                        PostUtil.addFavorite(codeGood.id) {
+                            onSuccess {
+                                ctx.longToast("收藏成功")
+                                Favorite(codeGood.id, System.currentTimeMillis()).save()
+                            }
+                            onFailed { throwable, rc -> ctx.longToast("收藏失败,$rc") }
+                        }
                     }
                     unLiked {
-                        PostUtil.delFavorite(codeGood.id, {
-                            Toast.makeText(ctx, "取消收藏成功", Toast.LENGTH_LONG).show()
-                            Delete()
-                                    .from(Favorite::class.java)
-                                    .where(Favorite_Table.goodId.`is`(codeGood.id))
-                                    .execute()
-                        }, { t, rc -> Toast.makeText(ctx, "取消收藏失败,$rc", Toast.LENGTH_LONG).show() })
+                        PostUtil.delFavorite(codeGood.id) {
+                            onSuccess {
+                                ctx.longToast("取消收藏成功")
+                                Delete()
+                                        .from(Favorite::class.java)
+                                        .where(Favorite_Table.goodId.`is`(codeGood.id))
+                                        .execute()
+                            }
+                            onFailed { throwable, rc -> ctx.longToast("取消收藏失败,$rc") }
+                        }
                     }
                 }
 
@@ -68,7 +77,7 @@ class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<Co
     }
 
 
-    override fun getItemCount() = blocks.size +1
+    override fun getItemCount() = blocks.size + 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         CodeGood.BlockType.CODE -> CodeViewHolder(parent.inflate(R.layout.item_block_code) as ViewGroup, highlightTheme)

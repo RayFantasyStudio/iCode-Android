@@ -29,17 +29,18 @@ class LoginActivity : ActivityBase() {
         login_fab.onClick {
             request = PostUtil.loginUser(
                     login_et_username.text.toString(),
-                    login_et_password.text.toString(),
-                    onSuccess = {
-                        loginSucceed()
-                        request = null
-                    },
-                    onFailed = { t, rc ->
-                        e("failed, rc =  $rc")
-                        login_fab.snackBar("${getString(R.string.sign_in_failed)}${com.rayfantasy.icode.util.error("loginUser", rc, this) }", Snackbar.LENGTH_LONG)
-                        request = null
-                    }
-            )
+                    login_et_password.text.toString()) {
+                onSuccess {
+                    loginSucceed()
+                    request = null
+                }
+                onFailed { throwable, rc ->
+                    e("failed, rc =  $rc")
+                    login_fab.snackBar("${getString(R.string.sign_in_failed)}" +
+                            "${com.rayfantasy.icode.util.error("loginUser", rc, this@LoginActivity) }", Snackbar.LENGTH_LONG)
+                    request = null
+                }
+            }
 
         }
         register_button.onClick {

@@ -93,18 +93,18 @@ class RegisterActivity : ActivityBase() {
     fun registerUser(username: String, password: String) {
         if (request != null) return
 
-        request = PostUtil.registerUser(
-                username,
-                password,
-                {
-                    register_fab.snackBar("${getText(R.string.welcome_to_icode)}, ${it.username}")
-                    request = null
-                },
-                { t, rc ->
-                    e("failed, rc = $rc")
-                    register_fab.snackBar("${getText(R.string.sign_up_failed)}${com.rayfantasy.icode.util.error("registerUser", rc, this) }", Snackbar.LENGTH_LONG)
-                    request = null
-                })
+        request = PostUtil.registerUser(username, password) {
+            onSuccess {
+                register_fab.snackBar("${getText(R.string.welcome_to_icode)}, ${it.username}")
+                request = null
+            }
+            onFailed { throwable, rc ->
+                e("failed, rc = $rc")
+                register_fab.snackBar("${getText(R.string.sign_up_failed)}" +
+                        "${com.rayfantasy.icode.util.error("registerUser", rc, this@RegisterActivity) }", Snackbar.LENGTH_LONG)
+                request = null
+            }
+        }
     }
 
     override fun onDestroy() {

@@ -61,10 +61,10 @@ class AccountSettingActivity : ActivityBase() {
 
     //重置密码
     private fun resPwd(oldPwd: String, newPwd: String) {
-        PostUtil.resetPwd(oldPwd, newPwd,
-                { account_setting_fab.snackBar("修改密码成功", Snackbar.LENGTH_LONG) },
-                { t, rc -> account_setting_fab.snackBar("修改密码失败，错误代码:$rc", Snackbar.LENGTH_LONG) }
-        )
+        PostUtil.resetPwd(oldPwd, newPwd) {
+            onSuccess { account_setting_fab.snackBar("修改密码成功", Snackbar.LENGTH_LONG) }
+            onFailed { throwable, rc -> account_setting_fab.snackBar("修改密码失败，错误代码:$rc", Snackbar.LENGTH_LONG) }
+        }
     }
 
     //检查密码
@@ -91,8 +91,8 @@ class AccountSettingActivity : ActivityBase() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), R.string.title_request_permission)
         } else {
             val intent: Intent = Intent()
-            intent.setType("image/*")
-            intent.setAction(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             startActivityForResult(Intent.createChooser(intent, "选择头像"), REQUEST_SELECT_PICTURE)
 
@@ -124,13 +124,17 @@ class AccountSettingActivity : ActivityBase() {
                     .into(account_setting_icon)
             val cache: File = File(URI(resultUri.toString()))
             e("exist = ${cache.exists()}, length = ${cache.length()}")
-            PostUtil.uploadProfilePic(cache, {
-                account_setting_fab.snackBar(getString(R.string.upload_success), Snackbar.LENGTH_LONG)
-                cache.delete()
-            }, { t, rc ->
-                account_setting_fab.snackBar("${getString(R.string.cannot_upload)}${com.rayfantasy.icode.util.error("uploadProfilePic", rc, this) }", Snackbar.LENGTH_LONG)
-                t.printStackTrace()
-            })
+            PostUtil.uploadProfilePic(cache) {
+                onSuccess {
+                    account_setting_fab.snackBar(getString(R.string.upload_success), Snackbar.LENGTH_LONG)
+                    cache.delete()
+                }
+                onFailed { throwable, rc ->
+                    account_setting_fab.snackBar("${getString(R.string.cannot_upload)}" +
+                            "${com.rayfantasy.icode.util.error("uploadProfilePic", rc, this@AccountSettingActivity) }", Snackbar.LENGTH_LONG)
+                    throwable.printStackTrace()
+                }
+            }
         } else if (resultCode == UCrop.RESULT_ERROR && data is Intent) {
             val UCropError = UCrop.getError(data)
             UCropError?.cause

@@ -29,8 +29,8 @@ import org.json.JSONObject
 import java.util.*
 import javax.crypto.Cipher
 
-internal class EncryptedRequest(url: String, val data: String, val onSuccess: (String?) -> Unit,
-                                val onFailed: (Exception, Int) -> Unit) : StringRequest(Request.Method.POST, url, null, null) {
+internal class EncryptedRequest(url: String, val data: String, val onSuccess: ((String?) -> Unit)?,
+                                val onFailed: ((Exception, Int) -> Unit)?) : StringRequest(Request.Method.POST, url, null, null) {
     companion object {
         private const val KEY_ALGORITHM = "AES/ECB/PKCS5Padding"
     }
@@ -47,7 +47,7 @@ internal class EncryptedRequest(url: String, val data: String, val onSuccess: (S
             cipher.init(Cipher.ENCRYPT_MODE, key)
             map.put("data", base64Encode(cipher.doFinal(data.toByteArray(CHARSET))))
         } catch (e: Exception) {
-            onFailed(e, -2)
+            onFailed?.invoke(e, -2)
         }
         return map
     }
@@ -63,16 +63,16 @@ internal class EncryptedRequest(url: String, val data: String, val onSuccess: (S
                 var data: String? = null
                 if (json.has("data"))
                     data = json.getString("data")
-                onSuccess(data)
+                onSuccess?.invoke(data)
             } else
-                onFailed(PostException("服务器报告异常，rc = $rc"), rc)
+                onFailed?.invoke(PostException("服务器报告异常，rc = $rc"), rc)
         } catch (e: Exception) {
-            onFailed(e, -3)
+            onFailed?.invoke(e, -3)
         }
 
     }
 
     override fun deliverError(error: VolleyError) {
-        onFailed(error, -1)
+        onFailed?.invoke(error, -1)
     }
 }

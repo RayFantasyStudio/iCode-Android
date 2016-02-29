@@ -71,24 +71,28 @@ class BlocksActivity : ActivityBase() {
 
         codeGood.loadContentFromCache()
 
-        PostUtil.loadCodeContent(codeGood.id!!,
-                {
-                    with(codeGood) {
-                        content = it
-                        save()
+        PostUtil.loadCodeContent(codeGood.id!!) {
+            onSuccess {
+                with(codeGood) {
+                    content = it
+                    save()
+                }
+                if (transformFinished) {
+                    if (recyclerView.adapter == null)
+                        recyclerView.adapter = BlockAdapter(this@BlocksActivity, codeGood, PostUtil.gson.fromJson(codeGood.content))
+                    else {
+                        (recyclerView.adapter as BlockAdapter).blocks = PostUtil.gson.fromJson(codeGood.content)
+                        recyclerView.adapter.notifyDataSetChanged()
                     }
-                    if (transformFinished) {
-                        if (recyclerView.adapter == null)
-                            recyclerView.adapter = BlockAdapter(this, codeGood, PostUtil.gson.fromJson(codeGood.content))
-                        else {
-                            (recyclerView.adapter as BlockAdapter).blocks = PostUtil.gson.fromJson(codeGood.content)
-                            recyclerView.adapter.notifyDataSetChanged()
-                        }
-                    }
-                }, { t, rc ->
-            toast("rc = $rc")
-            t.printStackTrace()
-        })
+                }
+            }
+            onFailed { throwable, rc ->
+                toast("rc = $rc")
+                throwable.printStackTrace()
+            }
+
+        }
+
         fab.onClick { fab.startFabTransformActivity<ReplyActivity>("id" to codeGood.id, "reply_count" to codeGood.reply) }
 
         toolbar.navigationIcon = menuDrawable
@@ -180,6 +184,7 @@ class BlocksActivity : ActivityBase() {
             super.onBackPressed()
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (PostUtil.user == null) return false
         if (codeGood.username.equals(PostUtil.user!!.username)) {
@@ -190,8 +195,8 @@ class BlocksActivity : ActivityBase() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item!!.itemId
-        when (id){
+        val id = item.itemId
+        when (id) {
             R.id.action_edit -> {
                 delCodeGood()
                 return true
@@ -200,18 +205,21 @@ class BlocksActivity : ActivityBase() {
         }
     }
 
-    fun delCodeGood(){
+    fun delCodeGood() {
 
-        PostUtil.delCodeGood(codeGood.id,{
-            fab.snackBar("删除成功", Snackbar.LENGTH_SHORT)
-            SQLite.delete(CodeGood::class.java).where(CodeGood_Table.id.`is`(codeGood.id))
-            SQLite.delete(Favorite::class.java).where(CodeGood_Table.id.`is`(codeGood.id))
-            val intent : Intent = Intent(this,MainActivity::class.java)
-            intent.putExtra("code_id",codeGood.id)
-            broadcastManager.sendBroadcast(intent)
-            finish()
-        },
-                {t,rc -> fab.snackBar("删除失败，错误代码：$rc",Snackbar.LENGTH_SHORT)})
+        PostUtil.delCodeGood(codeGood.id) {
+            onSuccess {
+                fab.snackBar("删除成功", Snackbar.LENGTH_SHORT)
+                SQLite.delete(CodeGood::class.java).where(CodeGood_Table.id.`is`(codeGood.id))
+                SQLite.delete(Favorite::class.java).where(CodeGood_Table.id.`is`(codeGood.id))
+                val intent: Intent = Intent(this@BlocksActivity, MainActivity::class.java)
+                intent.putExtra("code_id", codeGood.id)
+                broadcastManager.sendBroadcast(intent)
+                finish()
+            }
+            onFailed { t, rc -> fab.snackBar("删除失败，错误代码：$rc", Snackbar.LENGTH_SHORT) }
+
+        }
     }
 
 }

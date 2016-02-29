@@ -29,12 +29,11 @@ import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
-import com.tencent.bugly.proguard.t
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.item_recycler_reply_list.view.*
 import org.jetbrains.anko.onClick
-import org.jetbrains.anko.onLongClick
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>, onLoadingMore: () -> Unit) :
         LoadMoreAdapter<ReplyListAdapter.NormalViewHolder>(activity, onLoadingMore) {
@@ -54,10 +53,12 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
 
     }
-    fun deleteReply(id : Int){
-        PostUtil.delReply(id,{Toast.makeText(activity,"删除回复成功",Toast.LENGTH_SHORT).show()
-        },{ t , rc -> Toast.makeText(activity,"删除回复失败，rc = $rc",Toast.LENGTH_SHORT).show()}
-        )
+
+    fun deleteReply(id: Int) {
+        PostUtil.delReply(id) {
+            onSuccess { Toast.makeText(activity, "删除回复成功", Toast.LENGTH_SHORT).show() }
+            onFailed { t, rc -> activity.toast("删除回复失败，rc = $rc") }
+        }
     }
 
     override fun onCreateNormalViewHolder(parent: ViewGroup, viewType: Int)

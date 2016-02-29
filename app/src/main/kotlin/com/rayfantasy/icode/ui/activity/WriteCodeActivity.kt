@@ -49,17 +49,19 @@ class WriteCodeActivity : FabTransformActivity() {
             request = PostUtil.insertCodeGood(CodeGood(
                     blockAdapter.title,
                     blockAdapter.subTitle,
-                    blockAdapter.content),
-                    {
-                        write_code_tv_fab.snackBar(getText(R.string.upload_success), Snackbar.LENGTH_LONG)
-                        finish()
-                        request = null
-                    },
-                    { t, rc ->
-                        e("failed, rc =  $rc")
-                        write_code_tv_fab.snackBar("${getText(R.string.cannot_upload)}${error("insertCodeGood", rc, this)}", Snackbar.LENGTH_LONG)
-                        request = null
-                    })
+                    blockAdapter.content)) {
+                onSuccess {
+                    write_code_tv_fab.snackBar(getText(R.string.upload_success), Snackbar.LENGTH_LONG)
+                    finish()
+                    request = null
+                }
+                onFailed { t, rc ->
+                    e("failed, rc =  $rc")
+                    write_code_tv_fab.snackBar("${getText(R.string.cannot_upload)}${error("insertCodeGood",
+                            rc, this@WriteCodeActivity)}", Snackbar.LENGTH_LONG)
+                    request = null
+                }
+            }
         }
 
         onStartAnimEnd = {

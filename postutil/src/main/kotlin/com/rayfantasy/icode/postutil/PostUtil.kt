@@ -71,49 +71,54 @@ object PostUtil {
      * @param codeGood 需要插入的CodeGood实例
      * *
      */
-    fun insertCodeGood(codeGood: CodeGood, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit): Request<out Any>? {
+    fun insertCodeGood(codeGood: CodeGood, init: OnSuccessListenerNoParam.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerNoParam().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         codeGood.username = user!!.username
         val data = JSONObject()
         data.put("codeGood", gson.toJson(codeGood))
         data.put("key", key)
-        val request = EncryptedRequest(URL_ADD_CODEGOOD, data.toString(), { onSuccess() }, onFailed)
+        val request = EncryptedRequest(URL_ADD_CODEGOOD, data.toString(), { listener.onSuccess() },
+                listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun delCodeGood(id:Int,onSuccess: () -> Unit,onFailed: (Throwable, Int) -> Unit) : Request<out  Any>?{
+    fun delCodeGood(id: Int, init: OnSuccessListenerNoParam.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerNoParam().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         val data = JSONObject()
-        data.put("id",id)
-        data.put("key",key)
-        val request = EncryptedRequest(URL_DEL_CODEGOOD,data.toString(), { onSuccess() }, onFailed)
+        data.put("id", id)
+        data.put("key", key)
+        val request = EncryptedRequest(URL_DEL_CODEGOOD, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
-        return  request
+        return request
     }
+
     /**
      * 从服务器数据库批量查询已有CodeGood
 
      * @param condition 查询条件，输入MariaDB的查询条件
      * *
      */
-    fun selectCodeGood(condition: String, onSuccess: (MutableList<CodeGood>) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<out Any> {
+    fun selectCodeGood(condition: String, init: OnSuccessListenerCodeGoodList.() -> Unit): Request<*> {
+        val listener = OnSuccessListenerCodeGoodList().apply(init)
         val data = JSONObject()
         data.put("condition", condition)
         val request = EncryptedRequest(URL_FIND_CODEGOOD, data.toString(), {
             try {
                 val codeGoods = gson.fromJson<MutableList<CodeGood>>(it!!)
-                onSuccess(codeGoods)
+                listener.onSuccess(codeGoods)
             } catch (e: Exception) {
-                onFailed(e, -3)
+                listener.onFailed(e, -3)
             }
-        }, onFailed)
+        }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -124,10 +129,11 @@ object PostUtil {
      * @param id CodeGood的id
      * *
      */
-    fun loadCodeContent(id: Int, onSuccess: (String?) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*> {
+    fun loadCodeContent(id: Int, init: OnSuccessListenerString.() -> Unit): Request<*> {
+        val listener = OnSuccessListenerString().apply(init)
         val data = JSONObject()
         data.put("id", id)
-        val request = EncryptedRequest(URL_LOAD_CODE_CONTENT, data.toString(), onSuccess, onFailed)
+        val request = EncryptedRequest(URL_LOAD_CODE_CONTENT, data.toString(), listener._onSuccess, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -138,29 +144,31 @@ object PostUtil {
      * @param reply    需要插入的Reply实例
      * *
      */
-    fun addReply(reply: Reply, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit): Request<out Any>? {
+    fun addReply(reply: Reply, init: OnSuccessListenerNoParam.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerNoParam().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         reply.username = user!!.username
         val data = JSONObject()
         data.put("reply", gson.toJson(reply))
         data.put("key", key)
-        val request = EncryptedRequest(URL_ADD_REPLY, data.toString(), { onSuccess() }, onFailed)
+        val request = EncryptedRequest(URL_ADD_REPLY, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun delReply(id : Int, onSuccess: () -> Unit , onFailed: (Throwable, Int) -> Unit) : Request<out Any>?{
+    fun delReply(id: Int, init: OnSuccessListenerNoParam.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerNoParam().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
-       val data = JSONObject()
-        data.put("id",gson.toJson(id))
-        data.put("key",key)
-        val request = EncryptedRequest(URL_DEL_REPLY,data.toString(),{onSuccess()},onFailed)
+        val data = JSONObject()
+        data.put("id", gson.toJson(id))
+        data.put("key", key)
+        val request = EncryptedRequest(URL_DEL_REPLY, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
 
@@ -172,38 +180,41 @@ object PostUtil {
      * @param condition 查询条件，输入MariaDB的查询条件
      * *
      */
-    fun findReply(condition: String, onSuccess: (MutableList<Reply>) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<out Any> {
+    fun findReply(condition: String, init: OnSuccessListenerReplyList.() -> Unit): Request<*> {
+        val listener = OnSuccessListenerReplyList().apply(init)
         val data = JSONObject()
         data.put("condition", condition)
         val request = EncryptedRequest(URL_FIND_REPLY, data.toString(), {
             try {
                 val replies = gson.fromJson<MutableList<Reply>>(it!!)
-                onSuccess(replies)
+                listener.onSuccess(replies)
             } catch (e: Exception) {
-                onFailed(e, -3)
+                listener.onFailed(e, -3)
             }
-        }, onFailed)
+        }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun addFavorite(goodId: Int, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+    fun addFavorite(goodId: Int, init: OnSuccessListenerNoParam.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerNoParam().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         val data = JSONObject()
         data.put("userId", user!!.id)
         data.put("key", key)
         data.put("goodId", goodId)
-        val request = EncryptedRequest(URL_ADD_FAVORITE, data.toString(), { onSuccess() }, onFailed)
+        val request = EncryptedRequest(URL_ADD_FAVORITE, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun findFavorite(onSuccess: (MutableList<Favorite>) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+    fun findFavorite(init: OnSuccessListenerFavoriteList.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerFavoriteList().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         val data = JSONObject()
@@ -211,42 +222,45 @@ object PostUtil {
         data.put("key", key)
         val request = EncryptedRequest(URL_FIND_FAVORITE, data.toString(), {
             try {
-                onSuccess(gson.fromJson(it!!))
+                listener.onSuccess(gson.fromJson<MutableList<Favorite>>(it!!))
             } catch(e: Exception) {
-                onFailed(e, -3)
+                listener.onFailed(e, -3)
             }
-        }, onFailed)
+        }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun delFavorite(goodId: Int, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+    fun delFavorite(goodId: Int, init: OnSuccessListenerNoParam.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerNoParam().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         val data = JSONObject()
         data.put("userId", user!!.id)
         data.put("key", key)
         data.put("goodId", goodId)
-        val request = EncryptedRequest(URL_DEL_FAVORITE, data.toString(), { onSuccess() }, onFailed)
+        val request = EncryptedRequest(URL_DEL_FAVORITE, data.toString(), { listener.onSuccess() }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun registerUser(username: String, password: String, onSuccess: (User) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<out Any> {
+    fun registerUser(username: String, password: String, init: OnSuccessListenerUser.() -> Unit): Request<*> {
+        val listener = OnSuccessListenerUser().apply(init)
         val data = JSONObject()
         data.put("username", username)
         data.put("password", password)
         val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         val imei = tm.deviceId
         data.put("imei", imei)
-        val request = EncryptedRequest(URL_ADDUSER, data.toString(), { loginUser(username, password, onSuccess, onFailed) }, onFailed)
+        val request = EncryptedRequest(URL_ADDUSER, data.toString(), { loginUser(username, password, init) }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun loginUser(username: String, password: String, onSuccess: (User) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<out Any> {
+    fun loginUser(username: String, password: String, init: OnSuccessListenerUser.() -> Unit): Request<*> {
+        val listener = OnSuccessListenerUser().apply(init)
         val data = JSONObject()
         data.put("username", username)
         data.put("password", password)
@@ -257,28 +271,32 @@ object PostUtil {
                 if (key!!.length > 1) {
                     user = gson.fromJson<User>(json.getString("user"))
                     saveUserInfo()
-                    onSuccess(user!!)
+                    listener.onSuccess(user!!)
                     broadcastManager.sendBroadcast(Intent(ACTION_USER_STATE_CHANGED))
                 } else
-                    onFailed(PostException("登陆失败"), -3)
+                    listener.onFailed(PostException("登陆失败"), -3)
             } catch (e: JSONException) {
-                onFailed(e, -3)
+                listener.onFailed(e, -3)
             }
-        }, onFailed)
+        }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
 
-    fun resetPwd(oldPwd: String, newPwd: String, onSuccess: (User) -> Unit, onFailed: (Throwable, Int) -> Unit): Request<*>? {
+    fun resetPwd(oldPwd: String, newPwd: String, init: OnSuccessListenerUser.() -> Unit): Request<*>? {
+        val listener = OnSuccessListenerUser().apply(init)
         if (user == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         val data = JSONObject()
         data.put("oldPwd", oldPwd)
         data.put("username", user!!.username)
         data.put("newPwd", newPwd)
-        val request = EncryptedRequest(URL_RESET_PWD, data.toString(), { loginUser(user!!.username, newPwd, onSuccess, onFailed) }, onFailed)
+        val request = EncryptedRequest(URL_RESET_PWD, data.toString(), {
+            loginUser(user!!.username,
+                    newPwd, init)
+        }, listener._onFailed)
         requestQueue.add(request)
         return request
     }
@@ -287,10 +305,10 @@ object PostUtil {
         return URL_PROFILE_PIC + username
     }
 
-    fun uploadProfilePic(pic: File, onSuccess: () -> Unit, onFailed: (Throwable, Int) -> Unit,
-                         onUpdateProgress: ((Long, Long) -> Unit)? = null): RequestHandle? {
+    fun uploadProfilePic(pic: File, init: OnSuccessAndProccessListener.() -> Unit): RequestHandle? {
+        val listener = OnSuccessAndProccessListener().apply(init)
         if (user == null || key == null) {
-            onFailed(PostException("登陆后才能进行此操作"), -4)
+            listener.onFailed(PostException("登陆后才能进行此操作"), -4)
             return null
         }
         val client = AsyncHttpClient()
@@ -301,7 +319,7 @@ object PostUtil {
                 params.put("data", base64Encode(RSAUtils.encryptByPublicKey(
                         (key!! + user!!.username).toByteArray(CHARSET), RSA_KEY)))
             } catch (e: Exception) {
-                onFailed(e, -2)
+                listener.onFailed(e, -2)
                 return null
             }
             return client.post(URL_UPLOAD_PROFILE_PIC, params, object : AsyncHttpResponseHandler() {
@@ -311,27 +329,27 @@ object PostUtil {
                     try {
                         val rc = Integer.parseInt(String(responseBody).trim { it <= ' ' })
                         if (rc == 0) {
-                            onSuccess()
+                            listener.onSuccess()
                             broadcastManager.sendBroadcast(Intent(ACTION_USER_STATE_CHANGED))
                         } else
-                            onFailed(PostException("服务器报告异常"), rc)
+                            listener.onFailed(PostException("服务器报告异常"), rc)
                     } catch (e: Exception) {
-                        onFailed(e, -3)
+                        listener.onFailed(e, -3)
                     }
 
                 }
 
                 override fun onFailure(statusCode: Int, headers: Array<Header>,
                                        responseBody: ByteArray, error: Throwable) {
-                    onFailed(error, -1)
+                    listener.onFailed(error, -1)
                 }
 
                 override fun onProgress(bytesWritten: Long, totalSize: Long) {
-                    onUpdateProgress?.invoke(bytesWritten, totalSize)
+                    listener.onProgress(bytesWritten, totalSize)
                 }
             })
         } else {
-            onFailed(PostException("本地文件不存在"), -2)
+            listener.onFailed(PostException("本地文件不存在"), -2)
         }
         return null
     }

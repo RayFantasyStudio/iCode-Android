@@ -57,36 +57,38 @@ class UserActivity : ActivityBase() {
         val condition = "WHERE ${if (!isRefreshing && adapter.codeGoods.isNotEmpty()) "createat < ${adapter.codeGoods.last().createAt} AND " else ""}username=$username " +
                 "ORDER BY createat DESC LIMIT 0,3"
         //按照username查找
-        request = PostUtil.selectCodeGood(condition/*"WHERE username = '$username' ORDER BY updateat DESC"*/, {
-            isRefreshing = false
-            /* if (it.isEmpty()) {
-                adapter.setFooterState(UserListAdapter.FOOTER_STATE_NO_MORE)
-            }*/
-            if (isRefreshing) {
-                adapter.codeGoods.clear()
-            }
-            adapter.codeGoods.addAll(it)
-
-
-            //重复利用原来的adapter，节省内存
-            if (adapter != null) {
-                if (it.isEmpty()) {
-                    /* adapter = UserListAdapter(this, username, it) {}
-                    user_recyclerview.adapter = adapter*/
+        request = PostUtil.selectCodeGood(condition/*"WHERE username = '$username' ORDER BY updateat DESC"*/) {
+            onSuccess {
+                isRefreshing = false
+                /* if (it.isEmpty()) {
                     adapter.setFooterState(UserListAdapter.FOOTER_STATE_NO_MORE)
-                } else {
-               /* adapter.codeGoods = it
-                adapter.notifyDataSetChanged()*/
-                    if(isRefreshing) adapter.notifyDataSetChanged()
-                    else adapter.notifyItemRangeChanged(adapter.itemCount -1 - it.size,it.size)
+                }*/
+                if (isRefreshing) {
+                    adapter.codeGoods.clear()
+                }
+                adapter.codeGoods.addAll(it)
+
+
+                //重复利用原来的adapter，节省内存
+                if (adapter != null) {
+                    if (it.isEmpty()) {
+                        /* adapter = UserListAdapter(this, username, it) {}
+                        user_recyclerview.adapter = adapter*/
+                        adapter.setFooterState(UserListAdapter.FOOTER_STATE_NO_MORE)
+                    } else {
+                        /* adapter.codeGoods = it
+                         adapter.notifyDataSetChanged()*/
+                        if (isRefreshing) adapter.notifyDataSetChanged()
+                        else adapter.notifyItemRangeChanged(adapter.itemCount - 1 - it.size, it.size)
+                    }
+                }
+            }
+            onFailed { throwable, rc ->
+                isRefreshing = false
+                adapter.setFooterState(UserListAdapter.FOOTER_STATE_FAILED)
+                throwable.printStackTrace()
             }
         }
-        }, { t, rc ->
-            isRefreshing = false
-            adapter.setFooterState(UserListAdapter.FOOTER_STATE_FAILED)
-            t.printStackTrace()
-        }
-        )
     }
 
 
