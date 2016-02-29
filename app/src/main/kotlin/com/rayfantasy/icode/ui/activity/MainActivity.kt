@@ -16,7 +16,6 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import android.widget.Toast
 import com.android.volley.NetworkResponse
 import com.android.volley.Request
 import com.android.volley.Response
@@ -43,7 +42,6 @@ import com.rayfantasy.icode.ui.fragment.MainFragment
 import com.rayfantasy.icode.ui.fragment.SettingFragment
 import com.rayfantasy.icode.util.DownloadsUtil
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nv_layout.view.*
 import org.jetbrains.anko.async
 import org.jetbrains.anko.configuration
@@ -222,7 +220,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
                 Response.success(String(response.data, CHARSET), HttpHeaderParser.parseCacheHeaders(response))
             }
         }
-        request.setTag(TAG_CHECK_UPDATE)
+        request.tag = TAG_CHECK_UPDATE
         requestQueue.add(request)
     }
 

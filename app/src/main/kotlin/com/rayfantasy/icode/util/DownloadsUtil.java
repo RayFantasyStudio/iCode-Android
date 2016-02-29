@@ -244,8 +244,8 @@ public class DownloadsUtil {
         }
     }
 
-    public static interface DownloadFinishedCallback {
-        public void onDownloadFinished(Context context, DownloadInfo info);
+    public interface DownloadFinishedCallback {
+        void onDownloadFinished(Context context, DownloadInfo info);
     }
 
 

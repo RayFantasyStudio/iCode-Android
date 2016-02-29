@@ -29,7 +29,7 @@ public class IoUtils {
         // Utility class.
     }
 
-    public static int copy(InputStream input, OutputStream output) throws Exception, IOException {
+    public static int copy(InputStream input, OutputStream output) throws Exception {
         byte[] buffer = new byte[BUFFER_SIZE];
 
         BufferedInputStream in = new BufferedInputStream(input, BUFFER_SIZE);

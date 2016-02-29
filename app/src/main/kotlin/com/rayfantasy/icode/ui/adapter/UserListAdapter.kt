@@ -126,7 +126,7 @@ class UserListAdapter(val activity: Activity, var username: String, var codeGood
     }
 
     override fun getItemViewType(position: Int)
-            = if (position == 0) VIEW_TYPE_HEADER else if (position == getItemCount() + 2) VIEW_TYPE_FOOTER else VIEW_TYPE_NORMAL
+            = if (position == 0) VIEW_TYPE_HEADER else if (position == itemCount + 2) VIEW_TYPE_FOOTER else VIEW_TYPE_NORMAL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
         VIEW_TYPE_HEADER -> UserViewHolder(parent.inflate(R.layout.item_recycler_user))

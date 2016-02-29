@@ -160,7 +160,7 @@ public class MyTagToSpannedConverter implements ContentHandler {
             // start(mSpannableStringBuilder, new BulletSpan());
         } else if (tag.equalsIgnoreCase("head")) {
             // start(mSpannableStringBuilder, new BulletSpan());
-        } else if (tag.equalsIgnoreCase(this.TAG_BODY)) {
+        } else if (tag.equalsIgnoreCase(TAG_BODY)) {
             // System.out.println("body start====================");
         } else if (tag.equalsIgnoreCase("link")) {
             if (attributes.getLength() > 0) {
@@ -186,7 +186,7 @@ public class MyTagToSpannedConverter implements ContentHandler {
             // end(mSpannableStringBuilder, BulletSpan.class);
         } else if (tag.equalsIgnoreCase("head")) {
             // end(mSpannableStringBuilder, BulletSpan.class);
-        } else if (tag.equalsIgnoreCase(this.TAG_BODY)) {
+        } else if (tag.equalsIgnoreCase(TAG_BODY)) {
             // System.out.println("body end====================");
         }
     }

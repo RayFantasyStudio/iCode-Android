@@ -69,12 +69,8 @@ public class BlockFile<T> implements Iterable<List<T>> {
                 // set next MappedByteBuffer chunk
                 chunkPos += buffer.position();
                 buffer = null;
-                if (entries != null) {
-                    return true;
-                } else {
-                    // Closeables.closeQuietly(channel);
-                    return false;
-                }
+                // Closeables.closeQuietly(channel);
+                return entries != null;
             }
 
             private MappedByteBuffer nextBuffer(long position) {
