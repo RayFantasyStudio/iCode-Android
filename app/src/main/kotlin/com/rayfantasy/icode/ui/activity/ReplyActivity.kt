@@ -2,6 +2,7 @@ package com.rayfantasy.icode.ui.activity
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
@@ -9,7 +10,6 @@ import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityReplyBinding
 import com.rayfantasy.icode.extension.string
-import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
@@ -94,7 +94,7 @@ class ReplyActivity : FabTransformActivity() {
     }
 
     private fun initRecyclerView() {
-        reply_recyclerview.layoutManager = PreloadLinearLayoutManager(this)
+        reply_recyclerview.layoutManager = LinearLayoutManager(this)
 
     }
 

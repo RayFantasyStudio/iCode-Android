@@ -5,20 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.rayfantasy.icode.databinding.FragmentMainBinding
-import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.CodeGood_Table
 import com.rayfantasy.icode.ui.activity.AccountActivity
-import com.rayfantasy.icode.ui.activity.WriteCodeActivity
-import com.rayfantasy.icode.ui.activity.startFabTransformActivity
 import com.rayfantasy.icode.ui.adapter.CodeListAdapter
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.util.SpaceItemDecoration
@@ -27,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 import org.apache.commons.collections4.list.SetUniqueList
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startService
 import org.jetbrains.anko.support.v4.onRefresh
 
 class MainFragment : FragmentBase() {
@@ -63,12 +60,12 @@ class MainFragment : FragmentBase() {
 
         initRecyclerView()
         loadCodeGoods(true)
-        fab_main.onClick {/* fab_main.startFabTransformActivity<WriteCodeActivity>()*/ startActivity<AccountActivity>() }
+        fab_main.onClick { /* fab_main.startFabTransformActivity<WriteCodeActivity>()*/ startActivity<AccountActivity>() }
         recyclerView.addItemDecoration(SpaceItemDecoration())
     }
 
     private fun initRecyclerView() {
-        val layoutManager = PreloadLinearLayoutManager(activity)
+        val layoutManager = LinearLayoutManager(activity)
         view.recyclerView.layoutManager = layoutManager
         adapter = CodeListAdapter(activity, SetUniqueList.setUniqueList(getCacheData())) { loadCodeGoods(false) }
         view.recyclerView.adapter = adapter

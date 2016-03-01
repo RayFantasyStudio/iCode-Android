@@ -2,12 +2,12 @@ package com.rayfantasy.icode.ui.activity
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.android.volley.Request
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityUserBinding
-import com.rayfantasy.icode.extra.PreloadLinearLayoutManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.ui.adapter.UserListAdapter
@@ -35,7 +35,7 @@ class UserActivity : ActivityBase() {
     }
 
     private fun initRecyclerView() {
-        user_recyclerview.layoutManager = PreloadLinearLayoutManager(this)
+        user_recyclerview.layoutManager = LinearLayoutManager(this)
         adapter = UserListAdapter(this, username, ArrayList()) {}
         user_recyclerview.adapter = adapter
         refresh()
