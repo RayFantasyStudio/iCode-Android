@@ -11,11 +11,12 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.NavigationView
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.view.View
 import com.android.volley.NetworkResponse
 import com.android.volley.Request
 import com.android.volley.Response
@@ -49,7 +50,7 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import java.io.File
 
-class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : ActivityBase() {
     companion object {
         const val TAG_CHECK_UPDATE = "tag_check_update"
     }
@@ -66,6 +67,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     }
     private lateinit var binding: ActivityMainBinding
     private val requestQueue by lazy { Volley.newRequestQueue(this) }
+    private var lastItemId = -1
 
     override val bindTaskDescription: Boolean
         get() = true
@@ -78,9 +80,13 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.setDrawerListener(toggle)
+        drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        nav_view.setNavigationItemSelectedListener(this)
+        nav_view.setNavigationItemSelectedListener {
+            lastItemId = it.itemId
+            drawer_layout.closeDrawer(GravityCompat.START)
+            true
+        }
         configuration(sdk = Build.VERSION_CODES.KITKAT) {
             drawer_layout.fitsSystemWindows = false
         }
@@ -95,6 +101,15 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
         broadcastManager.registerReceiver(receiver, IntentFilter(ACTION_USER_STATE_CHANGED))
 
         checkUpdate()
+
+        drawer_layout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerClosed(drawerView: View?) {
+                if (lastItemId != -1) {
+                    onNavigationItemSelected(lastItemId)
+                    lastItemId = -1
+                }
+            }
+        })
     }
 
     override fun onResume() {
@@ -163,12 +178,8 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    override fun onNavigationItemSelected(item: MenuItem?): Boolean {
-        // Handle navigation view item clicks here.
-
-        val id = item?.itemId
-
-        when (id) {
+    private fun onNavigationItemSelected(itemId: Int) {
+        when (itemId) {
             R.id.nav_home -> replaceFragment(mainFragment)
             R.id.nav_about -> replaceFragment(aboutFragment)
         //R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
@@ -178,10 +189,7 @@ class MainActivity : ActivityBase(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_update -> checkUpdate()
 
         //etc...
-            else -> return false
         }
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
     }
 
     fun checkUpdate() {
