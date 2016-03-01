@@ -54,7 +54,7 @@ class BaseApplication : MultiDexApplication() {
                         PackageManager.GET_META_DATA)
         val BUGLY_APP_ID = appInfo.metaData.getInt("BUGLY_APP_ID").toString()
 
-        CrashReport.initCrashReport(this, BUGLY_APP_ID, false);
+        CrashReport.initCrashReport(this, BUGLY_APP_ID, BuildConfig.DEBUG);
         v("BUGLY_APP_ID = $BUGLY_APP_ID")
 
         val configureManager = ConfigureManager(this)
