@@ -56,10 +56,6 @@
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activity.WriteCodeActivity"
-            android:label="@string/title_activity_write_code"
-            android:theme="@style/AppTheme.NoActionBar.TransparentBackground" />
-        <activity
             android:name=".ui.activity.AccountSettingActivity"
             android:label="@string/title_activity_account_setting"
             android:theme="@style/AppTheme.NoActionBar" />
