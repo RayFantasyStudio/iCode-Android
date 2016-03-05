@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activity.AccountActivity"
     tools:showIn="@layout/activity_account">
-<android.support.v4.view.ViewPager
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</android.support.v4.view.ViewPager>
-</RelativeLayout>
+    <android.support.v4.view.ViewPager
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/account_pager">
+        <android.support.v4.view.PagerTabStrip
+            android:layout_width="match_parent"
+            android:id="@+id/account_pager_tab"
+            android:layout_height="wrap_content">
+
+        </android.support.v4.view.PagerTabStrip>
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

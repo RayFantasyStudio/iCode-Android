@@ -30,12 +30,14 @@
             android:layout_height="match_parent">
             <ImageView
                 android:layout_width="match_parent"
+                android:id="@+id/account_bg_pic"
                 android:layout_height="match_parent" />
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/account_pic"
                 android:src="@mipmap/ic_account_box_black"
-                android:layout_above="@+id/textView"
+                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
             <TextView
                 android:layout_width="wrap_content"
@@ -43,10 +45,10 @@
                 android:text="Username"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="16dp"
                 android:textColor="#FFF"
                 android:textSize="24dp"
-                android:id="@+id/textView" />
+                android:id="@+id/account_username" />
 
         </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>

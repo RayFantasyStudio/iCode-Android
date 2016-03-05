@@ -11,6 +11,10 @@
                     android:icon="@mipmap/ic_writecode_black"
                     android:title="@string/write"/>-->
         <item
+            android:id="@+id/nav_favo"
+            android:icon="@mipmap/ic_favorite_black"
+            android:title="@string/favorite" />
+        <item
             android:id="@+id/nav_setting"
             android:icon="@mipmap/ic_setting_black"
             android:title="@string/action_settings" />

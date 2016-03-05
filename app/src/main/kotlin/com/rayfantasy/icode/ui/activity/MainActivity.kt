@@ -183,7 +183,7 @@ class MainActivity : ActivityBase() {
             R.id.nav_home -> replaceFragment(mainFragment)
             R.id.nav_about -> replaceFragment(aboutFragment)
         //R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
-        //            R.id.nav_favourite -> replaceFragment(favoriteFragment)
+            R.id.nav_favo -> replaceFragment(favoriteFragment)
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_homepage -> OpenWeb()
             R.id.nav_update -> checkUpdate()
