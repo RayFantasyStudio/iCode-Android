@@ -4,9 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="@dimen/profile_pic_size"
@@ -14,21 +15,26 @@
             android:src="@mipmap/ic_user_black"
             android:id="@+id/block_userIcon"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="5dp" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/block_username"
             android:text="username"
             android:layout_alignTop="@+id/block_userIcon"
             android:layout_toRightOf="@+id/block_userIcon"
-            android:layout_toEndOf="@+id/block_userIcon" />
+            android:layout_toEndOf="@+id/block_userIcon"
+            android:layout_gravity="center_vertical" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="241dp"
             android:layout_height="wrap_content"
             android:id="@+id/block_sub_title"
             android:text="subtitle"
@@ -37,30 +43,50 @@
             android:layout_below="@+id/block_username"
             android:layout_alignLeft="@+id/block_username"
             android:layout_alignStart="@+id/block_username"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="5dp" />
-
-        <TextView
-            android:layout_width="50dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_vertical" />
+        </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:id="@+id/block_likecount_title"
-            android:gravity="center"
-            android:layout_alignBottom="@+id/block_sub_title"
+
+            android:layout_alignBottom="@+id/block_userIcon"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="#eee"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:translationZ="3dp"
+                android:transitionGroup="false">
 
-        <com.like.LikeButton
-            app:icon_type="heart"
-            app:icon_size="24dp"
-            android:id="@+id/block_like_title"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_alignRight="@+id/block_likecount_title"
-            android:layout_alignEnd="@+id/block_likecount_title"
-            android:layout_marginRight="10dp">
 
-        </com.like.LikeButton>
-    </RelativeLayout>
+                <com.like.LikeButton
+                    app:icon_type="heart"
+                    app:icon_size="24dp"
+                    android:id="@+id/block_like_title"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignRight="@+id/block_likecount_title"
+                    android:layout_alignEnd="@+id/block_likecount_title">
+
+                </com.like.LikeButton>
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/block_likecount_title"
+                    android:gravity="center"
+                    android:layout_alignBottom="@+id/block_sub_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 </android.support.v7.widget.CardView>
