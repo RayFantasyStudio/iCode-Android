@@ -17,6 +17,8 @@ import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.CodeGood_Table
 import com.rayfantasy.icode.ui.activity.AccountActivity
+import com.rayfantasy.icode.ui.activity.WriteCodeActivity
+import com.rayfantasy.icode.ui.activity.startFabTransformActivity
 import com.rayfantasy.icode.ui.adapter.CodeListAdapter
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import com.rayfantasy.icode.util.SpaceItemDecoration
@@ -60,7 +62,7 @@ class MainFragment : FragmentBase() {
 
         initRecyclerView()
         loadCodeGoods(true)
-        fab_main.onClick { /* fab_main.startFabTransformActivity<WriteCodeActivity>()*/ startActivity<AccountActivity>() }
+        fab_main.onClick {fab_main.startFabTransformActivity<WriteCodeActivity>() }
         recyclerView.addItemDecoration(SpaceItemDecoration())
     }
 
