@@ -18,8 +18,8 @@
 
 buildscript {
     ext.kotlinVersion = '1.0.0'
-    ext.supportVersion = '23.2.0'
-    ext.ankoVersion = '0.8.2'
+    ext.supportVersion = '23.2.1'
+    ext.ankoVersion = '0.8.3'
     ext.buildToolsVer = '23.0.2'
     ext.compileSdkVer = '23'
     ext.minSdkVer = '15'
