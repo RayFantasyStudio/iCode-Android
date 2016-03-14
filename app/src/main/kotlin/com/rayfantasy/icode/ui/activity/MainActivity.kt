@@ -183,7 +183,7 @@ class MainActivity : ActivityBase() {
         when (itemId) {
             R.id.nav_home -> replaceFragment(mainFragment)
             R.id.nav_about -> replaceFragment(aboutFragment)
-        //R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
+            R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
             R.id.nav_favo -> if (PostUtil.user == null){Toast.makeText(this,"请登陆后再使用",Toast.LENGTH_SHORT).show()} else {replaceFragment(favoriteFragment)}
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_homepage -> OpenWeb()
