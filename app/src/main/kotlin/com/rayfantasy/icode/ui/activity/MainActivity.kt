@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.android.volley.NetworkResponse
 import com.android.volley.Request
 import com.android.volley.Response
@@ -183,7 +184,7 @@ class MainActivity : ActivityBase() {
             R.id.nav_home -> replaceFragment(mainFragment)
             R.id.nav_about -> replaceFragment(aboutFragment)
         //R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
-            R.id.nav_favo -> replaceFragment(favoriteFragment)
+            R.id.nav_favo -> if (PostUtil.user == null){Toast.makeText(this,"请登陆后再使用",Toast.LENGTH_SHORT).show()} else {replaceFragment(favoriteFragment)}
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_homepage -> OpenWeb()
             R.id.nav_update -> checkUpdate()
