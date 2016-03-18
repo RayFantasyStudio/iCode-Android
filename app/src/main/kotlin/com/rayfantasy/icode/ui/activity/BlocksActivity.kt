@@ -186,7 +186,7 @@ class BlocksActivity : ActivityBase() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (PostUtil.user == null) return false
+        if (PostUtil.user == null) return true
         if (codeGood.username.equals(PostUtil.user!!.username)) {
             menuInflater.inflate(R.menu.block_menu, menu)
             return true
