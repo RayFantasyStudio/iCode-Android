@@ -58,7 +58,7 @@ class MainActivity : ActivityBase() {
 
     private val aboutFragment by lazy { AboutFragment() }
     private val favoriteFragment by lazy { FavoriteFragment() }
-    private val mainFragment by lazy { MainFragment() }
+    private val mainFragment by lazy { MainFragment(false) }
     private val settingFragment by lazy { SettingFragment() }
     private lateinit var broadcastManager: LocalBroadcastManager
     private val receiver = object : BroadcastReceiver() {
@@ -174,7 +174,7 @@ class MainActivity : ActivityBase() {
         if (PostUtil.user == null) {
             startActivity<LoginActivity>()
         } else {
-            startActivity<UserActivity>("username" to (PostUtil.user as User).username.toString())
+            startActivity<AccountActivity>("username" to (PostUtil.user as User).username.toString())
         }
     }
 
@@ -240,7 +240,7 @@ class MainActivity : ActivityBase() {
     }
 
     private fun OpenWeb() {
-        var uri = Uri.parse("http://www.rayfantasy.com:8088")
+        var uri = Uri.parse("http://www.rayfantasy.com")
         var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }

@@ -21,7 +21,7 @@ import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import kotlinx.android.synthetic.main.fragment_favorite.view.*
 import org.jetbrains.anko.support.v4.onRefresh
 
-class FavoriteFragment : FragmentBase() {
+class FavoriteFragment() : FragmentBase() {
     companion object {
         const val LOAD_ONCE = 10
     }

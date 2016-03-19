@@ -1,5 +1,6 @@
 package com.rayfantasy.icode.ui.activity
 
+import android.app.Fragment
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -17,16 +18,22 @@ import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.extension.shadowColor
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
+import com.rayfantasy.icode.ui.fragment.AccountCodeFragment
+import com.rayfantasy.icode.ui.fragment.MainFragment
+import com.rayfantasy.icode.ui.fragment.ReplyFragment
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropTransformation
 import kotlinx.android.synthetic.main.activity_account.*
+import kotlinx.android.synthetic.main.content_account.*
+import kotlinx.android.synthetic.main.fragment_main.*
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.image
+import org.jetbrains.anko.onClick
 
 class AccountActivity :ActivityBase() {
     val glide by lazy { Glide.with(this) }
-    val lf : LayoutInflater = LayoutInflater.from(this)
-    lateinit  var views : MutableList<View>
-    var titles : List<String> = listOf("代码","回复")
+    private val codeFragment by lazy { AccountCodeFragment() }
+    private val replysFragment by lazy { ReplyFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +53,26 @@ class AccountActivity :ActivityBase() {
                 .bitmapTransform(CropTransformation(this, account_bg_pic.width, account_bg_pic.height),
                         BlurTransformation(this, 15, 4))
                 .into(account_bg_pic)
+        replaceFragment(codeFragment)
+        account_btn_code.onClick {
+            replaceFragment(codeFragment)
 
-        views.add(0,lf.inflate(R.layout.pager_code,null))
-        views.add(1,lf.inflate(R.layout.pager_reply,null))
+        }
+        account_btn_reply.onClick {
+            replaceFragment(replysFragment)
+
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         return super.onCreateOptionsMenu(menu)
     }
+    private fun replaceFragment(fragment: Fragment) {
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.account_fragment, fragment).commit()
+    }
+    private fun  getFragment(){
 
+    }
 }

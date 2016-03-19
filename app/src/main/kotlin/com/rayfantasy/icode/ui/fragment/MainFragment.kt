@@ -29,7 +29,7 @@ import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.onRefresh
 
-class MainFragment : FragmentBase() {
+class MainFragment(val  isAccount : Boolean) : FragmentBase() {
     private lateinit var broadcastManager: LocalBroadcastManager
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -39,6 +39,8 @@ class MainFragment : FragmentBase() {
     companion object {
         const val LOAD_ONCE = 10
     }
+    private lateinit  var condition : String
+
 
     private lateinit var adapter: CodeListAdapter
     private val isRefreshing: Boolean
@@ -63,7 +65,6 @@ class MainFragment : FragmentBase() {
         initRecyclerView()
         loadCodeGoods(true)
         fab_main.onClick {fab_main.startFabTransformActivity<WriteCodeActivity>() }
-        recyclerView.addItemDecoration(SpaceItemDecoration())
     }
 
     private fun initRecyclerView() {
@@ -79,9 +80,14 @@ class MainFragment : FragmentBase() {
             return
 
         //生成加载条件，目前加载3个，方便测试
+        if (isAccount == true){
+            condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE username = \" ${PostUtil.user!!.username}\" " else ""}" +
+                    "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
+        }else{
+             condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateAt} " else ""}" +
+                    "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
+        }
 
-        val condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateAt} " else ""}" +
-                "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
         request = PostUtil.selectCodeGood(condition) {
             onSuccess {
                 if (isDetached) return@onSuccess
