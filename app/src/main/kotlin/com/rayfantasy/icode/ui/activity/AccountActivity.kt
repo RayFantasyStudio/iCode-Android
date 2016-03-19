@@ -1,6 +1,8 @@
 package com.rayfantasy.icode.ui.activity
 
 import android.app.Fragment
+import android.database.DatabaseUtils
+import android.databinding.DataBindingUtil
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -13,9 +15,11 @@ import android.view.View
 import com.bumptech.glide.Glide
 
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.databinding.ActivityAccountBinding
 import com.rayfantasy.icode.extension.alpha
 import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.extension.shadowColor
+import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.User
 import com.rayfantasy.icode.ui.fragment.AccountCodeFragment
@@ -29,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.image
 import org.jetbrains.anko.onClick
+import org.jetbrains.anko.startActivity
 
 class AccountActivity :ActivityBase() {
     val glide by lazy { Glide.with(this) }
@@ -37,12 +42,14 @@ class AccountActivity :ActivityBase() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_account)
+        DataBindingUtil.setContentView<ActivityAccountBinding>(this, R.layout.activity_account).theme = ICodeTheme
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show() }
+        fab.setOnClickListener {
+            startActivity<AccountSettingActivity>()
+        }
         val username : String = PostUtil.user!!.username
         account_pic.loadPortrait(username)
         account_username.text = username

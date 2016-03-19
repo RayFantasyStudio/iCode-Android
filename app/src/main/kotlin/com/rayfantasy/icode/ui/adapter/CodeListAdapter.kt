@@ -32,6 +32,7 @@ import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.Favorite
 import com.rayfantasy.icode.postutil.bean.Favorite_Table
+import com.rayfantasy.icode.ui.activity.AccountActivity
 import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
@@ -53,7 +54,11 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         holder.username.text = codeGood.username
         holder.pic.loadPortrait(codeGood.username)
         holder.pic.onClick {
-            activity.startActivity<UserActivity>("username" to codeGood.username.toString())
+            if (PostUtil.user == null || !PostUtil.user?.username.equals(codeGood.username)) {
+                activity.startActivity<UserActivity>("username" to codeGood.username.toString())
+            }else{
+                activity.startActivity<AccountActivity>()
+            }
         }
         holder.binding.highlight = codeGood.highlight ?: false
         holder.bg.onClick {

@@ -62,7 +62,7 @@
                 android:layout_alignEnd="@+id/reply_context"
                 android:layout_alignRight="@+id/reply_context"
                 android:layout_alignTop="@+id/reply_username"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="2dp"
                 android:gravity="center"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
