@@ -58,5 +58,7 @@
     <color name="high_light_deepblue">#2E5C6E</color>
     <color name="high_light_gray">#373C38</color>
 
+    <color name="black_overlay">#66000000</color>
+
 
 </resources>

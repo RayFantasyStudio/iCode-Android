@@ -1,19 +1,13 @@
 package com.rayfantasy.icode.ui.activity
 
 import android.app.Fragment
-import android.database.DatabaseUtils
 import android.databinding.DataBindingUtil
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.LayoutInflater
 import android.view.Menu
-import android.view.View
 import com.bumptech.glide.Glide
-
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.databinding.ActivityAccountBinding
 import com.rayfantasy.icode.extension.alpha
@@ -21,17 +15,12 @@ import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.extension.shadowColor
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
-import com.rayfantasy.icode.postutil.bean.User
 import com.rayfantasy.icode.ui.fragment.AccountCodeFragment
-import com.rayfantasy.icode.ui.fragment.MainFragment
 import com.rayfantasy.icode.ui.fragment.ReplyFragment
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropTransformation
 import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.content_account.*
-import kotlinx.android.synthetic.main.fragment_main.*
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.image
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 
