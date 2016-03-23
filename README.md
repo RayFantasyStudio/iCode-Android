@@ -14,7 +14,7 @@ appKey=$$申请的bugly的appKey$$
 //若有好的想法想加入iCode官方APP、对iCode有建议的话，请继续往下读。
 ```
 地址： https://github.com/RayFantasyStudio/iCode-Android
-官网： http://rayfantasy.com:8088/
+官网： http://rayfantasy.com/
 ```
 - 关于如何同我们开发，详情请搜索git相关教程。
 我们鼓励开发者为开源社区作出贡献，利用Github的Pull-Request机制，或VCS版
@@ -22,7 +22,6 @@ appKey=$$申请的bugly的appKey$$
 
 - 具体流程图
 ![image](github-pull-request.png)
-
 ### 具体步骤
 1. 首先，在github页面上，点击“Fork”，将iCode的git库拷贝到自己账户
 2. 然后，对拷贝的git库进行修改，将内容变更提交到自己的账户

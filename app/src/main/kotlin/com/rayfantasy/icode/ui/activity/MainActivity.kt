@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.android.volley.NetworkResponse
 import com.android.volley.Request
 import com.android.volley.Response
@@ -57,7 +58,7 @@ class MainActivity : ActivityBase() {
 
     private val aboutFragment by lazy { AboutFragment() }
     private val favoriteFragment by lazy { FavoriteFragment() }
-    private val mainFragment by lazy { MainFragment() }
+    private val mainFragment by lazy { MainFragment(false) }
     private val settingFragment by lazy { SettingFragment() }
     private lateinit var broadcastManager: LocalBroadcastManager
     private val receiver = object : BroadcastReceiver() {
@@ -173,7 +174,7 @@ class MainActivity : ActivityBase() {
         if (PostUtil.user == null) {
             startActivity<LoginActivity>()
         } else {
-            startActivity<UserActivity>("username" to (PostUtil.user as User).username.toString())
+            startActivity<AccountActivity>("username" to (PostUtil.user as User).username.toString())
         }
     }
 
@@ -182,8 +183,8 @@ class MainActivity : ActivityBase() {
         when (itemId) {
             R.id.nav_home -> replaceFragment(mainFragment)
             R.id.nav_about -> replaceFragment(aboutFragment)
-        //R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
-            R.id.nav_favo -> replaceFragment(favoriteFragment)
+            R.id.nav_edit -> startActivity(Intent(this@MainActivity, WriteCodeActivity::class.java))
+            R.id.nav_favo -> if (PostUtil.user == null){Toast.makeText(this,"请登陆后再使用",Toast.LENGTH_SHORT).show()} else {replaceFragment(favoriteFragment)}
             R.id.nav_setting -> replaceFragment(settingFragment)
             R.id.nav_homepage -> OpenWeb()
             R.id.nav_update -> checkUpdate()
@@ -239,7 +240,7 @@ class MainActivity : ActivityBase() {
     }
 
     private fun OpenWeb() {
-        var uri = Uri.parse("http://www.rayfantasy.com:8088")
+        var uri = Uri.parse("http://www.rayfantasy.com")
         var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }

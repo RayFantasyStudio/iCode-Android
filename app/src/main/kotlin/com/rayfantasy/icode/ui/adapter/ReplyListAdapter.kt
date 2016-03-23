@@ -27,6 +27,7 @@ import com.rayfantasy.icode.extension.inflate
 import com.rayfantasy.icode.extension.loadPortrait
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.Reply
+import com.rayfantasy.icode.ui.activity.AccountActivity
 import com.rayfantasy.icode.ui.activity.UserActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import jp.wasabeef.glide.transformations.CropCircleTransformation
@@ -50,7 +51,11 @@ class ReplyListAdapter(val activity: Activity, var replyList: MutableList<Reply>
         holder.reply.text = replyList.content
         holder.time.text = ms2RelativeDate(activity, replyList.createAt!!)
         holder.pic.loadPortrait(replyList.username)
-        holder.pic.onClick { activity.startActivity<UserActivity>("username" to replyList.username.toString()) }
+        holder.pic.onClick {             if (PostUtil.user == null || !PostUtil.user?.username.equals(replyList.username)) {
+            activity.startActivity<UserActivity>("username" to replyList.username.toString())
+        }else{
+            activity.startActivity<AccountActivity>()
+        } }
 
     }
 

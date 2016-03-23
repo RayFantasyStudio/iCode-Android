@@ -1,45 +1,33 @@
 package com.rayfantasy.icode.ui.fragment
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.support.v4.content.LocalBroadcastManager
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.volley.Request
 import com.raizlabs.android.dbflow.sql.language.Select
-import com.rayfantasy.icode.databinding.FragmentMainBinding
-import com.rayfantasy.icode.model.ICodeTheme
+
+import com.rayfantasy.icode.R
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.CodeGood_Table
-import com.rayfantasy.icode.ui.activity.AccountActivity
-import com.rayfantasy.icode.ui.activity.WriteCodeActivity
-import com.rayfantasy.icode.ui.activity.startFabTransformActivity
 import com.rayfantasy.icode.ui.adapter.CodeListAdapter
 import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
-import com.rayfantasy.icode.util.SpaceItemDecoration
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.fragment_account_code.view.*
 import org.apache.commons.collections4.list.SetUniqueList
-import org.jetbrains.anko.onClick
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.support.v4.onRefresh
+/*这是用户界面用于加载用户发布过代码的fragment
+*
+ */
 
-class MainFragment(val  isAccount : Boolean) : FragmentBase() {
-    private lateinit var broadcastManager: LocalBroadcastManager
-    private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-        }
-    }
+class AccountCodeFragment : FragmentBase() {
 
     companion object {
         const val LOAD_ONCE = 10
     }
-    private lateinit  var condition : String
 
 
     private lateinit var adapter: CodeListAdapter
@@ -48,30 +36,18 @@ class MainFragment(val  isAccount : Boolean) : FragmentBase() {
     private var request: Request<*>? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding.theme = ICodeTheme
-        return binding.root
-    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view?.swipe_layout?.onRefresh {
-            loadCodeGoods(true)
-        }
-        broadcastManager = LocalBroadcastManager.getInstance(activity)
-
         initRecyclerView()
         loadCodeGoods(true)
-        fab_main.onClick {fab_main.startFabTransformActivity<WriteCodeActivity>() }
     }
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(activity)
-        view.recyclerView.layoutManager = layoutManager
+        view.code_rv_fragment.layoutManager = layoutManager
         adapter = CodeListAdapter(activity, SetUniqueList.setUniqueList(getCacheData())) { loadCodeGoods(false) }
-        view.recyclerView.adapter = adapter
+        view.code_rv_fragment.adapter = adapter
     }
 
     private fun loadCodeGoods(refresh: Boolean) {
@@ -80,18 +56,12 @@ class MainFragment(val  isAccount : Boolean) : FragmentBase() {
             return
 
         //生成加载条件，目前加载3个，方便测试
-        if (isAccount == true){
-            condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE username = \" ${PostUtil.user!!.username}\" " else ""}" +
-                    "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
-        }else{
-             condition = "${if (!refresh && adapter.codeGoods.isNotEmpty()) "WHERE updateat < ${adapter.codeGoods.last().updateAt} " else ""}" +
-                    "ORDER BY updateat DESC LIMIT 0, $LOAD_ONCE"
-        }
 
+        val condition = "WHERE ${if (!refresh && adapter.codeGoods.isNotEmpty()) "createat < ${adapter.codeGoods.last().createAt} AND " else ""}username=\"${PostUtil.user!!.username}\" " +
+                "ORDER BY createat DESC LIMIT 0, $LOAD_ONCE"
         request = PostUtil.selectCodeGood(condition) {
             onSuccess {
                 if (isDetached) return@onSuccess
-                view.swipe_layout.isRefreshing = false
                 request = null
 
                 if (it.isEmpty() ) {
@@ -110,7 +80,6 @@ class MainFragment(val  isAccount : Boolean) : FragmentBase() {
                 onFailed { t, rc ->
                     request = null
                     if (isDetached || view == null) return@onFailed
-                    view.swipe_layout.isRefreshing = false
                     adapter.footerState = LoadMoreAdapter.FOOTER_STATE_FAILED
                 }
             }
@@ -133,6 +102,14 @@ class MainFragment(val  isAccount : Boolean) : FragmentBase() {
 
     fun getCacheData() = Select()
             .from(CodeGood::class.java)
+            .where(CodeGood_Table.username.`is`(PostUtil.user!!.username))
             .orderBy(CodeGood_Table.updateat, false)
             .queryList()
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        return inflater!!.inflate(R.layout.fragment_account_code, container, false)
+    }
+
+
 }

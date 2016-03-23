@@ -21,7 +21,7 @@ import com.rayfantasy.icode.ui.adapter.LoadMoreAdapter
 import kotlinx.android.synthetic.main.fragment_favorite.view.*
 import org.jetbrains.anko.support.v4.onRefresh
 
-class FavoriteFragment : FragmentBase() {
+class FavoriteFragment() : FragmentBase() {
     companion object {
         const val LOAD_ONCE = 10
     }
@@ -65,10 +65,10 @@ class FavoriteFragment : FragmentBase() {
                 view.favo_swipe.isRefreshing = false
                 request = null
 
-                //if (it.isEmpty() ) {
+                if (it.size == adapter.codeGoods.size ) {
                     //如果结果为空，则表示没有更多内容了
                     adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
-                //} else {
+                } else {
                     if (refresh) {
                         adapter.codeGoods.clear()
                     }
@@ -77,7 +77,8 @@ class FavoriteFragment : FragmentBase() {
                     if (refresh) adapter.notifyDataSetChanged()
                     else adapter.notifyDataSetChanged()
                     cacheData(adapter.codeGoods)
-                //}
+                 //   adapter.footerState = LoadMoreAdapter.FOOTER_STATE_NO_MORE
+                }
                 onFailed { t, rc ->
                     request = null
                     if (isDetached || view == null) return@onFailed
@@ -110,3 +111,4 @@ class FavoriteFragment : FragmentBase() {
             .queryList()
 
 }
+

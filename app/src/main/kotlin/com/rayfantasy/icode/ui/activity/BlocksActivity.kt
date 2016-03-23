@@ -186,7 +186,7 @@ class BlocksActivity : ActivityBase() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (PostUtil.user == null) return false
+        if (PostUtil.user == null) return true
         if (codeGood.username.equals(PostUtil.user!!.username)) {
             menuInflater.inflate(R.menu.block_menu, menu)
             return true
@@ -194,12 +194,17 @@ class BlocksActivity : ActivityBase() {
         return false
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
             R.id.action_edit -> {
                 delCodeGood()
                 return true
+            }
+            android.R.id.home -> {
+                super.onBackPressed()
+                return  true
             }
 
             else -> return false

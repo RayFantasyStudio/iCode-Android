@@ -8,16 +8,40 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activity.AccountActivity"
     tools:showIn="@layout/activity_account">
-
-    <android.support.v4.view.ViewPager
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/account_pager">
-        <android.support.v4.view.PagerTabStrip
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:translationZ="1dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:id="@+id/account_pager_tab"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="代码"
+                android:background="#FFF"
+                android:id="@+id/account_btn_code"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="1dp"
+                android:background="#eee"
+                android:layout_height="wrap_content">
 
-        </android.support.v4.view.PagerTabStrip>
-    </android.support.v4.view.ViewPager>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="回复"
+                android:background="#FFF"
+                android:id="@+id/account_btn_reply"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/account_fragment"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 </LinearLayout>

@@ -141,4 +141,8 @@
     <string name="positive_new_version">更新</string>
     <string name="check_update">检查更新</string>
 
+    <string name="title_activity_splash">iCode</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>

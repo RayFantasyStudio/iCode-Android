@@ -27,7 +27,6 @@ import org.jetbrains.anko.startActivity
 
 class BlockAdapter(var ctx: Context, val codeGood: CodeGood, var blocks: List<CodeGood.Block>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TITLE_VIEW = 998
-    private val FAVORITE_VIEW = 999
     private val highlightTheme = ctx.defaultSharedPreferences.getString(SettingFragment.PREF_HIGHLIGHT, SettingFragment.DEFAULT_HIGHLIGHT)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         when (holder) {
