@@ -1,65 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
         <variable
             name="theme"
             type="com.rayfantasy.icode.model.ICodeTheme" />
     </data>
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context=".ui.activity.AccountActivity">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/app_bar_height"
+            android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
-                app:expandedTitleMarginStart="48dp"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@{theme.colorPrimary}"
+                app:expandedTitleGravity="bottom|center_horizontal"
+                app:expandedTitleMarginBottom="30dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                android:layout_height="200dp">
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    app:layout_collapseMode="pin"
-                    android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:statusBarScrim="@{theme.colorPrimaryDark}"
+                app:expandedTitleTextAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:id="@+id/account_bg_pic"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:id="@+id/account_pic"
-                    android:src="@mipmap/ic_account_box_black"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:translationZ="2dp" />
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:text="Username"
-                    android:textColor="#000"
-                    android:textSize="24dp"
-                    android:id="@+id/account_username"
-                    android:gravity="center"
-                    android:layout_marginTop="150dp" />
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="parallax">
+
+                    <ImageView
+                        android:id="@+id/account_bg_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/account_pic"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_account_box_black"
+                        android:translationZ="2dp" />
+
+                    <!--                    <TextView
+                                            android:id="@+id/account_username"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@id/account_pic"
+                                            android:layout_centerHorizontal="true"
+                                            android:text="Username"
+                                            android:textColor="#000"
+                                            android:textSize="24sp" />-->
 
                 </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
@@ -71,9 +86,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            app:backgroundTintList="@{theme.colorAccent}"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@mipmap/ic_setting_withe" />
+            android:src="@mipmap/ic_setting_withe"
+            app:backgroundTintList="@{theme.colorAccent}" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -4,8 +4,6 @@ import android.app.Fragment
 import android.databinding.DataBindingUtil
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
@@ -27,21 +25,20 @@ import org.jetbrains.anko.startActivity
 class AccountActivity :ActivityBase() {
     val glide by lazy { Glide.with(this) }
     private val codeFragment by lazy { AccountCodeFragment() }
-    private val replysFragment by lazy { ReplyFragment() }
+    private val repliesFragment by lazy { ReplyFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<ActivityAccountBinding>(this, R.layout.activity_account).theme = ICodeTheme
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener {
             startActivity<AccountSettingActivity>()
         }
         val username : String = PostUtil.user!!.username
         account_pic.loadPortrait(username)
-        account_username.text = username
+        toolbar_layout.title = username
+
         val colorDrawable = ColorDrawable(username.hashCode().alpha(0xff).shadowColor())
         glide.load(PostUtil.getProfilePicUrl(username))
                 .error(colorDrawable)
@@ -55,7 +52,7 @@ class AccountActivity :ActivityBase() {
 
         }
         account_btn_reply.onClick {
-            replaceFragment(replysFragment)
+            replaceFragment(repliesFragment)
 
         }
 
