@@ -131,7 +131,6 @@ dependencies {
     compile('com.github.ozodrukh:CircularReveal:1.3.1@aar') {
         transitive = true;
     }
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 bugly {
@@ -140,23 +139,14 @@ bugly {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.0'
     repositories {
         jcenter()
-        maven { url 'http://maven.oschina.net/content/groups/public/' }
-        maven { url 'http://dl.bintray.com/amulyakhare/maven' }
-        maven { url "https://jitpack.io" }
-        mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 kapt {
     generateStubs = true
-}
-repositories {
-    mavenCentral()
 }
