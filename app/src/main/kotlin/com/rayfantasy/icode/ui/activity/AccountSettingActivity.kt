@@ -22,7 +22,11 @@ import com.yalantis.ucrop.UCrop
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.content_account_setting.*
+import kotlinx.android.synthetic.main.nv_layout.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.button
 import org.jetbrains.anko.onClick
+import org.jetbrains.anko.verticalLayout
 import java.io.File
 import java.net.URI
 
@@ -57,6 +61,7 @@ class AccountSettingActivity : ActivityBase() {
         val str: String = PostUtil.user!!.username
         val icon: TextDrawable = TextDrawable.builder().buildRound((str[0]).toString(), str.hashCode())
         glide.load(PostUtil.getProfilePicUrl(str)).error(icon).bitmapTransform(circleTransformation).into(account_setting_icon)
+
     }
 
     //重置密码
