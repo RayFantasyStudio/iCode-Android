@@ -108,10 +108,6 @@ class UserActivity : ActivityBase() {
 
                     return true
                 }
-                R.id.account_setAccount -> {
-                    startActivity<AccountSettingActivity>()
-                    return true
-                }
             }
             return super.onOptionsItemSelected(item)
         }

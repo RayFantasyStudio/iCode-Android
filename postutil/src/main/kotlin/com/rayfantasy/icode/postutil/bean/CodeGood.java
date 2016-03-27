@@ -84,6 +84,7 @@ public class CodeGood extends BaseModel implements Serializable {
     @SerializedName("reply")
     public Integer reply;
 
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CodeGood)) return false;
