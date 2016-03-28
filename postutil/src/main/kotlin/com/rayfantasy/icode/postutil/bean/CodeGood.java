@@ -145,6 +145,30 @@ public class CodeGood extends BaseModel implements Serializable {
             this.content = content;
             this.blockType = blockType;
         }
+
+        public String getExtra() {
+            return extra;
+        }
+
+        public void setExtra(String extra) {
+            this.extra = extra;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public Integer getBlockType() {
+            return blockType;
+        }
+
+        public void setBlockType(Integer blockType) {
+            this.blockType = blockType;
+        }
     }
 
     public static class BlockType {
@@ -152,59 +176,83 @@ public class CodeGood extends BaseModel implements Serializable {
         public static final int CODE = 1;
     }
 
-/*    @NonNull
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(@NonNull String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    @NonNull
     public String getSubtitle() {
         return subtitle;
     }
 
-    public void setSubtitle(@NonNull String subtitle) {
+    public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
     }
 
-    @NonNull
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(@NonNull String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    @NonNull
     public String getContent() {
         return content;
     }
 
-    public void setContent(@NonNull String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
-    public Long getUpdateat() {
-        return updateAt;
-    }
-
-    public Long getCreateat() {
+    public Long getCreateAt() {
         return createAt;
     }
 
+    public void setCreateAt(Long createAt) {
+        this.createAt = createAt;
+    }
+
+    public Long getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Long updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Boolean getHighlight() {
-        return highlight != null ? highlight : false;
+        return highlight;
     }
 
     public void setHighlight(Boolean highlight) {
         this.highlight = highlight;
     }
 
-    public Integer getId() {
-        return id;
-    }*/
+    public Integer getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Integer favorite) {
+        this.favorite = favorite;
+    }
+
+    public Integer getReply() {
+        return reply;
+    }
+
+    public void setReply(Integer reply) {
+        this.reply = reply;
+    }
 }

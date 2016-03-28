@@ -33,8 +33,8 @@ import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.Favorite
 import com.rayfantasy.icode.postutil.bean.Favorite_Table
 import com.rayfantasy.icode.ui.activity.AccountActivity
+import com.rayfantasy.icode.ui.activity.CodeDetailActivity
 import com.rayfantasy.icode.ui.activity.UserActivity
-import com.rayfantasy.icode.ui.activity.startBlockActivity
 import com.rayfantasy.icode.util.ms2RelativeDate
 import kotlinx.android.synthetic.main.item_code_list.view.*
 import org.jetbrains.anko.onClick
@@ -56,13 +56,14 @@ class CodeListAdapter(val activity: Activity, var codeGoods: MutableList<CodeGoo
         holder.pic.onClick {
             if (PostUtil.user == null || !PostUtil.user?.username.equals(codeGood.username)) {
                 activity.startActivity<UserActivity>("username" to codeGood.username.toString())
-            }else{
+            } else {
                 activity.startActivity<AccountActivity>()
             }
         }
         holder.binding.highlight = codeGood.highlight ?: false
         holder.bg.onClick {
-            holder.bg.startBlockActivity(codeGood)
+            //holder.bg.startBlockActivity(codeGood)
+            activity.startActivity<CodeDetailActivity>("codeGood" to codeGood)
         }
         with(holder.like) {
             isEnabled = PostUtil.user != null

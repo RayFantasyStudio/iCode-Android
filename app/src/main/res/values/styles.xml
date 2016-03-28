@@ -55,6 +55,10 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+
+    <style name="FitedStyle">
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
     <!--<style name="AppSunTheme" >
         <item name="day_night_background">@color/light_color</item>
         <item name="day_night_background2">@color/light_color2</item>

@@ -89,6 +89,10 @@
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".ui.activity.CodeDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar.TransparentBackground" />
     </application>
 
 </manifest>

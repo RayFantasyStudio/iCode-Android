@@ -26,6 +26,7 @@ buildscript {
     ext.targetSdkVer = '23'
     ext.verCode = '7'
     ext.verName = '0.2.5'
+    ext.kbindingVer = '0.2.1'
     repositories {
         jcenter()
         maven { url 'http://maven.oschina.net/content/groups/public/' }
