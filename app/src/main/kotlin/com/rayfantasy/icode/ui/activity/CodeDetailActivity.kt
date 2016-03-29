@@ -17,43 +17,17 @@
 package com.rayfantasy.icode.ui.activity
 
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
-import com.benny.library.autoadapter.viewcreator.ViewCreatorCollection
-import com.benny.library.kbinding.adapterview.bindings.adapter
-import com.benny.library.kbinding.adapterview.bindings.itemClick
-import com.benny.library.kbinding.adapterview.converter.ListToRecyclerAdapterConverter
-import com.benny.library.kbinding.adapterview.viewcreator.ItemViewBinderComponent
 import com.benny.library.kbinding.annotation.Command
 import com.benny.library.kbinding.annotation.Property
-import com.benny.library.kbinding.bind.BindingDisposer
-import com.benny.library.kbinding.common.bindings.fadeOut
-import com.benny.library.kbinding.common.bindings.text
-import com.benny.library.kbinding.common.bindings.until
-import com.benny.library.kbinding.dsl.bind
-import com.benny.library.kbinding.dsl.wait
-import com.benny.library.kbinding.view.ViewBinderComponent
 import com.benny.library.kbinding.view.setContentView
-import com.ferencboldog.ankomaterial.extensions.appBarLayout
-import com.ferencboldog.ankomaterial.extensions.colorAttr
-import com.ferencboldog.ankomaterial.extensions.dimenAttr
-import com.ferencboldog.ankomaterial.extensions.lparams
-import com.rayfantasy.icode.R
-import com.rayfantasy.icode.extension.highlightEditText
-import com.rayfantasy.icode.extension.lang
-import com.rayfantasy.icode.extension.source
-import com.rayfantasy.icode.extra.ViewCreator
-import com.rayfantasy.icode.model.BlockViewModel
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.extension.fromJson
 import com.rayfantasy.icode.postutil.extension.loadCodeContent
 import com.rayfantasy.icode.ui.fragment.SettingFragment
-import org.jetbrains.anko.*
-import org.jetbrains.anko.appcompat.v7.toolbar
-import org.jetbrains.anko.design.coordinatorLayout
-import org.jetbrains.anko.recyclerview.v7.recyclerView
+import com.rayfantasy.icode.ui.layout.CodeDetailActivityUI
+import org.jetbrains.anko.defaultSharedPreferences
+import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
 class CodeDetailActivity : ActivityBindingBase() {
@@ -64,7 +38,7 @@ class CodeDetailActivity : ActivityBindingBase() {
     var blocks: List<CodeGood.Block>? by Delegates.property()
 
     private val codeGood by lazy { intent.getSerializableExtra("codeGood") as CodeGood }
-    private val highlightTheme by lazy {
+    val highlightTheme by lazy {
         defaultSharedPreferences
                 .getString(SettingFragment.PREF_HIGHLIGHT, SettingFragment.DEFAULT_HIGHLIGHT)
     }
@@ -96,74 +70,4 @@ class CodeDetailActivity : ActivityBindingBase() {
     fun itemClick(params: Int, canExecute: (Boolean) -> Unit) {
     }
 
-    class CodeDetailActivityUI : ViewBinderComponent<CodeDetailActivity> {
-        override fun builder(): AnkoContext<*>.() -> Unit = {
-            val activity = owner as CodeDetailActivity
-            coordinatorLayout {
-                appBarLayout(R.style.AppTheme_AppBarOverlay) {
-                    toolbar {
-                        activity.setSupportActionBar(this)
-                        minimumHeight = dimenAttr(R.attr.actionBarSize)
-                        fitsSystemWindows = true
-                        popupTheme = R.style.AppTheme_PopupOverlay
-                    }.lparams(matchParent, wrapContent) {
-                        scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or
-                                AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                    }
-                }.lparams(matchParent, wrapContent)
-
-                frameLayout {
-                    backgroundColor = colorAttr(android.R.attr.colorBackground)
-                    recyclerView {
-                        layoutManager = LinearLayoutManager(ctx)
-                        bind {
-                            adapter("blocks", converter = ListToRecyclerAdapterConverter(
-                                    BlocksViewCreator(CodeBlockView(activity.highlightTheme), activity.bindingDisposer)))
-                        }
-                        bind { itemClick("itemClick") }
-                    }.lparams(matchParent, matchParent)
-
-                    frameLayout {
-                        backgroundColor = colorAttr(android.R.attr.colorBackground)
-                        progressBar().lparams { gravity = Gravity.CENTER }
-                        wait { until("blocks") { fadeOut() } }
-                    }.lparams(matchParent, matchParent)
-                }.lparams(matchParent, matchParent) {
-                    behavior = AppBarLayout.ScrollingViewBehavior()
-                }
-            }.lparams(matchParent, matchParent)
-        }
-    }
-
-    class TextBlockView : ItemViewBinderComponent {
-        override fun builder(): AnkoContext<*>.() -> Unit = {
-            textView {
-                isSelectable = true
-                bind { text("content") }
-            }.lparams(matchParent, wrapContent) {
-                margin = dip(8)
-            }
-        }
-    }
-
-    class CodeBlockView(val theme: String) : ItemViewBinderComponent {
-        override fun builder(): AnkoContext<*>.() -> Unit = {
-            highlightEditText(theme) {
-                keyListener = null
-                bind { source("content") }
-                bind { lang("extra") }
-            }.lparams(matchParent, wrapContent) {
-                margin = dip(8)
-            }
-        }
-    }
-
-    class BlocksViewCreator(codeBlockView: CodeBlockView, val bindingDisposer: BindingDisposer) : ViewCreatorCollection<CodeGood.Block>() {
-        init {
-            addFilter({ data, position, itemCount -> data.blockType == CodeGood.BlockType.TEXT },
-                    ViewCreator(bindingDisposer, TextBlockView(), ::BlockViewModel))
-            addFilter({ data, position, itemCount -> data.blockType == CodeGood.BlockType.CODE }, ViewCreator(bindingDisposer,
-                    codeBlockView, ::BlockViewModel))
-        }
-    }
 }

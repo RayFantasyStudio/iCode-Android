@@ -3,7 +3,7 @@
     android:id="@+id/tv_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="#000"
-    android:textSize="16dp"
     android:layout_margin="10dp"
-    android:textIsSelectable="true" />
+    android:textColor="#000"
+    android:textIsSelectable="true"
+    android:textSize="16dp" />
