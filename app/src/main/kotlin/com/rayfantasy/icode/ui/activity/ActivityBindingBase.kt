@@ -16,14 +16,12 @@
 
 package com.rayfantasy.icode.ui.activity
 
-import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
 import com.benny.library.kbinding.bind.BindingDelegate
 import com.benny.library.kbinding.bind.BindingDisposer
 import com.benny.library.kbinding.view.BindingDisposerGenerator
 import com.benny.library.kbinding.viewmodel.ViewModel
 
-open class ActivityBindingBase : AppCompatActivity(), BindingDisposerGenerator, BindingDelegate {
+open class ActivityBindingBase : ActivityBase(), BindingDisposerGenerator, BindingDelegate {
     override val bindingDisposer = BindingDisposer()
     override val viewModel = ViewModel()
 
@@ -32,10 +30,7 @@ open class ActivityBindingBase : AppCompatActivity(), BindingDisposerGenerator, 
         bindingDisposer.unbind()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        android.R.id.home -> {
-            onBackPressed(); true
-        }
-        else -> super.onOptionsItemSelected(item)
+    override fun setContentView(layoutResID: Int) {
+        delegate.setContentView(layoutResID)
     }
 }

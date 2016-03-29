@@ -92,7 +92,7 @@
 
         <activity
             android:name=".ui.activity.CodeDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar.TransparentBackground" />
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
