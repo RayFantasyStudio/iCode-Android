@@ -93,7 +93,7 @@ class CodeDetailActivity : ActivityBindingBase() {
     }
 
     @Command
-    fun itemClick(params: Int) {
+    fun itemClick(params: Int, canExecute: (Boolean) -> Unit) {
     }
 
     class CodeDetailActivityUI : ViewBinderComponent<CodeDetailActivity> {
@@ -138,6 +138,7 @@ class CodeDetailActivity : ActivityBindingBase() {
     class TextBlockView : ItemViewBinderComponent {
         override fun builder(): AnkoContext<*>.() -> Unit = {
             textView {
+                isSelectable = true
                 bind { text("content") }
             }.lparams(matchParent, wrapContent) {
                 margin = dip(8)
@@ -148,6 +149,7 @@ class CodeDetailActivity : ActivityBindingBase() {
     class CodeBlockView(val theme: String) : ItemViewBinderComponent {
         override fun builder(): AnkoContext<*>.() -> Unit = {
             highlightEditText(theme) {
+                keyListener = null
                 bind { source("content") }
                 bind { lang("extra") }
             }.lparams(matchParent, wrapContent) {
