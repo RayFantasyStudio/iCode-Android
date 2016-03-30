@@ -28,16 +28,16 @@ import com.rayfantasy.icode.model.BlockViewModel
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import org.jetbrains.anko.*
 
-class BlocksViewCreator(codeBlockView: CodeBlockView, val bindingDisposer: BindingDisposer) : ViewCreatorCollection<CodeGood.Block>() {
+class BlocksViewCreator(val bindingDisposer: BindingDisposer) : ViewCreatorCollection<CodeGood.Block>() {
     init {
         addFilter({ data, position, itemCount -> data.blockType == CodeGood.BlockType.TEXT },
                 com.rayfantasy.icode.extra.ViewCreator(bindingDisposer, TextBlockView(), ::BlockViewModel))
         addFilter({ data, position, itemCount -> data.blockType == CodeGood.BlockType.CODE }, ViewCreator(bindingDisposer,
-                codeBlockView, ::BlockViewModel))
+                CodeBlockView(), ::BlockViewModel))
     }
 }
 
-class CodeBlockView(val theme: String) : ItemViewBinderComponent {
+class CodeBlockView() : ItemViewBinderComponent {
     override fun builder(): AnkoContext<*>.() -> Unit = {
         /*highlightEditText(theme) {
             keyListener = null

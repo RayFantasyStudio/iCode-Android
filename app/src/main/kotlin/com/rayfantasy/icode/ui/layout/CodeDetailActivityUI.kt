@@ -26,46 +26,23 @@ import com.benny.library.kbinding.common.bindings.fadeOut
 import com.benny.library.kbinding.common.bindings.until
 import com.benny.library.kbinding.dsl.bind
 import com.benny.library.kbinding.dsl.wait
-import com.benny.library.kbinding.view.ViewBinderComponent
-import com.rayfantasy.icode.R
-import com.rayfantasy.icode.extension.appBarLayout
 import com.rayfantasy.icode.extension.colorAttr
-import com.rayfantasy.icode.extension.dimenAttr
-import com.rayfantasy.icode.extension.lparams
-import com.rayfantasy.icode.theme.ThemeModel
-import com.rayfantasy.icode.theme.observe
 import com.rayfantasy.icode.ui.activity.CodeDetailActivity
 import org.jetbrains.anko.*
-import org.jetbrains.anko.appcompat.v7.toolbar
-import org.jetbrains.anko.design.coordinatorLayout
+import org.jetbrains.anko.design._CoordinatorLayout
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
-class CodeDetailActivityUI : ViewBinderComponent<CodeDetailActivity> {
-    override fun builder(): AnkoContext<*>.() -> Unit = {
-        val activity = owner as CodeDetailActivity
-        coordinatorLayout {
-            appBarLayout(R.style.AppTheme_AppBarOverlay) {
-                toolbar {
-                    activity.setSupportActionBar(this)
-                    minimumHeight = dimenAttr(R.attr.actionBarSize)
-                    fitsSystemWindows = true
-                    popupTheme = R.style.AppTheme_PopupOverlay
-                    observe(ThemeModel.colorPrimary) {
-                        backgroundColor = it
-                    }
-                }.lparams(matchParent, wrapContent) {
-                    scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or
-                            AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                }
-            }.lparams(matchParent, wrapContent)
-
+class CodeDetailActivityUI : AppBarActivityUI<CodeDetailActivity>() {
+    override fun content(parent: _CoordinatorLayout): AnkoContext<*>.() -> Unit = {
+        with(parent) {
+            val activity = owner as CodeDetailActivity
             frameLayout {
                 backgroundColor = colorAttr(android.R.attr.colorBackground)
                 recyclerView {
                     layoutManager = LinearLayoutManager(ctx)
                     bind {
                         adapter("blocks", converter = ListToRecyclerAdapterConverter(
-                                BlocksViewCreator(CodeBlockView(activity.highlightTheme), activity.bindingDisposer)))
+                                BlocksViewCreator(activity.bindingDisposer)))
                     }
                     bind { itemClick("itemClick") }
                 }.lparams(matchParent, matchParent)
@@ -78,6 +55,6 @@ class CodeDetailActivityUI : ViewBinderComponent<CodeDetailActivity> {
             }.lparams(matchParent, matchParent) {
                 behavior = AppBarLayout.ScrollingViewBehavior()
             }
-        }.lparams(matchParent, matchParent)
+        }
     }
 }
