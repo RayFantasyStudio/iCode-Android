@@ -9,11 +9,11 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.raizlabs.android.dbflow.sql.language.Delete
 import com.rayfantasy.icode.R
-import com.rayfantasy.icode.model.ICodeTheme
-import com.rayfantasy.icode.model.changeTheme
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import com.rayfantasy.icode.postutil.bean.Reply
 import com.rayfantasy.icode.postutil.bean.User
+import com.rayfantasy.icode.theme.ThemeModel
+import com.rayfantasy.icode.theme.changeTheme
 import de.psdev.licensesdialog.LicensesDialog
 import org.evilbinary.utils.DirUtil
 import org.jetbrains.anko.async
@@ -44,7 +44,7 @@ class SettingFragment : PreferenceFragment() {
             PREF_HIGHLIGHT -> highlight.summary = sharedPreferences.getString(key, DEFAULT_HIGHLIGHT)
             PREF_THEME -> {
                 theme.summary = theme.entry
-                ctx.changeTheme(sharedPreferences.getString(PREF_THEME, ICodeTheme.THEME_DEFAULT.toString()).toInt())
+                ctx.changeTheme(sharedPreferences.getString(PREF_THEME, ThemeModel.THEME_DEFAULT.toString()).toInt())
             }
         }
     }

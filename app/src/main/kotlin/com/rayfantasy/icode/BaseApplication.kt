@@ -23,6 +23,7 @@ import com.raizlabs.android.dbflow.config.FlowManager
 import com.rayfantasy.icode.model.ICodeTheme
 import com.rayfantasy.icode.postutil.PostUtil
 import com.rayfantasy.icode.postutil.extension.v
+import com.rayfantasy.icode.theme.ThemeModel
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 import com.tencent.bugly.crashreport.CrashReport
@@ -63,6 +64,7 @@ class BaseApplication : MultiDexApplication() {
         FlowManager.init(this)
 
         ICodeTheme.init(this)
+        ThemeModel.init(this)
 
         loadFavorite()
     }

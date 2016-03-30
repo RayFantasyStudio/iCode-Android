@@ -32,6 +32,8 @@ import com.rayfantasy.icode.extension.appBarLayout
 import com.rayfantasy.icode.extension.colorAttr
 import com.rayfantasy.icode.extension.dimenAttr
 import com.rayfantasy.icode.extension.lparams
+import com.rayfantasy.icode.theme.ThemeModel
+import com.rayfantasy.icode.theme.observe
 import com.rayfantasy.icode.ui.activity.CodeDetailActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7.toolbar
@@ -48,6 +50,9 @@ class CodeDetailActivityUI : ViewBinderComponent<CodeDetailActivity> {
                     minimumHeight = dimenAttr(R.attr.actionBarSize)
                     fitsSystemWindows = true
                     popupTheme = R.style.AppTheme_PopupOverlay
+                    observe(ThemeModel.colorPrimary) {
+                        backgroundColor = it
+                    }
                 }.lparams(matchParent, wrapContent) {
                     scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or
                             AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
