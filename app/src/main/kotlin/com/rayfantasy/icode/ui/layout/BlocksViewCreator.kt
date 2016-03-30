@@ -22,9 +22,7 @@ import com.benny.library.kbinding.bind.BindingDisposer
 import com.benny.library.kbinding.common.bindings.text
 import com.benny.library.kbinding.dsl.bind
 import com.ferencboldog.ankomaterial.extensions.lparams
-import com.rayfantasy.icode.extension.highlightEditText
-import com.rayfantasy.icode.extension.lang
-import com.rayfantasy.icode.extension.source
+import com.rayfantasy.icode.extension.block
 import com.rayfantasy.icode.extra.ViewCreator
 import com.rayfantasy.icode.model.BlockViewModel
 import com.rayfantasy.icode.postutil.bean.CodeGood
@@ -41,10 +39,20 @@ class BlocksViewCreator(codeBlockView: CodeBlockView, val bindingDisposer: Bindi
 
 class CodeBlockView(val theme: String) : ItemViewBinderComponent {
     override fun builder(): AnkoContext<*>.() -> Unit = {
-        highlightEditText(theme) {
+        /*highlightEditText(theme) {
             keyListener = null
+            editAble = false
             bind { source("content") }
             bind { lang("extra") }
+        }.lparams(matchParent, wrapContent) {
+            margin = dip(8)
+        }*/
+        horizontalScrollView {
+            isHorizontalScrollBarEnabled = false
+            textView {
+                isSelectable = true
+                bind { block("block") }
+            }
         }.lparams(matchParent, wrapContent) {
             margin = dip(8)
         }
