@@ -25,6 +25,7 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.view.ContextThemeWrapper
+import android.support.v7.widget.CardView
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewManager
@@ -97,6 +98,8 @@ inline fun ViewManager.coordinatorLayout(@StyleRes theme: Int, init: _Coordinato
 
 fun ViewManager.fitedCoordinatorLayout(init: _CoordinatorLayout.() -> Unit) = coordinatorLayout(R.style.FitedStyle, init)
 
+fun ViewManager.cardView(@StyleRes theme: Int, init: CardView.() -> Unit) = ankoView(theme, ::CardView, init)
+
 inline fun <T : View> ViewManager.ankoView(@StyleRes theme: Int, factory: (ctx: Context) -> T, init: T.() -> Unit): T {
     var ctx = AnkoInternals.getContext(this)
     if (theme != 0 && (ctx !is ContextThemeWrapper || ctx.themeResId != theme)) {
@@ -111,7 +114,7 @@ inline fun <T : View> ViewManager.ankoView(@StyleRes theme: Int, factory: (ctx: 
     return view
 }
 
-private val defaultInit: Any.() -> Unit = {}
+internal val defaultInit: Any.() -> Unit = {}
 fun <T : View> T.lparams(
         width: Int = wrapContent, height: Int = wrapContent,
         init: CollapsingToolbarLayout.LayoutParams.() -> Unit = defaultInit): T {

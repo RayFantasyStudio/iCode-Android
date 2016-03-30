@@ -16,7 +16,6 @@
 
 package com.rayfantasy.icode.ui.layout
 
-import android.support.design.widget.AppBarLayout
 import com.benny.library.kbinding.view.ViewBinderComponent
 import com.rayfantasy.icode.R
 import com.rayfantasy.icode.extension.appBarLayout
@@ -26,6 +25,7 @@ import com.rayfantasy.icode.theme.ThemeModel
 import com.rayfantasy.icode.theme.observe
 import com.rayfantasy.icode.ui.activity.ActivityBindingBase
 import org.jetbrains.anko.AnkoContext
+import org.jetbrains.anko.appcompat.v7._Toolbar
 import org.jetbrains.anko.appcompat.v7.toolbar
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.design._CoordinatorLayout
@@ -34,12 +34,14 @@ import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.wrapContent
 
 abstract class AppBarActivityUI<T : ActivityBindingBase> : ViewBinderComponent<T> {
+    lateinit var toolbar: _Toolbar
+
     override fun builder(): AnkoContext<*>.() -> Unit = {
         val activity = owner as ActivityBindingBase
-        val ankoContext = this
         coordinatorLayout {
             appBarLayout(R.style.AppTheme_AppBarOverlay) {
                 toolbar {
+                    toolbar = this
                     activity.setSupportActionBar(this)
                     minimumHeight = dimenAttr(R.attr.actionBarSize)
                     fitsSystemWindows = true
@@ -48,12 +50,11 @@ abstract class AppBarActivityUI<T : ActivityBindingBase> : ViewBinderComponent<T
                         backgroundColor = it
                     }
                 }.lparams(matchParent, wrapContent) {
-                    scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or
-                            AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+                    scrollFlags = 0
                 }
             }.lparams(matchParent, wrapContent)
 
-            content(this)(ankoContext)
+            content(this)()
 
         }.lparams(matchParent, matchParent)
     }
