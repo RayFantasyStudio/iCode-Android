@@ -21,8 +21,8 @@ import com.benny.library.kbinding.adapterview.viewcreator.ItemViewBinderComponen
 import com.benny.library.kbinding.bind.BindingDisposer
 import com.benny.library.kbinding.common.bindings.text
 import com.benny.library.kbinding.dsl.bind
-import com.ferencboldog.ankomaterial.extensions.lparams
 import com.rayfantasy.icode.extension.block
+import com.rayfantasy.icode.extension.lparams
 import com.rayfantasy.icode.extra.ViewCreator
 import com.rayfantasy.icode.model.BlockViewModel
 import com.rayfantasy.icode.postutil.bean.CodeGood

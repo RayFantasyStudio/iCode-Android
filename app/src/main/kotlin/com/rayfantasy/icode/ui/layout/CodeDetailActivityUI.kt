@@ -27,11 +27,11 @@ import com.benny.library.kbinding.common.bindings.until
 import com.benny.library.kbinding.dsl.bind
 import com.benny.library.kbinding.dsl.wait
 import com.benny.library.kbinding.view.ViewBinderComponent
-import com.ferencboldog.ankomaterial.extensions.appBarLayout
-import com.ferencboldog.ankomaterial.extensions.colorAttr
-import com.ferencboldog.ankomaterial.extensions.dimenAttr
-import com.ferencboldog.ankomaterial.extensions.lparams
 import com.rayfantasy.icode.R
+import com.rayfantasy.icode.extension.appBarLayout
+import com.rayfantasy.icode.extension.colorAttr
+import com.rayfantasy.icode.extension.dimenAttr
+import com.rayfantasy.icode.extension.lparams
 import com.rayfantasy.icode.ui.activity.CodeDetailActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.appcompat.v7.toolbar

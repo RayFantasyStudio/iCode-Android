@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.ferencboldog.ankomaterial.extensions
+package com.rayfantasy.icode.extension
 
 import android.content.Context
 import android.os.Build
@@ -38,11 +38,11 @@ import org.jetbrains.anko.design._CoordinatorLayout
 import org.jetbrains.anko.design.`$$Anko$Factories$DesignViewGroup`
 import org.jetbrains.anko.internals.AnkoInternals
 
-fun collapseModePin(): android.support.design.widget.CollapsingToolbarLayout.LayoutParams.() -> Unit = { collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN }
+fun collapseModePin(): CollapsingToolbarLayout.LayoutParams.() -> Unit = { collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN }
 
-fun Context.snackbar(view: View, text: CharSequence, length: Int = Snackbar.LENGTH_SHORT, snackbar: Snackbar.() -> Unit) = Snackbar.make(view, text, length).apply { snackbar() }.show()
-fun View.snackbar(text: CharSequence, length: Int = Snackbar.LENGTH_SHORT, snackbar: Snackbar.() -> Unit) = context.snackbar(this, text, length, snackbar)
-fun Fragment.snackbar(view: View, text: CharSequence, length: Int = Snackbar.LENGTH_SHORT, snackbar: Snackbar.() -> Unit) = context.snackbar(view, text, length, snackbar)
+fun Context.snackBar(view: View, text: CharSequence, length: Int = Snackbar.LENGTH_SHORT, init: Snackbar.() -> Unit) = Snackbar.make(view, text, length).apply { init() }.show()
+fun View.snackBar(text: CharSequence, length: Int = Snackbar.LENGTH_SHORT, snackbar: Snackbar.() -> Unit) = context.snackBar(this, text, length, snackbar)
+fun Fragment.snackBar(view: View, text: CharSequence, length: Int = Snackbar.LENGTH_SHORT, snackbar: Snackbar.() -> Unit) = context.snackBar(view, text, length, snackbar)
 
 fun Context.attr(@AttrRes attribute: Int): TypedValue {
     var typed = TypedValue()
@@ -112,10 +112,10 @@ inline fun <T : View> ViewManager.ankoView(@StyleRes theme: Int, factory: (ctx: 
 }
 
 private val defaultInit: Any.() -> Unit = {}
-fun <T : android.view.View> T.lparams(
-        width: kotlin.Int = wrapContent, height: kotlin.Int = wrapContent,
-        init: android.support.design.widget.CollapsingToolbarLayout.LayoutParams.() -> kotlin.Unit = defaultInit): T {
-    val layoutParams = android.support.design.widget.CollapsingToolbarLayout.LayoutParams(width, height)
+fun <T : View> T.lparams(
+        width: Int = wrapContent, height: Int = wrapContent,
+        init: CollapsingToolbarLayout.LayoutParams.() -> Unit = defaultInit): T {
+    val layoutParams = CollapsingToolbarLayout.LayoutParams(width, height)
     layoutParams.init()
     this@lparams.layoutParams = layoutParams
     return this
