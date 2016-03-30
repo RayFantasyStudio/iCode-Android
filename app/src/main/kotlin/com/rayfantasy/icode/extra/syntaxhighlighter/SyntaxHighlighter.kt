@@ -27,6 +27,10 @@ import java.util.regex.Pattern
  * Created by dell on 2016/3/2.
  */
 abstract class SyntaxHighlighter {
+    companion object {
+        val LANGS = mapOf("java" to JavaSyntaxGroup, "kotlin" to KotlinSyntaxGroup)
+    }
+
     private val mSyntaxElements: MutableList<SyntaxElement>
 
     init {

@@ -22,7 +22,7 @@ import com.benny.library.kbinding.bind.OneWay
 import com.benny.library.kbinding.bind.oneWayPropertyBinding
 import com.benny.library.kbinding.converter.EmptyOneWayConverter1
 import com.benny.library.kbinding.converter.OneWayConverter
-import com.rayfantasy.icode.extra.syntaxhighlighter.JavaSyntaxGroup
+import com.rayfantasy.icode.extra.syntaxhighlighter.SyntaxHighlighter
 import com.rayfantasy.icode.postutil.bean.CodeGood
 import rx.functions.Action1
 
@@ -31,9 +31,6 @@ fun TextView.block(vararg paths: String, mode: OneWay = BindingMode.OneWay,
 
 private fun block(tv: TextView) = Action1<CodeGood.Block> {
     tv.text = it.content
-    val syntaxGroup = when (it.extra) {
-        "java" -> JavaSyntaxGroup
-        else -> null
-    }
+    val syntaxGroup = SyntaxHighlighter.LANGS[it.extra]
     syntaxGroup?.highlight(tv)
 }
