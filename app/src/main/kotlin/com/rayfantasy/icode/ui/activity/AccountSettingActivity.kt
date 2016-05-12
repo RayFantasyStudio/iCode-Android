@@ -7,9 +7,11 @@ import android.databinding.DataBindingUtil
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.ActivityCompat
+import android.widget.Toast
 import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.rayfantasy.icode.R
@@ -22,12 +24,9 @@ import com.yalantis.ucrop.UCrop
 import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_account_setting.*
 import kotlinx.android.synthetic.main.content_account_setting.*
-import kotlinx.android.synthetic.main.nv_layout.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.button
 import org.jetbrains.anko.onClick
-import org.jetbrains.anko.verticalLayout
 import java.io.File
+import java.io.FileNotFoundException
 import java.net.URI
 
 class AccountSettingActivity : ActivityBase() {
@@ -56,7 +55,13 @@ class AccountSettingActivity : ActivityBase() {
             } else account_setting_fab.snackBar("请检查你的输入", Snackbar.LENGTH_LONG)
         }
         account_setting_icon.onClick {
-            changeUserIcon()
+            if (Build.VERSION.SDK_INT > 22){
+                var PER_STORAGE = arrayOf("android.permission.WRITE_EXTERNAL_STORAGE")
+                PermRequest(PER_STORAGE)
+            }
+            else{
+                changeUserIcon()
+            }
         }
         val str: String = PostUtil.user!!.username
         val icon: TextDrawable = TextDrawable.builder().buildRound((str[0]).toString(), str.hashCode())
@@ -145,5 +150,24 @@ class AccountSettingActivity : ActivityBase() {
             UCropError?.cause
         }
     }
-
+    private fun PermRequest(PER_NAME: Array<String>) {
+        val RequestCode = 123
+        requestPermissions(PER_NAME, RequestCode)
+    }
+    override fun onRequestPermissionsResult(permsRequestCode: Int, permissions: Array<String>, grantResults: IntArray) = when (permsRequestCode) {
+        123 -> {
+            val haveStoragePer = grantResults[0] == PackageManager.PERMISSION_GRANTED
+            if (haveStoragePer) {
+                try{
+                    changeUserIcon()
+                } catch(e: FileNotFoundException){
+                }
+            } else {
+                Toast.makeText(this, "请授予储存空间权限，以进行更换头像操作", Toast.LENGTH_SHORT).show()
+            }
+        }
+        else -> {
+            account_setting_fab.snackBar("未知RequestCode，请安装原版apk后重试", Snackbar.LENGTH_LONG)
+        }
+    }
 }
