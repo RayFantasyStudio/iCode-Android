@@ -57,7 +57,8 @@ class AccountSettingActivity : ActivityBase() {
         account_setting_icon.onClick {
             if (Build.VERSION.SDK_INT > 22){
                 var PER_STORAGE = arrayOf("android.permission.WRITE_EXTERNAL_STORAGE")
-                PermRequest(PER_STORAGE)
+                var PERM_CODE = 123
+                PermRequest(PER_STORAGE,PERM_CODE)
             }
             else{
                 changeUserIcon()
@@ -150,9 +151,8 @@ class AccountSettingActivity : ActivityBase() {
             UCropError?.cause
         }
     }
-    private fun PermRequest(PER_NAME: Array<String>) {
-        val RequestCode = 123
-        requestPermissions(PER_NAME, RequestCode)
+    private fun PermRequest(PER_NAME: Array<String>,PERM_CODE: Int) {
+        requestPermissions(PER_NAME, PERM_CODE)
     }
     override fun onRequestPermissionsResult(permsRequestCode: Int, permissions: Array<String>, grantResults: IntArray) = when (permsRequestCode) {
         123 -> {
