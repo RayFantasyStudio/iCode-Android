@@ -1,6 +1,7 @@
 package com.rayfantasy.icode.ui.activity
 
 
+import android.app.Activity
 import android.app.DownloadManager
 import android.app.Fragment
 import android.content.BroadcastReceiver
@@ -50,6 +51,9 @@ import org.jetbrains.anko.configuration
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.startActivity
 import java.io.File
+import android.net.NetworkInfo
+import android.net.ConnectivityManager
+
 
 class MainActivity : ActivityBase() {
     companion object {
@@ -90,6 +94,10 @@ class MainActivity : ActivityBase() {
         }
         configuration(sdk = Build.VERSION_CODES.KITKAT) {
             drawer_layout.fitsSystemWindows = false
+        }
+
+        if (checkNetworkState().equals(false)){
+            Toast.makeText(this,"未连接至网络，请检查设置！",Toast.LENGTH_LONG)
         }
 
         val headerView = nav_view.getHeaderView(0)
@@ -239,10 +247,20 @@ class MainActivity : ActivityBase() {
         requestQueue.cancelAll(TAG_CHECK_UPDATE)
     }
 
+
     private fun OpenWeb() {
         var uri = Uri.parse("http://www.rayfantasy.com")
         var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
+    }
+
+    private fun checkNetworkState(): Boolean {
+        var flag = false
+        var manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (manager.activeNetworkInfo != null) {
+            flag = manager.activeNetworkInfo.isAvailable
+        }
+        return flag
     }
 
     private fun replaceFragment(fragment: Fragment) {
